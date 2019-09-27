@@ -17,7 +17,6 @@ before_script:
   - sleep 3
 script:
   - npm run lint
-  - npm run build:dev
   - echo {} > credentials.json
   - npm run zip
   - NGROK_PATH=$(curl 'http://localhost:4040/api/tunnels' | jq -r '.tunnels[0].public_url')/theme.zip
