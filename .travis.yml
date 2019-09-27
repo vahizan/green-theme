@@ -16,7 +16,8 @@ before_script:
   - ngrok http file://$(pwd)/public/ --authtoken=${NGROK_AUTH_TOKEN} > /dev/null &
   - sleep 3
 script:
-  - npm run lint
+  - echo "themey@runbox.com" | npm run lint
+  - npm run build:dev
   - echo {} > credentials.json
   - npm run zip
   - NGROK_PATH=$(curl 'http://localhost:4040/api/tunnels' | jq -r '.tunnels[0].public_url')/theme.zip
