@@ -10,7 +10,7 @@ cache:
 install:
   - npm install
   - npm install -g ngrok
-  - npm install @shopify/slate-tools
+  - npm install -g @shopify/slate-tools
 before_script:
   - mkdir public
   - curl -sO http://stedolan.github.io/jq/download/linux64/jq

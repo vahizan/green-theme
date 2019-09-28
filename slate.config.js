@@ -3,10 +3,22 @@
 // Configuration file for all things Slate.
 // For more information, visit https://github.com/Shopify/slate/wiki/Slate-Configuration
 
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
+
 const path = require('path');
 
 module.exports = {
   'cssVarLoader.liquidPath': ['src/snippets/css-variables.liquid'],
+  'webpack.postcss.plugins': (config) => {
+    console.log('config', config);
+    const plugins = [autoprefixer];
+    // We only want to minify our CSS if we're building for production
+    if (process.env.NODE_ENV === 'production') {
+      plugins.push(cssnano(config.get('webpack.cssnano.settings')))
+    }
+    return plugins;
+  },
   'webpack.extend': {
     resolve: {
       alias: {
