@@ -26,7 +26,7 @@ script:
     > body.json
   - echo $(cat body.json)
   - 'TEST_THEME_ID=$(curl -d @body.json -H "Accept: application/json" -H "Content-Type:
-  application/json" https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/2019-04/themes.json
+  application/json" https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/2019-07/themes.json
   | jq -r ''.theme.id'')'
   - echo ${TEST_THEME_ID}
   - if [ ${TEST_THEME_ID} == null ] ; then exit 1 ; fi
@@ -34,7 +34,7 @@ script:
     | jq -r '.theme.previewable') != 'true' ]; do echo 'Waiting for theme'; sleep 2;
     done
   - cypress run --env SHOPIFY_URL=${SHOPIFY_URL},SHOPIFY_THEME_ID=$TEST_THEME_ID
-  - 'curl -H "Accept: application/json" -X DELETE https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/2019-04/themes/$TEST_THEME_ID.json'
+  - 'curl -H "Accept: application/json" -X DELETE https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/2019-07/themes/$TEST_THEME_ID.json'
 addons:
   chrome: stable
   apt:
