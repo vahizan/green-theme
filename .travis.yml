@@ -10,16 +10,17 @@ cache:
 install:
   - npm install
   - npm install -g ngrok
-  - npm install -g @shopify/slate-tools
 before_script:
+  - PATH=${PATH//:\.\/node_modules\/\.bin/}
   - mkdir public
   - curl -sO http://stedolan.github.io/jq/download/linux64/jq
   - ngrok http file://$(pwd)/public/ --authtoken=${NGROK_AUTH_TOKEN} > /dev/null &
   - sleep 3
 script:
-  - echo "themey@runbox.com" | slate-tools lint
+  - echo "themey@runbox.com" | npm run lint
   - echo {} > credentials.json
-  - slate-tools build && slate-tools zip
+  - npm run format
+  - npm run build && npm run zip
   - NGROK_PATH=$(curl 'http://localhost:4040/api/tunnels' | jq -r '.tunnels[0].public_url')/theme.zip
   - echo "{\"theme\":{\"name\":\"Travis Curl Test - $(date +"%D %T %Z")\",\"src\":\"$NGROK_PATH\"}}"
     > body.json
