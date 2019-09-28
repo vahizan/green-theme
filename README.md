@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Shopify/starter-theme.svg?branch=master)](https://travis-ci.org/Shopify/starter-theme)
+[![Build Status](https://travis-ci.com/vahizan/green-theme.svg?branch=master)](https://travis-ci.com/vahizan/green-theme)
 
 
 ## License
