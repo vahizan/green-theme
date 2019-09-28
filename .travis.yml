@@ -14,7 +14,7 @@ before_script:
 - PATH=${PATH//:\.\/node_modules\/\.bin/}
 - mkdir public
 - curl -sO http://stedolan.github.io/jq/download/linux64/jq
-- ngrok authtoken ${NGROK_AUTH_TOKEN}
+- ngrok authtoken "${NGROK_AUTH_TOKEN}"
 - ngrok http file://$(pwd)/public/ --authtoken=${NGROK_AUTH_TOKEN}
 - sleep 3
 script:
