@@ -17,9 +17,9 @@ before_script:
   - ngrok http file://$(pwd)/public/ --authtoken=${NGROK_AUTH_TOKEN} > /dev/null &
   - sleep 3
 script:
-  - echo "themey@runbox.com" | npm run lint
+  - echo "themey@runbox.com" | slate-tools lint
   - echo {} > credentials.json
-  - npm run zip
+  - slate-tools build && slate-tools zip
   - NGROK_PATH=$(curl 'http://localhost:4040/api/tunnels' | jq -r '.tunnels[0].public_url')/theme.zip
   - echo "{\"theme\":{\"name\":\"Travis Curl Test - $(date +"%D %T %Z")\",\"src\":\"$NGROK_PATH\"}}"
     > body.json
