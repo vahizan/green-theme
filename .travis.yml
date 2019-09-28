@@ -15,7 +15,7 @@ before_script:
 - mkdir public
 - curl -sO http://stedolan.github.io/jq/download/linux64/jq
 - ngrok authtoken "${NGROK_AUTH_TOKEN}"
-- ngrok http file://$(pwd)/public/ --authtoken=${NGROK_AUTH_TOKEN}
+- ngrok http file://$(pwd)/public/ --authtoken="${NGROK_AUTH_TOKEN}"
 - sleep 3
 script:
 - echo "themey@runbox.com" | npm run lint
