@@ -22,7 +22,7 @@ script:
 - echo {} > credentials.json
 - npm run format
 - npm run build && npm run zip
-- NGROK_PATH=$(curl 'http://127.0.0.1:4040/api/tunnels' | jq -r '.tunnels[0].public_url')/public/green_theme.zip
+- NGROK_PATH=$(curl 'http://127.0.0.1:4040/api/tunnels' | jq -r '.tunnels[0].public_url')/green_theme.zip
 - echo "{\"theme\":{\"name\":\"Travis Curl Test - $(date +"%D %T %Z")\",\"src\":\"$NGROK_PATH\"}}" > body.json
 - echo $(cat body.json)
 - 'RANDOM_ID=$(curl -d @body.json -H "Accept: application/json" -H "Content-Type:application/json" https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/2019-07/themes.json)'
