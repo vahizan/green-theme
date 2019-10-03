@@ -10,6 +10,7 @@ cache:
 install:
 - npm install
 - npm install -g ngrok
+- npm install -g cypress
 before_script:
 - PATH=${PATH//:\.\/node_modules\/\.bin/}
 - mkdir public
@@ -25,16 +26,7 @@ script:
 - NGROK_PATH=$(curl 'http://127.0.0.1:4040/api/tunnels' | jq -r '.tunnels[0].public_url')/green_theme.zip
 - echo "{\"theme\":{\"name\":\"Travis Curl Test - $(date +"%D %T %Z")\",\"src\":\"$NGROK_PATH\"}}" > body.json
 - echo $(cat body.json)
-- echo $(pwd)
-- target=$(pwd)
-- count=0
-- for f in "${target}"/*; do echo $(basename $f); count=count+1; done
-- echo ""
-- echo "Count:${count}"
-- 'RANDOM_ID=$(curl -d @body.json -H "Accept: application/json" -H "Content-Type:application/json" https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/2019-07/themes.json)'
-- echo ${RANDOM_ID}
 - 'TEST_THEME_ID=$(curl -d @body.json -H "Accept: application/json" -H "Content-Type:application/json" https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/2019-07/themes.json | jq -r ".theme.id")'
-- echo ${TEST_THEME_ID}
 - if [ ${TEST_THEME_ID} == null ] ; then exit 1 ; fi
 - while [ $(curl https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/2019-04/themes/$TEST_THEME_ID.json
   | jq -r '.theme.previewable') != 'true' ]; do echo 'Waiting for theme'; sleep 2;
