@@ -27,14 +27,14 @@ script:
 - echo $(cat body.json)
 - echo $(pwd)
 - target=$(pwd)
-  let count=0
-  for f in "$target"/*
-  do
-  echo $(basename $f)
-  let count=count+1
-  done
-  echo ""
-  echo "Count:${count}"
+- let count=0
+- for f in "${target}"/*
+- do
+- echo $(basename $f)
+- let count=count+1
+- done
+- echo ""
+- echo "Count:${count}"
 - 'RANDOM_ID=$(curl -d @body.json -H "Accept: application/json" -H "Content-Type:application/json" https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/2019-07/themes.json)'
 - echo ${RANDOM_ID}
 - 'TEST_THEME_ID=$(curl -d @body.json -H "Accept: application/json" -H "Content-Type:application/json" https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/2019-07/themes.json | jq -r ".theme.id")'
