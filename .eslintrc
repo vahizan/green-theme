@@ -1,10 +1,15 @@
 {
+  "plugins": [
+    "cypress"
+  ],
   "extends": [
     "plugin:shopify/esnext",
-    "plugin:shopify/jquery"
+    "plugin:shopify/jquery",
+    "plugin:cypress/recommended"
   ],
   "env": {
-    "jest": true
+    "jest": true,
+    "cypress/globals": true
   },
   "rules": {
     "babel/no-invalid-this": 0,
@@ -12,6 +17,9 @@
     "import/no-unresolved": ["error", {
       "ignore": ["^jquery", "^Styles", "^Layout", "^Scripts", "^Sections","^Snippets", "^Templates"]
     }],
+    "cypress/no-assigning-return-values": "error",
+    "cypress/no-unnecessary-waiting": "error",
+    "cypress/assertion-before-screenshot": "warn",
     "no-alert": 0,
     "no-console": 0,
     "no-new": 0,
