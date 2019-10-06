@@ -25,7 +25,7 @@
 Cypress.Commands.overwrite('visit', (originalFn, url, options) => {
 
   const credentials = Cypress.env('SHOPIFY_URL') ? '' : require('../../credentials.json');
-  const themeID = (Cypress.env('SHOPIFY_THEME_ID')) ? Cypress.env('SHOPIFY_THEME_ID') : credentials.themeId;
+  const themeID = (Cypress.env('SHOPIFY_THEME_ID')) ? Cypress.env('SHOPIFY_THEME_ID') : credentials.theme_id;
 
   const fullPath = `${url}?preview_theme_id=${themeID}`;
 

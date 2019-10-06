@@ -23,6 +23,7 @@ module.exports = {
       alias: {
         jquery: path.resolve('./node_modules/jquery'),
         'lodash-es': path.resolve('./node_modules/lodash-es'),
+         Cypress: path.resolve('./cypress'),
          Layout: path.resolve('./src/layout'),
          Styles: path.resolve('./src/styles'),
          Scripts: path.resolve('./src/scripts'),
