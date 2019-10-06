@@ -2,9 +2,9 @@
   no-unused-expressions,
   */
 // / <reference types="Cypress" />
+import {themeId} from '../utils';
 
 context('Location', () => {
-  const credentials = Cypress.env('SHOPIFY_URL') ? '' : require('../../../credentials.json');
   beforeEach(() => {
     cy.visit('https://example.cypress.io/commands/location');
   });
@@ -19,7 +19,7 @@ context('Location', () => {
     // 'https://example.cypress.io/commands/location'
     cy.location().should((location) => {
       expect(location.hash).to.be.empty;
-      expect(location.href).to.eq(`https://example.cypress.io/commands/location?preview_theme_id=${credentials.theme_id}`);
+      expect(location.href).to.eq(`https://example.cypress.io/commands/location?preview_theme_id=${themeId()}`);
       expect(location.host).to.eq('example.cypress.io');
       expect(location.hostname).to.eq('example.cypress.io');
       expect(location.origin).to.eq('https://example.cypress.io');
@@ -32,6 +32,6 @@ context('Location', () => {
 
   it('cy.url() - get the current URL', () => {
     // https://on.cypress.io/url
-    cy.url().should('eq', `https://example.cypress.io/commands/location?preview_theme_id=${credentials.theme_id}`);
+    cy.url().should('eq', `https://example.cypress.io/commands/location?preview_theme_id=${themeId()}`);
   });
 });
