@@ -2,17 +2,17 @@
   "name": "green_theme",
   "version": "1.0.0-alpha.1",
   "private": true,
-  "author": "Shopify Inc.",
-  "description": "An opinionated, Slate compatible, starting point for developing Shopify themes.",
+  "author": "Themey",
+  "description": "Green Theme for Eco Conscious E-Commerce Sites",
   "keywords": [
     "shopify",
     "theme"
   ],
-  "bugs": "https://github.com/Shopify/starter-theme/issues",
+  "bugs": "https://github.com/vahizan/green_theme/issues",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Shopify/starter-theme.git"
+    "url": "https://github.com/vahizan/green_theme.git"
   },
   "devDependencies": {
     "@shopify/slate-tools": "1.0.0-beta.15",
