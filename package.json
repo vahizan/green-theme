@@ -47,7 +47,7 @@
   },
   "scripts": {
     "start": "slate-tools start",
-    "cypress:open": "cypress open",
+    "cypress:open": "cypress open --env ENVIRONMENT=development",
     "watch:dev": "slate-tools start --skipFirstDeploy --env=development",
     "watch:product": "slate-tools start --skipFirstDeploy --env=production",
     "build:dev": "slate-tools build --env=development",

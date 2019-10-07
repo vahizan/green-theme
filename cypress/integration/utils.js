@@ -1,5 +1,34 @@
 /* eslint-disable no-unused-expressions, func-style */
-const credentials = require('../../credentials.json');
+import {ENVIRONMENT} from './constants';
 
-export const href = () => (Cypress.env('SHOPIFY_URL') ? '' : credentials.url);
-export const themeId = () => (Cypress.env('SHOPIFY_THEME_ID') ? '' : credentials.theme_id);
+import credentials from '../../credentials.json';
+
+const ENVIRONMENT_KEY = 'ENVIRONMENT';
+export const href = () => {
+  const env = Cypress.env(ENVIRONMENT_KEY);
+  console.log('ENV', env);
+  let hrefValue = '';
+  switch (env) {
+    case ENVIRONMENT.DEV:
+      hrefValue = credentials.dev_url || '';
+      console.log('HELLO', hrefValue);
+      break;
+    default:
+      hrefValue = Cypress.env('SHOPIFY_URL') || '';
+      break;
+  }
+  return hrefValue;
+};
+export const themeId = () => {
+  const env = Cypress.env(ENVIRONMENT_KEY);
+  let theme = '';
+  switch (env) {
+    case ENVIRONMENT.DEV:
+      theme = credentials.theme_id || '';
+      break;
+    default:
+      theme = Cypress.env('SHOPIFY_THEME_ID') || '';
+      break;
+  }
+  return theme;
+};
