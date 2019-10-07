@@ -22,13 +22,11 @@
 //
 //
 // -- This is will overwrite an existing command --
+import {themeId} from '../integration/utils';
+
 Cypress.Commands.overwrite('visit', (originalFn, url, options) => {
-
-  const credentials = Cypress.env('SHOPIFY_URL') ? '' : require('../../credentials.json');
-  const themeID = (Cypress.env('SHOPIFY_THEME_ID')) ? Cypress.env('SHOPIFY_THEME_ID') : credentials.theme_id;
-
+  const themeID = themeId();
   const fullPath = `${url}?preview_theme_id=${themeID}`;
-
   // originalFn is the existing `visit` command that you need to call
   // and it will receive whatever you pass in here.
   return originalFn(fullPath, options);
