@@ -3,7 +3,7 @@
   */
 // / <reference types="Cypress" />
 
-context('Location', () => {
+context.skip('Location', () => {
   beforeEach(() => {
     cy.visit('https://example.cypress.io/commands/location');
   });

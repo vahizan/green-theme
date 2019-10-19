@@ -1,7 +1,7 @@
 /* eslint-disable no-alert, no-console */
 // <reference types="Cypress" />
 
-context('Actions', () => {
+context.skip('Actions', () => {
   beforeEach(() => {
     cy.visit('https://example.cypress.io/commands/actions');
   });

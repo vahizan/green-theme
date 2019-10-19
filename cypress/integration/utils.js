@@ -6,7 +6,6 @@ import credentials from '../../credentials.json';
 const ENVIRONMENT_KEY = 'ENVIRONMENT';
 export const href = () => {
   const env = Cypress.env(ENVIRONMENT_KEY);
-  console.log('ENV', env);
   let hrefValue = '';
   switch (env) {
     case ENVIRONMENT.DEV:
@@ -27,6 +26,7 @@ export const themeId = () => {
       theme = credentials.theme_id || '';
       break;
     default:
+
       theme = Cypress.env('SHOPIFY_THEME_ID') || '';
       break;
   }
