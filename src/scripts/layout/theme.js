@@ -19,10 +19,10 @@ import {focusHash, bindInPageLinks} from '@shopify/theme-a11y';
 import {cookiesEnabled} from '@shopify/theme-cart';
 
 // Sentry Error Tracking
-// Sentry.init({
-//   dsn: 'https://176f27a607024a9ba5b40e16c1f0a18b@sentry.io/1732306',
-//   debug: true,
-// });
+Sentry.init({
+  dsn: 'https://176f27a607024a9ba5b40e16c1f0a18b@sentry.io/1732306',
+  debug: true,
+});
 
 // loading section specific javascript code
 load(['header', 'modal', 'search-module']);

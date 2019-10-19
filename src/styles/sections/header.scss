@@ -1,4 +1,3 @@
-
 .header {
   display: flex;
   flex-direction: row;
@@ -63,19 +62,5 @@
     @include visually-shown;
   }
 }
-//.cart-menu-modal {
-//  @include sticky;
-//  top: 0;
-//  width: $grid-widescreen / 3;
-//  background-color: lightblue;
-//
-//  @include media-query($small) {
-//    top: 100px;
-//    min-width: $grid-medium - 1;
-//  }
-//  @include media-query($medium) {
-//    width: $grid-large / 2;
-//  }
-//}
 
 

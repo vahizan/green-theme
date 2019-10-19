@@ -2,7 +2,6 @@
   no-unused-expressions,
   */
 // / <reference types="Cypress" />
-import {themeId} from '../utils';
 
 context('Location', () => {
   beforeEach(() => {

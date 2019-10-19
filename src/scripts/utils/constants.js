@@ -35,7 +35,8 @@ export const clickPositions = [
   'bottomLeft',
   'topRight',
   'topLeft',
-]
+];
+
 export const headerSelectors = {
   sectionId: '[data-section-id=header]',
   searchMenu: '[data-search-menu=data_search_menu]',
