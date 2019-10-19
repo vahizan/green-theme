@@ -20,6 +20,7 @@
 @import './core/responsive-tables';
 @import './core/rte';
 @import './core/typography';
+@import './core/colours';
 
 // Components
 @import './components/buttons';
@@ -29,11 +30,16 @@
 @import './components/responsive-images';
 @import './components/address-forms';
 
+// Snippets
+@import './snippets/modal';
+@import './snippets/search-module';
+
 // Sections
 @import './sections/blog-posts';
 @import './sections/collection-list';
 @import './sections/featured-collection';
 @import './sections/image-with-text';
+@import './sections/header';
 
 // Templates
 @import './templates/gift_card';

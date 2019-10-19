@@ -47,6 +47,7 @@ $large: 'large';
 $large-down: 'large-down';
 $large-up: 'large-up';
 $widescreen: 'widescreen';
+$desktop: 'desktop';
 
 $breakpoints: (
   $small '(max-width: #{$grid-medium - 1})',
@@ -57,4 +58,5 @@ $breakpoints: (
   $large-down '(max-width: #{$grid-widescreen - 1})',
   $large-up '(min-width: #{$grid-large})',
   $widescreen '(min-width: #{$grid-widescreen})'
+  $desktop '(min-width: #{$grid-large}) and (max-width: #{$grid-widescreen - 1})'
 );

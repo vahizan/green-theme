@@ -1,0 +1,28 @@
+<!-- /snippets/modal.liquid -->
+{% if position == '' %}
+    position = 'left'
+{% endif %}
+{% if data == '' %}
+  data = 'center'
+{% endif %}
+
+<div data-section-id="modal" data-section-type="modal" data-position="{{position}}" class="modal">
+    <div data-modal-content="modal_content" class="modal-content data--{{data}} modal-content--position modal-content--position--{{position}}">
+        <div data-modal-header-container="header_container" class="modal-header-container {% if hide_header == 'true' %} visually-hidden {% endif %}">
+            <div data-close-icon="close_icon" class="close-icon">
+                {% include 'icon-close' %}
+            </div>
+            <div data-modal-header="modal_header" class="modal-header">
+                <h2 data-modal-header-title="modal_title" class="modal-header--title">
+                    {{data}}
+                </h2>
+                <div data-modal-header-item="modal">count</div>
+            </div>
+        </div>
+        <div data-modal-data-container="data_container" class="data-container">
+            {% if data == 'search' %}
+            {% include 'search-module' %}
+            {% endif %}
+        </div>
+    </div>
+</div>

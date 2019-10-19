@@ -9,6 +9,7 @@
 ###################
 node_modules
 dist
+cypress/snapshots
 upload
 deploy.log
 config/shopify.yml
@@ -16,6 +17,8 @@ npm-debug.log
 .env
 .env.*
 credentials.json
+cypress.json
+body.json
 
 
 # Compiled source #
@@ -66,3 +69,4 @@ _site
 secrets.json
 .jekyll-metadata
 .ruby-version
+ngrok

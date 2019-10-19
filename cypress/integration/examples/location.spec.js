@@ -2,9 +2,8 @@
   no-unused-expressions,
   */
 // / <reference types="Cypress" />
-import {themeId} from '../utils';
 
-context('Location', () => {
+context.skip('Location', () => {
   beforeEach(() => {
     cy.visit('https://example.cypress.io/commands/location');
   });
@@ -17,7 +16,6 @@ context('Location', () => {
   it('cy.location() - get window.location', () => {
     // https://on.cypress.io/location
     // 'https://example.cypress.io/commands/location'
-    console.log('themeId', themeId());
     cy.location().should((location) => {
       expect(location.hash).to.be.empty;
       expect(location.host).to.eq('example.cypress.io');
