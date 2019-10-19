@@ -31,7 +31,7 @@ script:
 - while [ $(curl https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/2019-07/themes/$TEST_THEME_ID.json
   | jq -r '.theme.previewable') != 'true' ]; do echo 'Waiting for theme'; sleep 2;
   done
-- npm run cypress:prod cypress
+- npm run cypress:prod
 - 'curl -H "Accept: application/json" -X DELETE https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/2019-07/themes/$TEST_THEME_ID.json'
 addons:
   chrome: stable

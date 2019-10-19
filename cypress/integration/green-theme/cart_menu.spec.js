@@ -15,6 +15,7 @@ import {
 
 describe('Cart Menu', () => {
   const url = href();
+  console.log('URL', url);
   context('Cart Main', () => {
     beforeEach(() => {
       cy.visit(url);
