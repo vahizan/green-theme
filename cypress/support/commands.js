@@ -42,7 +42,7 @@ Cypress.Commands.add('setResolution', (size) => {
 });
 
 Cypress.Commands.overwrite('visit', (originalFn, url, options) => {
-  const themeID = themeId();
+  const themeID = Cypress.env('SHOPIFY_THEME_ID') || themeId();
   const fullPath = `${url}?preview_theme_id=${themeID}`;
   // originalFn is the existing `visit` command that you need to call
   // and it will receive whatever you pass in here.

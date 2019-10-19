@@ -10,7 +10,6 @@ export const href = () => {
   switch (env) {
     case ENVIRONMENT.DEV:
       hrefValue = credentials.dev_url || '';
-      console.log('HELLO', hrefValue);
       break;
     default:
       hrefValue = Cypress.env('SHOPIFY_URL') || '';

@@ -11,8 +11,8 @@ import {
 } from '../../../src/scripts/utils/constants';
 
 describe('Search Menu', () => {
-  const url = href();
   context('Search Main', () => {
+    const url = Cypress.env('SHOPIFY_URL') || href();
     beforeEach(() => {
       cy.visit(url);
     });
