@@ -10,7 +10,7 @@
   Theme Store optional settings
   - Home page only: only shows on the home page
 {%- endcomment -%}
-<section data-section-id="{{ section.id }}" data-section-type="header">
+<section data-section-id="{{ section.id }}" data-section-type="header" class="header-container">
   {%- if section.settings.announcement_bar_enabled -%}
     <div>
       {%- if section.settings.announcement_bar_home_page_only == false or template.name == 'index' -%}
@@ -25,106 +25,112 @@
     </div>
   {%- endif -%}
 
-  <header role="banner">
-    {% if template.name == 'index' %}
-      <h1>
-    {% else %}
-      <div class="h1">
-    {% endif %}
-        <a href="/" class="logo-image">
-          {% if section.settings.logo != blank %}
-            {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
-            <img src="{{ section.settings.logo | img_url: image_size }}"
-                srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
-                alt="{{ section.settings.logo.alt | default: shop.name }}">
-          {% else %}
-            {{ shop.name }}
-          {% endif %}
-        </a>
-    {% if template.name == 'index' %}
-      </h1>
-    {% else %}
-      </div>
-    {% endif %}
-
-    <a href="/cart">
-      {% include 'icon-cart' %}
-      {{ 'layout.cart.title' | t }}
-      ({{ cart.item_count }} {{ 'layout.cart.items_count' | t: count: cart.item_count }})
-    </a>
-
-    {% if shop.customer_accounts_enabled %}
-      <ul>
-        {% if customer %}
-          <li>
-            {% if customer.first_name != blank %}
-              {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
-              {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
-            {% else %}
-              <a href="/account">{{ 'layout.customer.account' | t }}</a>
-            {% endif %}
-          </li>
-          <li>
-            {{ 'layout.customer.log_out' | t | customer_logout_link }}
-          </li>
-        {% else %}
-          <li>
-            {{ 'layout.customer.log_in' | t | customer_login_link }}
-          </li>
-          <li>
-            {{ 'layout.customer.create_account' | t | customer_register_link }}
-          </li>
-        {% endif %}
-      </ul>
-    {% endif %}
-
-    <form action="/search" method="get" role="search">
-      <label for="Search-{{ section.id }}" class="label-hidden">
-        {{ 'general.search.placeholder' | t }}
-      </label>
-
-      <input type="search"
-        name="q"
-        id="Search-{{ section.id }}"
-        value="{{ search.terms | escape }}"
-        placeholder="{{ 'general.search.placeholder' | t }}">
-
-      <button type="submit" class="button">
-        {% include 'icon-search' %}
-        <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
-      </button>
-    </form>
-  </header>
-
-  <nav role="navigation">
-    <ul>
-      {% for link in linklists[section.settings.menu].links %}
-        {% if link.links != blank %}
+  <header role="banner" data-header-child="header-child" class="header">
+    <!--<a href="/cart" data-cart-button="cart_button" class="cart_button" >-->
+    <div data-links-module-left="links_module_left" class="links-module-left">
+      <nav role="navigation" data-navigation-module="navigation">
+        <ul data-parent-link-list="parent_link_list" class="parent-link-list">
+          {% for link in linklists[section.settings.menu].links %}
+          {% if link.links != blank %}
           <li>
             <a href="{{ link.url }}">
               {{ link.title }}
               {% include 'icon-arrow-down' %}
             </a>
-            <ul>
+            <ul data-child-link-list="child_link_list">
               {% for childlink in link.links %}
-                <li>
-                  <a href="{{ childlink.url }}">
-                    {{ childlink.title }}
-                  </a>
-                </li>
+              <li>
+                <a href="{{ childlink.url }}">
+                  {{ childlink.title }}
+                </a>
+              </li>
               {% endfor %}
             </ul>
           </li>
-        {% else %}
+          {% else %}
           <li>
             <a href="{{ link.url }}">
               {{ link.title }}
             </a>
           </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+    <div data-shop-logo-module="shop_logo_module" class="logo-container logo-container--style--{{section.settings.header_style}}">
+      {% if template.name == 'index' %}
+      <h1>
+        {% else %}
+        <div class="h1">
+          {% endif %}
+          <a href="/" class="logo-image">
+            {% if section.settings.logo != blank %}
+            {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
+            <img src="{{ section.settings.logo | img_url: image_size }}"
+                 srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                 alt="{{ section.settings.logo.alt | default: shop.name }}">
+            {% else %}
+            {{ shop.name }}
+            {% endif %}
+          </a>
+          {% if template.name == 'index' %}
+      </h1>
+      {% else %}
+    </div>
+    {% endif %}
+    </div>
+    <div data-links-module-right="links_module_right" class="links-module-right">
+      <button data-product-search-button="product_search_button" class="search-button">
+        {% include 'icon-search' %}
+        <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+      </button>
+      <div data-search-menu="data_search_menu" class="search-menu visually-hidden">
+        {% include 'modal' position:'center', data:'search', hide_header: 'true' %}
+      </div>
+      <div data-account-menu="account_menu" class="account-menu">
+        {% if shop.customer_accounts_enabled == 'false' %}
+          {% if customer %}
+            <div data-customer-module="customer_module" class="customer-container">
+              {% if customer.first_name != blank %}
+                {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
+                {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+              {% else %}
+                <a href="/account">{{ 'layout.customer.account' | t }}</a>
+              {% endif %}
+              <div data-customer-links="customer_links" class="account-links">
+                <ul>
+                  <li>
+                    {{ 'layout.customer.log_out' | t | customer_logout_link }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          {% else %}
+            <div data-off-customer-links="off_customer_links" class="off-customer-links">
+              <ul>
+                <li>
+                  {{ 'layout.customer.log_in' | t | customer_login_link }}
+                </li>
+                <li>
+                  {{ 'layout.customer.create_account' | t | customer_register_link }}
+                </li>
+              </ul>
+            </div>
+          {% endif %}
         {% endif %}
-      {% endfor %}
-    </ul>
-  </nav>
+      </div>
+      <div data-cart-button="cart_button" class="cart_button">
+        <span data-cart-icon="cart_icon" class="cart-icon visually-hidden">{% include 'icon-cart' %}</span>
+        <span data-cart-title="cart_title" class="cart-title visually-hidden">{{ 'layout.cart.title' | t }}</span>
+        <span data-cart-item-count="cart_item_count" class="cart-icon-count">({{ cart.item_count }} {{ 'layout.cart.items_count' | t: count: cart.item_count }})</span>
+      </div>
+      <div data-cart-modal="cart_menu_modal" class="cart-menu-modal visually-hidden">
+        {% include 'modal' position:'right', data:'cart' %}
+      </div>
+      <div data-currency-box="currency-box" class="currency_box visually-hidden"></div>
+    </div>
+  </header>
 </section>
 
 {% if section.settings.logo != blank %}
@@ -155,6 +161,33 @@
         "id": "announcement_bar_home_page_only",
         "label": "Show on home page only",
         "default": true
+      },
+      {
+        "type": "select",
+        "id": "header_style",
+        "label": "Select Header Style",
+        "options": [
+        {
+        "value": "logo_left",
+        "label": "Logo Left"
+        },
+        {
+        "value": "logo_middle",
+        "label": "Logo Middle"
+        },
+        {
+        "value": "logo_right",
+        "label": "Logo Right"
+        }
+      ],
+        "default":   "logo_left",
+        "info": "Choose from a handful of essential options to position your navigation links to represent your site the best way possible"
+      },
+      {
+      "type": "color",
+      "id": "underline_color",
+      "label": "Underline Color",
+      "default": "#000"
       },
       {
         "type": "text",

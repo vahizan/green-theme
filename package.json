@@ -20,6 +20,7 @@
     "babel-preset-shopify": "^16.2.0",
     "css-loader": "^3.2.0",
     "cypress": "^3.4.1",
+    "cypress-image-snapshot": "^3.1.1",
     "eslint-plugin-cypress": "^2.6.1",
     "eslint-plugin-shopify": "^19.0.0",
     "jest": "^24.9.0",
@@ -47,12 +48,14 @@
   },
   "scripts": {
     "start": "slate-tools start",
-    "cypress:open": "cypress open --env ENVIRONMENT=development",
+    "cypress:open": "cypress open --port=8888",
+    "cypress:runWithUpdateSnapshots": "cypress open --env updateSnapshots=true --port=8888",
     "watch:dev": "slate-tools start --skipFirstDeploy --env=development",
     "watch:product": "slate-tools start --skipFirstDeploy --env=production",
     "build:dev": "slate-tools build --env=development",
     "build": "slate-tools build",
     "deploy": "slate-tools build && slate-tools deploy",
+    "deploy:dev": "slate-tools build --env=development && slate-tools deploy",
     "zip": "slate-tools build && slate-tools zip",
     "lint": "slate-tools lint",
     "format": "slate-tools format"

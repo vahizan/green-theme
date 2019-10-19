@@ -7,6 +7,18 @@ const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+const plugins = [
+  new CopyWebpackPlugin([
+    {
+      from: 'snippets/**/*',
+      to: '../snippets/',
+      flatten: true,
+      ignore: [ 'icons/*.liquid' ],
+    },
+  ]),
+];
 
 module.exports = {
   'cssVarLoader.liquidPath': ['src/snippets/css-variables.liquid'],
@@ -18,18 +30,20 @@ module.exports = {
     }
     return plugins;
   },
+  'paths.theme.src.snippets': 'snippets/icons',
   'webpack.extend': {
+    plugins,
     resolve: {
       alias: {
         jquery: path.resolve('./node_modules/jquery'),
         'lodash-es': path.resolve('./node_modules/lodash-es'),
-         Cypress: path.resolve('./cypress'),
-         Layout: path.resolve('./src/layout'),
-         Styles: path.resolve('./src/styles'),
-         Scripts: path.resolve('./src/scripts'),
-         Sections: path.resolve('./src/sections'),
-         Snippets: path.resolve('./src/snippets'),
-         Templates: path.resolve('./src/templates'),
+         'cypress': path.resolve('./cypress'),
+         'layout': path.resolve('./src/layout'),
+         'styles': path.resolve('./src/styles'),
+         'scripts': path.resolve('./src/scripts'),
+         'sections': path.resolve('./src/sections'),
+         'snippets': path.resolve('./src/snippets'),
+         'templates': path.resolve('./src/templates'),
       },
     },
   },

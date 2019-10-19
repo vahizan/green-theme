@@ -13,6 +13,18 @@ summary,
 textarea {
   touch-action: manipulation;
 }
+a {
+   text-decoration: none;
+   cursor: pointer;
+   color: black;
+ }
+
+ul,
+ol {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
 
 input,
 textarea,

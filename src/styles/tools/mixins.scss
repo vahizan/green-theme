@@ -107,3 +107,22 @@
   margin: 0;
   clip: auto;
 }
+
+
+/**
+ * Default properties for a modal element
+ *
+ * Accepts:
+ * - no arguments
+ *
+ * Usage:
+ * .selector {
+ *   @include sticky;
+ * }
+ */
+@mixin sticky() {
+  // stylelint-disable-next-line
+  position: fixed;
+  z-index: 1;
+  height: 100%;
+}
