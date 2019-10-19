@@ -48,8 +48,8 @@
   },
   "scripts": {
     "start": "slate-tools start",
+    "cypress": "cypress run",
     "cypress:open": "cypress open --port=8888",
-    "cypress:prod": "cypress run --env SHOPIFY_URL=${SHOPIFY_URL},SHOPIFY_THEME_ID=${TEST_THEME_ID}",
     "cypress:runWithUpdateSnapshots": "cypress open --env updateSnapshots=true --port=8888",
     "watch:dev": "slate-tools start --skipFirstDeploy --env=development",
     "watch:product": "slate-tools start --skipFirstDeploy --env=production",
