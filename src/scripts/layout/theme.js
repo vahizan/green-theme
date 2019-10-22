@@ -7,6 +7,7 @@ import 'lazysizes/plugins/respimg/ls.respimg';
 import '../sections/header';
 import '../sections/modal';
 import '../sections/search-module';
+import '../sections/navigation';
 
 import * as Sentry from '@sentry/browser';
 import {load} from '@shopify/theme-sections';
@@ -25,7 +26,7 @@ Sentry.init({
 });
 
 // loading section specific javascript code
-load(['header', 'modal', 'search-module']);
+load(['header', 'modal', 'navigation', 'search-module']);
 
 
 // Common a11y fixes
