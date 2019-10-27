@@ -271,6 +271,9 @@
       "log_in": "Inloggen",
       "create_account": "Account aanmaken"
     },
+    "navigation": {
+      "desktop_title": "Onderzoeken"
+    },
     "footer": {
       "social_platform": "{{ name }} op {{ platform }}",
       "copyright": "Algemene voorwaarden",

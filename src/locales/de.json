@@ -273,6 +273,9 @@
       "log_in": "Einloggen",
       "create_account": "Account erstellen"
     },
+    "navigation": {
+      "desktop_title": "Erkunden"
+    },
     "footer": {
       "social_platform": "{{ name }} auf {{ platform }}",
       "copyright": "Urheberrecht",

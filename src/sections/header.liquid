@@ -25,11 +25,16 @@
     </div>
   {%- endif -%}
 
-  <header role="banner" data-header-child="header-child" class="header ">
+  <header role="banner" data-header-child="header_child" class="header ">
     <!--<a href="/cart" data-cart-button="cart_button" class="cart_button" >-->
     <div data-links-module-left="links_module_left" class="links-module-left links-module-left--style--{{section.settings.header_style}}">
-      <div data-burger-menu="burger_menu" class="burger-menu">
-        =
+      <div class="burger-menu-container">
+        <div data-burger-menu="burger_menu" class="burger-menu">
+          {% include 'hamburger-menu' %}
+        </div>
+        <div data-burger-close-menu="burger_close_menu" class="burger-close-menu">
+          {% include 'icon-close' %}
+        </div>
       </div>
       <div data-navigation-opener-link="navigation_opener_link" class="navigation-opener-link" >
         {{ 'layout.navigation.desktop_title' | t }}
@@ -133,11 +138,11 @@
       <div data-currency-box="currency-box" class="currency_box visually-hidden"></div>
     </div>
   </header>
-  <div class="navigation-content">
+  <div data-navigation-content="content" class="navigation-content visually-hidden">
     <nav class="navigation-module" role="navigation" data-navigation-module="navigation_module">
       {% include 'navigation' position: section.settings.navigation_position  %}
     </nav>
-    <div class="navigation-promo">RANDOM CONTENT</div>
+    <div class="navigation-promo"></div>
   </div>
 </section>
 

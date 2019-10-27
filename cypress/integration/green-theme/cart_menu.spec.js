@@ -10,7 +10,7 @@ import {
   cartSelectors,
   modalSelectors,
   headerSelectors,
-  clickPositions, tabletSizes,
+  clickPositions,
 } from '../../../src/scripts/utils/constants';
 
 describe('Cart Menu', () => {
@@ -50,7 +50,6 @@ describe('Cart Menu', () => {
     });
 
     describe('cart button click - desktop and tablet', () => {
-      const desktopTabletSizes = mobileSizes.concat(tabletSizes);
       desktopTabletSizes.forEach((size) => {
         it(`cart modal appear and disappear on respective clicks '${size}' resolution`, () => {
           cy.setResolution(size);

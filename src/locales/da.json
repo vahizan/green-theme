@@ -267,6 +267,9 @@
       "log_in": "Log ind",
       "create_account": "Opret konto"
     },
+    "navigation": {
+      "desktop_title": "Udforske"
+    },
     "footer": {
       "social_platform": "{{ name }} på {{ platform }}",
       "copyright": "Copyright",
