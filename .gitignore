@@ -10,6 +10,8 @@
 node_modules
 dist
 cypress/snapshots
+cypress/screenshots
+cypress/videos
 upload
 deploy.log
 config/shopify.yml

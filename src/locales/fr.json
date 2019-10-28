@@ -270,6 +270,9 @@
       "log_in": "Se connecter",
       "create_account": "Créer un compte"
     },
+    "navigation": {
+      "desktop_title": "Explorer"
+    },
     "footer": {
       "social_platform": "{{ name }} sur {{ platform }}",
       "copyright": "Droit d'auteur",

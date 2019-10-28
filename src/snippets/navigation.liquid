@@ -1,0 +1,55 @@
+<!-- /snippets/navigation.liquid -->
+{% assign current_pos = 'left' %}
+{% if position != blank %}
+    {% assign current_pos = position %}
+{% endif %}
+<div data-section-id="navigation" data-section-type="navigation" class="navigation">
+    <div data-parent-link-list="parent_link_list" class="parent-link-list parent-link-list--position--{{current_pos}}">
+        {% for link in linklists[section.settings.menu].links %}
+            {% if link.links == blank %}
+                <div class="link-container">
+                    <div data-parent-link="parent" class="parent-link">
+                        <a href="{{ link.url }}">
+                            hi{{ link.title }}
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+              <div class="link-container">
+                  <div data-parent-link="parent" class="parent-link">
+                      <a href="{{ link.url }}">
+                          {{ link.title }}
+                      </a>
+                  </div>
+                  <div data-child-link-list="child_link_list" class="child-link-list">
+                      {% for childlink in link.links %}
+                      {%if childlink.links == blank %}
+                      <div class="child-link">
+                          <a href="{{ childlink.url }}">
+                              {{ childlink.title }}
+                              {{ childlink.link }}
+                          </a>
+                      </div>
+                      {% else %}
+                      <div data-parent-link="parent" class="parent-link second-level-parent">
+                          <a href="{{ childlink.url }}">
+                              {{ childlink.title }}
+                          </a>
+                      </div>
+                      <div data-child-link-list="child_link_list" class="child-link-list">
+                          {% for grandchildLink in childlink.links %}
+                          <div class="grandchild-link">
+                              <a href="{{grandchildLink.url}}">
+                                  {{grandchildLink.title}}
+                              </a>
+                          </div>
+                          {% endfor %}
+                      </div>
+                      {% endif %}
+                      {% endfor %}
+                  </div>
+              </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>

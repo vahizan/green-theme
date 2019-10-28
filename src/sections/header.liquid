@@ -25,40 +25,46 @@
     </div>
   {%- endif -%}
 
-  <header role="banner" data-header-child="header-child" class="header">
+  <header role="banner" data-header-child="header_child" class="header ">
     <!--<a href="/cart" data-cart-button="cart_button" class="cart_button" >-->
-    <div data-links-module-left="links_module_left" class="links-module-left">
-      <nav role="navigation" data-navigation-module="navigation">
-        <ul data-parent-link-list="parent_link_list" class="parent-link-list">
-          {% for link in linklists[section.settings.menu].links %}
-          {% if link.links != blank %}
-          <li>
-            <a href="{{ link.url }}">
-              {{ link.title }}
-              {% include 'icon-arrow-down' %}
-            </a>
-            <ul data-child-link-list="child_link_list">
-              {% for childlink in link.links %}
-              <li>
-                <a href="{{ childlink.url }}">
-                  {{ childlink.title }}
-                </a>
-              </li>
-              {% endfor %}
-            </ul>
-          </li>
+    <div data-links-module-left="links_module_left" class="links-module-left links-module-left--style--{{section.settings.header_style}}">
+      <div data-burger-menu-container="container" class="burger-menu-container visually-hidden">
+        <div data-burger-menu="burger_menu" class="burger-menu">
+          {% include 'hamburger-menu' %}
+        </div>
+        <div data-burger-close-menu="burger_close_menu" class="burger-close-menu visually-hidden">
+          {% include 'icon-close' %}
+        </div>
+      </div>
+      <div data-navigation-opener-link="navigation_opener_link" class="navigation-opener-link" >
+        {{ 'layout.navigation.desktop_title' | t }}
+      </div>
+      {% if section.settings.header_style != 'center' %}
+        <div data-shop-logo-module="shop_logo_module">
+          {% if template.name == 'index' %}
+          <h1>
+            {% else %}
+            <div class="h1">
+              {% endif %}
+              <a href="/" class="logo-image">
+                {% if section.settings.logo != blank %}
+                {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
+                <img src="{{ section.settings.logo | img_url: image_size }}"
+                     srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                     alt="{{ section.settings.logo.alt | default: shop.name }}">
+                {% else %}
+                {{ shop.name }}
+                {% endif %}
+              </a>
+              {% if template.name == 'index' %}
+          </h1>
           {% else %}
-          <li>
-            <a href="{{ link.url }}">
-              {{ link.title }}
-            </a>
-          </li>
-          {% endif %}
-          {% endfor %}
-        </ul>
-      </nav>
+        </div>
+        {% endif %}
+      {% endif %}
     </div>
-    <div data-shop-logo-module="shop_logo_module" class="logo-container logo-container--style--{{section.settings.header_style}}">
+    {% if section.settings.header_style == 'center' %}
+    <div data-shop-logo-module="shop_logo_module">
       {% if template.name == 'index' %}
       <h1>
         {% else %}
@@ -78,6 +84,7 @@
       </h1>
       {% else %}
     </div>
+    {% endif %}
     {% endif %}
     </div>
     <div data-links-module-right="links_module_right" class="links-module-right">
@@ -131,6 +138,12 @@
       <div data-currency-box="currency-box" class="currency_box visually-hidden"></div>
     </div>
   </header>
+  <div data-navigation-content="content" class="navigation-content visually-hidden">
+    <nav class="navigation-module" role="navigation" data-navigation-module="navigation_module">
+      {% include 'navigation' position: section.settings.navigation_position  %}
+    </nav>
+    <div class="navigation-promo"></div>
+  </div>
 </section>
 
 {% if section.settings.logo != blank %}
@@ -154,7 +167,7 @@
         "type": "checkbox",
         "id": "announcement_bar_enabled",
         "label": "Show announcement",
-        "default": false
+        "default": true
       },
       {
         "type": "checkbox",
@@ -168,20 +181,41 @@
         "label": "Select Header Style",
         "options": [
         {
-        "value": "logo_left",
+        "value": "left",
         "label": "Logo Left"
         },
         {
-        "value": "logo_middle",
-        "label": "Logo Middle"
+        "value": "center",
+        "label": "Logo Center"
         },
         {
-        "value": "logo_right",
+        "value": "right",
         "label": "Logo Right"
         }
       ],
-        "default":   "logo_left",
+        "default": "center",
         "info": "Choose from a handful of essential options to position your navigation links to represent your site the best way possible"
+      },
+      {
+      "type": "select",
+      "id": "navigation_position",
+      "label": "Select Navigation Menu Position",
+      "options": [
+      {
+      "value": "left",
+      "label": "Left"
+      },
+      {
+      "value": "center",
+      "label": "Center"
+      },
+      {
+      "value": "right",
+      "label": "Right"
+      }
+      ],
+      "default": "left",
+      "info": "Choose from a handful of essential options to position your navigation links to represent your site the best way possible"
       },
       {
       "type": "color",

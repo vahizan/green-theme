@@ -272,6 +272,9 @@
       "log_in": "Ingresar",
       "create_account": "Crear cuenta"
     },
+    "navigation": {
+      "desktop_title": "Explorar"
+    },
     "footer": {
       "social_platform": "{{ name }} en {{ platform }}",
       "copyright": "Derechos de autor",

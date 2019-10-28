@@ -17,6 +17,15 @@ export const desktopTabletSizes = [
   'ipad-2',
   'ipad-mini',
 ];
+export const desktopSizes = [
+  'macbook-15',
+  'macbook-13',
+  'macbook-11',
+];
+export const tabletSizes = [
+  'ipad-2',
+  'ipad-mini',
+];
 export const mobileSizes = [
   'iphone-6+',
   'iphone-6',
@@ -39,14 +48,23 @@ export const clickPositions = [
 
 export const headerSelectors = {
   sectionId: '[data-section-id=header]',
+  headerChild: '[data-header-child=header_child]',
   searchMenu: '[data-search-menu=data_search_menu]',
   cartMenu: '[data-cart-modal=cart_menu_modal]',
+  burgerMenuContainer: '[data-burger-menu-container=container]',
+  burgerMenu: '[data-burger-menu=burger_menu]',
+  burgerCloseMenu: '[data-burger-close-menu=burger_close_menu]',
+  navigationContent: '[data-navigation-content=content]',
+  navigationMenu: '[data-navigation-module=navigation_module]',
+  navOpenerLink: '[data-navigation-opener-link=navigation_opener_link]',
+  logoModule: '[data-shop-logo-module=shop_logo_module]',
 };
 
 export const navigationSelectors = {
-  navigationMenu: '[data-navigation-module=navigation]',
-  parentLinks: '[data-parent-link-list=parent_link_list]',
-  childLinks: '[data-child-link-list=child_link_list]',
+  sectionId: '[data-section-id=navigation]',
+  parentLink: '[data-parent-link=parent]',
+  parentList: '[data-parent-link-list=parent_link_list]',
+  childList: '[data-child-link-list=child_link_list]',
 };
 
 export const cartSelectors = {
