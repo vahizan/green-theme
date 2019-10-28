@@ -53,7 +53,9 @@ describe('Header', () => {
             cy.get(headerSelectors.navigationContent).should('have.class', VISUALLY_HIDDEN);
           });
         });
+      });
 
+      describe('Navigation Menu - Desktop and Tablet ', () => {
         desktopTabletSizes.forEach((size) => {
           it(`click - close icon for burger menu should not appear on desktop and tablet '${size}' resolution`, () => {
             cy.setResolution(size);
@@ -61,11 +63,7 @@ describe('Header', () => {
             cy.get(headerSelectors.navOpenerLink).click();
             cy.get(headerSelectors.burgerCloseMenu).should('not.be.visible');
           });
-        });
-      });
 
-      describe('Navigation Menu - Desktop and Tablet ', () => {
-        desktopTabletSizes.forEach((size) => {
           it(`click - on main parent nav link for navigation menu appear '${size}' resolution`, () => {
             cy.setResolution(size);
             cy.get(headerSelectors.burgerCloseMenu).should('not.be.visible');
