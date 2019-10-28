@@ -69,7 +69,7 @@ describe('Header', () => {
             cy.get(headerSelectors.burgerCloseMenu).should('not.be.visible');
             cy.get(headerSelectors.navigationContent).should('have.class', VISUALLY_HIDDEN);
             cy.get(headerSelectors.navOpenerLink).click();
-            cy.get(headerSelectors.navigationContent).should('not.have.class', VISUALLY_HIDDEN);
+            cy.get(headerSelectors.navigationContent).should('to.be.visible');
           });
         });
 
