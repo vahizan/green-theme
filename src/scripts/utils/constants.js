@@ -51,6 +51,7 @@ export const headerSelectors = {
   headerChild: '[data-header-child=header_child]',
   searchMenu: '[data-search-menu=data_search_menu]',
   cartMenu: '[data-cart-modal=cart_menu_modal]',
+  burgerMenuContainer: '[data-burger-menu-container=container]',
   burgerMenu: '[data-burger-menu=burger_menu]',
   burgerCloseMenu: '[data-burger-close-menu=burger_close_menu]',
   navigationContent: '[data-navigation-content=content]',

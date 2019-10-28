@@ -30,8 +30,7 @@ describe('Header', () => {
         desktopTabletSizes.forEach((size) => {
           it(`nav opener link visible and burger menu hidden - '${size}' resolution`, () => {
             cy.setResolution(size);
-            cy.get(headerSelectors.burgerMenu).should('not.be.visible');
-            cy.get(headerSelectors.burgerCloseMenu).should('not.be.visible');
+            cy.get(headerSelectors.burgerMenuContainer).should('have.class', VISUALLY_HIDDEN);
             cy.get(headerSelectors.navOpenerLink).should('be.visible');
           });
         });
@@ -54,12 +53,22 @@ describe('Header', () => {
             cy.get(headerSelectors.navigationContent).should('have.class', VISUALLY_HIDDEN);
           });
         });
+
+        desktopTabletSizes.forEach((size) => {
+          it(`click - close icon for burger menu should not appear on desktop and tablet '${size}' resolution`, () => {
+            cy.setResolution(size);
+            cy.get(headerSelectors.burgerCloseMenu).should('not.be.visible');
+            cy.get(headerSelectors.navOpenerLink).click();
+            cy.get(headerSelectors.burgerCloseMenu).should('not.be.visible');
+          });
+        });
       });
 
       describe('Navigation Menu - Desktop and Tablet ', () => {
         desktopTabletSizes.forEach((size) => {
-          it(`click - on main parent nav link for navigation menu appear  '${size}' resolution`, () => {
+          it(`click - on main parent nav link for navigation menu appear '${size}' resolution`, () => {
             cy.setResolution(size);
+            cy.get(headerSelectors.burgerCloseMenu).should('not.be.visible');
             cy.get(headerSelectors.navigationContent).should('have.class', VISUALLY_HIDDEN);
             cy.get(headerSelectors.navOpenerLink).click();
             cy.get(headerSelectors.navigationContent).should('not.have.class', VISUALLY_HIDDEN);
@@ -67,7 +76,7 @@ describe('Header', () => {
         });
 
         desktopSizes.forEach((size) => {
-          it(`mouseenter - on main parent nav link for navigation menu appear'${size}' resolution`, () => {
+          it(`mouseenter - on main parent nav link for navigation menu appear' ${size}' resolution`, () => {
             cy.setResolution(size);
             cy.get(headerSelectors.navigationContent).should('have.class', VISUALLY_HIDDEN);
             cy.get(headerSelectors.navOpenerLink).trigger('mouseenter');

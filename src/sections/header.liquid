@@ -28,11 +28,11 @@
   <header role="banner" data-header-child="header_child" class="header ">
     <!--<a href="/cart" data-cart-button="cart_button" class="cart_button" >-->
     <div data-links-module-left="links_module_left" class="links-module-left links-module-left--style--{{section.settings.header_style}}">
-      <div class="burger-menu-container">
+      <div data-burger-menu-container="container" class="burger-menu-container visually-hidden">
         <div data-burger-menu="burger_menu" class="burger-menu">
           {% include 'hamburger-menu' %}
         </div>
-        <div data-burger-close-menu="burger_close_menu" class="burger-close-menu">
+        <div data-burger-close-menu="burger_close_menu" class="burger-close-menu visually-hidden">
           {% include 'icon-close' %}
         </div>
       </div>

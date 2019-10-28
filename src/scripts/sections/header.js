@@ -41,7 +41,6 @@ register('header', {
       },
       {
         value: this.burgerCloseMenu,
-        isDisplay: true,
       },
     ];
   },
