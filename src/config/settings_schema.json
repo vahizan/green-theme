@@ -19,6 +19,27 @@
       },
       {
         "type": "color",
+        "id": "primary_button_border_color",
+        "label": "Primary Button Border Color",
+        "default": "#c4cdd5",
+        "info": "Button border color"
+      },
+      {
+        "type": "color",
+        "id": "add_cart_click_color",
+        "label": "Add To Cart Button Click Color",
+        "default": "#c4cdd5",
+        "info": "Button color when it is clicked"
+      },
+      {
+        "type": "color",
+        "id": "loading_dots_color",
+        "label": "Button Loading Dot Color",
+        "default": "#ffd957",
+        "info": "Loading dots color"
+      },
+      {
+        "type": "color",
         "id": "color_body_text",
         "label": "Text",
         "default": "#161d25"

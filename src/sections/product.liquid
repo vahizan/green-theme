@@ -36,7 +36,7 @@
   <p>{{ product.vendor }}</p>
 
 
-  {% form 'product', product, data-product-form: '', data-product-handle: product.handle, data-enable-history-state: 'true' %}
+  {% form 'product', product, data-product-form: '', data-product-handle: product.handle, data-enable-history-state: 'true', action: '/cart' %}
     {% unless product.has_only_default_variant %}
       {% for option in product.options_with_values %}
         <div class="js">
@@ -101,20 +101,7 @@
         </s>
       {% endif %}
     </div>
-
-    <button
-      type="submit"
-      name="add"
-      data-submit-button
-      {% unless current_variant.available %}disabled="disabled"{% endunless %}>
-        <span data-submit-button-text>
-          {% if current_variant.available %}
-            {{ 'products.product.add_to_cart' | t }}
-          {% else %}
-            {{ 'products.product.sold_out' | t }}
-          {% endif %}
-        </span>
-    </button>
+    {% include 'add-to-cart-button', cta_style: section.settings.add_cta_style, cta_text: section.settings.cta_text %}
   {% endform %}
 
   <div class="rte">
@@ -135,6 +122,33 @@
         "id": "show_share_buttons",
         "label": "Show social sharing buttons",
         "default": true
+      },
+      {
+        "type": "select",
+        "id": "add_cta_style",
+        "label": "Select Add To Cart Button Style",
+        "options": [
+          {
+          "value": "luxury",
+          "label": "Luxury"
+          },
+          {
+          "value": "simple",
+          "label": "Simple"
+          },
+          {
+          "value": "dark",
+          "label": "Dark"
+          }
+        ],
+        "default": "simple",
+        "info": "Choose from a handful of elegant options to spruce up your Add to Cart button"
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "Add To Cart Button Text",
+        "default": "Add To Cart"
       }
     ]
   }

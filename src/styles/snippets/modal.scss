@@ -1,37 +1,45 @@
 .modal {
   @include sticky;
-  background-color: $modal_background;
   z-index: 2;
   top:0;
   right:0;
-  height: 100%;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   * {
     border: 1px solid black;
   }
+  &--full_size {
+    height: 100%;
+    width: 100%;
+  }
+  &--grey_bg {
+    background-color: $modal_background;
+  }
+
+  &--product-popup {
+    margin: 0 auto;
+    max-height: 400px;
+    padding: 20px;
+    @include modal-content-width(100%, 50%, 40%, 30%);
+    @include media-query($small) {
+      padding: 0;
+    }
+  }
 }
 .modal-content {
    background-color: lightblue;
 
   &--position {
+    &--popup-right {
+      padding: 10px;
+    }
     &--right {
       top: 0;
       position: absolute;
       align-self: flex-end;
       height: 100%;
-      width: 40%;
-      @include media-query($small) {
-        width: 100%;
-      }
-      @include media-query($medium) {
-        width: 50%;
-      }
-      @include media-query($widescreen) {
-        width: 30%;
-      }
+      @include modal-content-width(100%, 50%, 40%, 30%);
     }
 
     &--center {
@@ -54,15 +62,15 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 10px;
 }
 
 .close-icon {
   order: 2;
   svg {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
   }
+  padding: 5px;
   align-self: center;
 }
 

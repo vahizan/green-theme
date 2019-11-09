@@ -93,7 +93,7 @@
         <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
       </button>
       <div data-search-menu="data_search_menu" class="search-menu visually-hidden">
-        {% include 'modal' position:'center', data:'search', hide_header: 'true' %}
+        {% include 'modal' position:'center', data:'search', hide_header: 'true', full_size: 'true', grey_bg: 'true' %}
       </div>
       <div data-account-menu="account_menu" class="account-menu">
         {% if shop.customer_accounts_enabled == 'false' %}
@@ -130,12 +130,15 @@
       <div data-cart-button="cart_button" class="cart_button">
         <span data-cart-icon="cart_icon" class="cart-icon visually-hidden">{% include 'icon-cart' %}</span>
         <span data-cart-title="cart_title" class="cart-title visually-hidden">{{ 'layout.cart.title' | t }}</span>
-        <span data-cart-item-count="cart_item_count" class="cart-icon-count">({{ cart.item_count }} {{ 'layout.cart.items_count' | t: count: cart.item_count }})</span>
+        <span class="cart-icon-count">(<span data-cart-item-count="cart_item_count">{{ cart.item_count }}</span> {{ 'layout.cart.items_count' | t: count: cart.item_count }})</span>
       </div>
       <div data-cart-modal="cart_menu_modal" class="cart-menu-modal visually-hidden">
-        {% include 'modal' position:'right', data:'cart' %}
+        {% include 'modal' position:'right', data:'cart', full_size: 'true', grey_bg: 'true' %}
       </div>
       <div data-currency-box="currency-box" class="currency_box visually-hidden"></div>
+      <div data-product-cart-popup-container aria-label="product-cart-popup" class="visually-hidden">
+        {% include 'modal' position: 'popup-right', data: 'product-popup', title: 'Just added to your bag' %}
+      </div>
     </div>
   </header>
   <div data-navigation-content="content" class="navigation-content visually-hidden">

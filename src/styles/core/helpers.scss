@@ -6,6 +6,19 @@
   @include visually-hidden;
 }
 
+.disabled {
+  @include disabled;
+}
+
+.slide-down {
+  z-index: 10;
+  @include slideDownFadeIn('slide-down');
+}
+.slide-up {
+  z-index: 10;
+  @include slideUpFadeOut('slide-up');
+}
+
 .js-focus-hidden:focus {
   outline: none;
 }

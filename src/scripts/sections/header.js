@@ -2,8 +2,6 @@ import {register} from '@shopify/theme-sections';
 import {toggleVisibility, toggleDisplay, isVisible} from '../utils/main_utils';
 import {cartSelectors, headerSelectors, searchSelectors} from '../utils/constants';
 
-const $ = require('jquery');
-
 register('header', {
   // // Shortcut function called when a section is loaded via 'sections.load()' or by the Theme Editor 'shopify:section:load' event.
   onLoad() {
@@ -83,7 +81,7 @@ register('header', {
   },
 
   mouseEnterOnNavContentOpen(event) {
-    if (!isVisible($, this.navigationContent)) {
+    if (!isVisible(this.navigationContent)) {
       this.mainNavLinkToggle(event);
     }
   },
@@ -108,39 +106,9 @@ register('header', {
     }
     event.preventDefault();
     if (!isDisplay) {
-      toggleVisibility($, element);
+      toggleVisibility(element);
       return;
     }
-    toggleDisplay($, element);
+    toggleDisplay(element);
   },
-
-  // _privateMethod: function() {
-  //   // Custom private section method
-  // },
-  //
-  //
-  // // Shortcut function called when a section unloaded by the Theme Editor 'shopify:section:unload' event.
-  // onUnload: function() {
-  //   // Do something when a section instance is unloaded
-  // },
-  //
-  // // Shortcut function called when a section is selected by the Theme Editor 'shopify:section:select' event.
-  // onSelect: function() {
-  //   // Do something when a section instance is selected
-  // },
-  //
-  // // Shortcut function called when a section is deselected by the Theme Editor 'shopify:section:deselect' event.
-  // onDeselect: function() {
-  //   // Do something when a section instance is deselected
-  // },
-  //
-  // // Shortcut function called when a section block is selected by the Theme Editor 'shopify:block:select' event.
-  // onBlockSelect: function() {
-  //   // Do something when a section block is selected
-  // },
-  //
-  // // Shortcut function called when a section block is deselected by the Theme Editor 'shopify:block:deselect' event.
-  // onBlockDeselect: function() {
-  //   // Do something when a section block is deselected
-  // }
 });

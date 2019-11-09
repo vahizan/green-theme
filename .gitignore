@@ -66,6 +66,8 @@ Thumbs.db
 *.sass-cache*
 .cache/*
 _site
+localhost-key.pem
+localhost.pem
 /.idea
 /.vscode
 secrets.json
