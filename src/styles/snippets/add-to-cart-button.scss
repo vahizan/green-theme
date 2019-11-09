@@ -1,0 +1,25 @@
+.simple{
+  display: flex;
+  padding: 15px 20px;
+  border-color: $color-primary-button-border;
+  background-color: $color-accent;
+  justify-content: center;
+  min-width: 250px;
+  @include media-query($small) {
+    flex-basis: 70%;
+  }
+
+  &--button-failure {
+    animation-name: error-message;
+    animation-timing-function: ease-in-out;
+    animation-duration: 3s;
+    @keyframes error-message {
+      50%{
+        opacity: 0;
+      }
+      70%{
+        opacity: 0;
+      }
+    }
+  }
+}

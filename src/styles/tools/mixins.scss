@@ -126,3 +126,117 @@
   z-index: 1;
   height: 100%;
 }
+
+
+/**
+ * Disable Button - Greyed out
+ *
+ * Usage:
+ * .disabled {
+ *   @include disabled;
+ * }
+ */
+@mixin disabled($background-color: none, $borderColor: #000000) {
+  // stylelint-disable-next-line
+  background-color: $background-color;
+  @if $borderColor {
+    border: $borderColor solid black;
+  }
+}
+
+/**
+ * Modal Content Width Position
+ *
+ * Usage:
+ * modal-content-width(small, medium, large, widescreen)
+ *   @media-query(small) {
+      width: $small
+ *  }
+ *  etc
+ */
+@mixin modal-content-width($smallCent: 100%, $mediumCent: 50%, $largeCent: 40%, $widescreenCent: 30% ) {
+  // stylelint-disable-next-line
+  @include media-query($small) {
+    width: $smallCent
+  }
+  @include media-query($medium) {
+    width: $mediumCent;
+  }
+  @include media-query($large) {
+    width: $largeCent;
+  }
+  @include media-query($widescreen) {
+    width: $widescreenCent;
+  }
+}
+
+  /**
+ * Animation Slide Down then Fade In
+ *
+ * Usage:
+ * slideDownFadeIn($keyframe_name)
+ *
+ *     @keyframes $keyframe_name {
+ *        etc
+ *     }
+ *
+ */
+@mixin slideDownFadeIn($keyframe_name: 'slide-down-fade') {
+  // stylelint-disable-next-line
+  animation: $keyframe_name;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+  @keyframes #{$keyframe_name} {
+    0% {
+      top: -200px;
+      opacity: 0;
+    }
+    40%{
+      top: 0;
+      opacity: 1;
+    }
+    100% {
+      top:0;
+      opacity: 1;
+    }
+  }
+}
+
+/**
+* Animation Slide Up then Fade Out
+*
+* Usage:
+* slideUpFadeOut($keyframe_name)
+*
+*     @keyframes $keyframe_name {
+*        etc
+*     }
+*
+*/
+@mixin slideUpFadeOut($keyframe_name: 'slide-up-fade', $duration: 1.5s, $iteration_count: 1) {
+  // stylelint-disable-next-line
+  animation: $keyframe_name;
+  animation-duration: $duration;
+  animation-iteration-count: $iteration_count;
+  animation-timing-function: ease-in-out;
+  @keyframes #{$keyframe_name} {
+    0% {
+      opacity: 1;
+    }
+    40% {
+      opacity: 0;
+      top:-200px;
+    }
+    100% {
+      opacity: 0;
+      top:-200px;
+    }
+  }
+  opacity: 0;
+}
+
+
+
+
+

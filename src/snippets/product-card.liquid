@@ -1,0 +1,29 @@
+<section data-section-id="product-card" data-section-type="product-card">
+    {%- assign current_variant = product.selected_or_first_available_variant -%}
+    {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+
+    <div data-product-card class="product-card">
+        {% if show_qty == 'true' %}<div data-product-quantity class="product-card__quantity">{{ product.quantity}}</div>{% endif %}
+        {% if show_variant == 'true' %}<div data-product-variant class="product-card__variant">{{ product.quantity}}</div>{% endif %}
+        {% if show_properties == 'true' %}<div data-product-properties class="product-card__properties">{{ product.quantity}}</div>{% endif %}
+        <div data-product-image class="product-card__image">
+            {% include 'responsive-image' with
+            image: featured_image,
+            max_width: 400,
+            max_height: 300,
+            image_attributes: "data-product-featured-image",
+            wrapper_class: wrapper_class,
+            wrapper_attributes: "data-product-image-wrapper",
+            %}
+        </div>
+        <div data-product-title class="product-card__title">{{ product.title }}</div>
+        {% if show_price == 'true' %} <div data-product-price class="product-card__price">{{ product.price | money}}</div> {% endif %}
+        {% if show_vender == 'true' %}<p data-product-vendor>{{ product.vendor }}</p> {% endif %}
+        {% unless hide_cta == 'true' %}
+            <div data-product-cta class="product-cta">
+                ADD TO CART
+                {% include 'button-state' %}
+            </div>
+        {% endunless %}
+    </div>
+</section>

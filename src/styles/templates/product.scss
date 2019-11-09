@@ -5,3 +5,8 @@
     border-color: $color-border;
   }
 }
+
+.add-to-cart-button-container {
+  display: flex;
+  flex-direction: column;
+};

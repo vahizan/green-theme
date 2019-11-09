@@ -34,6 +34,12 @@
 @import './snippets/modal';
 @import './snippets/search-module';
 @import './snippets/navigation';
+@import './snippets/add-to-cart-button';
+@import 'snippets/product-card';
+
+// States
+@import './snippets/states/button-state';
+@import './snippets/states/button-loading';
 
 // Sections
 @import './sections/blog-posts';

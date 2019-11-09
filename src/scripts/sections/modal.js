@@ -1,5 +1,5 @@
 import {register} from '@shopify/theme-sections';
-import {toggleVisibility} from '../utils/main_utils';
+import {ANIMATION_CLASSES, toggleVisibility} from '../utils/main_utils';
 import {modalSelectors} from '../utils/constants';
 
 const $ = require('jquery');
@@ -22,7 +22,15 @@ register('modal', {
       return;
     }
     event.preventDefault();
-    toggleVisibility($, this.container.parentNode);
+    if ($(this.container.parentNode).hasClass(ANIMATION_CLASSES.SLIDE_DOWN_FADE)) {
+      $(this.container.parentNode).removeClass(ANIMATION_CLASSES.SLIDE_DOWN_FADE);
+      $(this.container.parentNode).addClass(ANIMATION_CLASSES.SLIDE_UP_FADE);
+    } else if ($(this.container.parentNode).hasClass(ANIMATION_CLASSES.SLIDE_UP_FADE)) {
+      $(this.container.parentNode).removeClass(ANIMATION_CLASSES.SLIDE_UP_FADE);
+      $(this.container.parentNode).removeClass(ANIMATION_CLASSES.SLIDE_DOWN_FADE);
+    } else {
+      toggleVisibility(this.container.parentNode);
+    }
   },
 
 });
