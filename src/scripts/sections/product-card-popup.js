@@ -9,9 +9,15 @@
 
 import * as currency from '@shopify/theme-currency';
 
-import {CART_ENDPOINT, headerSelectors, productCardPopupSelector, productCardSelector} from '../utils/constants';
 import {
-  ANIMATION_CLASSES,
+  CART_ENDPOINT,
+  headerSelectors,
+  LAZYLOAD_PRODUCT_POPUP_IMAGE_SIZES,
+  productCardPopupSelector,
+  productCardSelector,
+} from '../utils/constants';
+import {
+  ANIMATION_CLASSES, datasetSrc, generateImageDataset, removeProtocol,
   VISUALLY_HIDDEN,
 } from '../utils/main_utils';
 
@@ -27,31 +33,36 @@ const _cartQueryXHR = () => {
   let xhr = new XMLHttpRequest();
   xhr.overrideMimeType('application/json');
   xhr.open('GET', CART_ENDPOINT.CART, true);
+  xhr.timeout = 10000;
   return xhr;
 };
 
-const _onCartQueryStateChange = (result, readyState, status) => {
+const _onCartQueryStateChange = (result, quantity, readyState, status) => {
   if (readyState === XMLHttpRequest.DONE && status === 200) {
     const productPopup = document.querySelector(productCardPopupSelector.container);
     const titleElement = productPopup.querySelector(productCardSelector.title);
     const priceElement = productPopup.querySelector(productCardSelector.price);
     const imgElement = productPopup.querySelector(productCardSelector.image);
     const qtyElement = productPopup.querySelector(productCardSelector.quantity);
-    const firstItem = JSON.parse(result).items[0];
-    if (!firstItem) {
+    if (!result) {
       return;
     }
-    $(titleElement).text(firstItem.title);
-    $(qtyElement).text(firstItem.quantity);
-    $(priceElement).text(currency.formatMoney(firstItem.price, ''));
-    $(imgElement).find('img').attr('src', firstItem.featured_image.url);
-    $(imgElement).find('img').attr('alt', firstItem.featured_image.alt);
+    $(titleElement).text(result.name);
+    $(qtyElement).text(quantity);
+    $(priceElement).text(currency.formatMoney(result.price, ''));
+    const srcNoProtocol = removeProtocol(result.featured_image.src);
+    const imageDataset = generateImageDataset(result.featured_image.src, LAZYLOAD_PRODUCT_POPUP_IMAGE_SIZES);
+    const datasetSrcs = datasetSrc(imageDataset);
+    $(imgElement).find('img').removeClass('lazyload');
+    $(imgElement).find('img').attr('data-src', srcNoProtocol);
+    $(imgElement).find('img').attr('data-srcset', datasetSrcs);
+    $(imgElement).find('img').addClass('lazyload');
     _productCardPopup();
   }
 };
 
-export const loadLatestCartItem = () => {
+export const loadLatestCartItem = (dataset, quantity) => {
   const xhr = _cartQueryXHR();
   xhr.send();
-  xhr.onreadystatechange = () => _onCartQueryStateChange(xhr.response, xhr.readyState, xhr.status);
+  xhr.onreadystatechange = () => _onCartQueryStateChange(dataset, quantity, xhr.readyState, xhr.status);
 };

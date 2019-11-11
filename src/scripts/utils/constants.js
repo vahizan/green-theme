@@ -51,6 +51,10 @@ export const CART_ENDPOINT = {
   CART: '/cart.js',
 };
 
+export const LAZYLOAD_PRODUCT_POPUP_IMAGE_SIZES = [180, 360, 540, 640];
+
+export const PRODUCT_FORM_CLASS = '.shopify-product-form';
+
 export const headerSelectors = {
   sectionId: '[data-section-id=header]',
   headerChild: '[data-header-child=header_child]',

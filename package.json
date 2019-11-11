@@ -48,6 +48,8 @@
   },
   "scripts": {
     "start": "slate-tools start",
+    "jest": "jest",
+    "jest:watch": "jest --watch",
     "cypress": "cypress run",
     "cypress:open": "cypress open --port=8888",
     "cypress:openWithUpdateSnapshots": "cypress open --env updateSnapshots=true --port=8888",
@@ -60,5 +62,11 @@
     "zip": "slate-tools build && slate-tools zip",
     "lint": "slate-tools lint",
     "format": "slate-tools format"
+  },
+  "jest": {
+    "modulePaths": [
+      "<rootDir>"
+    ],
+    "testRegex": "(/__tests__/.*|(\\.|/)(test))\\.js?$"
   }
 }

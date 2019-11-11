@@ -4,7 +4,6 @@ import {searchSelectors} from '../utils/constants';
 register('search-module', {
   // // Shortcut function called when a section is loaded via 'sections.load()' or by the Theme Editor 'shopify:section:load' event.
   onLoad() {
-    console.log('SEARCH LOADED');
     this.searchBox = document.querySelector(searchSelectors.searchBox);
     this.searchButton = document.querySelector(searchSelectors.searchButton);
     this.onSearchBoxInput = this.onSearchBoxInput.bind(this);
