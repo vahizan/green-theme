@@ -126,7 +126,7 @@ register('product', {
     if (readyState === XMLHttpRequest.DONE && status === 200) {
       const cartProductCountElement = document.querySelector(cartSelectors.cartItemCount);
       this._updateProductCountText(cartProductCountElement, dataset.quantity);
-      loadLatestCartItem();
+      loadLatestCartItem(dataset.variant, dataset.quantity);
     }
   },
 
@@ -151,8 +151,10 @@ register('product', {
     xhr.open('POST', CART_ENDPOINT.ADD, true);
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.timeout = 10000;
     xhr.onloadstart = this._onAddToCartLoadStart;
     xhr.onloadend = this._onAddToCartLoadEnd;
+    console.log('xhr', xhr);
     return xhr;
   },
 

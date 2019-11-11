@@ -66,6 +66,46 @@ export const loadingAnimationProcessor = (loadingAnimationClass) => {
 export const isVisible = (element) => !($(element).hasClass(VISUALLY_HIDDEN));
 export const toggleVisibility = (element) => ($(element).hasClass(VISUALLY_HIDDEN) ? $(element).removeClass(VISUALLY_HIDDEN) : $(element).addClass(VISUALLY_HIDDEN));
 export const toggleDisplay = (element) => ($(element).css(CSS_PROPS.DISPLAY) === DISPLAY_VALUES.BLOCK ? $(element).css(CSS_PROPS.DISPLAY, DISPLAY_VALUES.NONE) : $(element).css(CSS_PROPS.DISPLAY, DISPLAY_VALUES.BLOCK));
+export const removeProtocol = (path) => path.replace(/http(s)?:/, '');
+export const getSizedImageUrl = (src, size) => {
+  if (size === null) {
+    return src;
+  }
+
+  if (size === 'master') {
+    return removeProtocol(src);
+  }
+
+  const match = src.match(/\.(jpg|jpeg|gif|png|bmp|bitmap|tiff|tif)(\?v=\d+)?$/i);
+
+  if (match) {
+    const prefix = src.split(match[0]);
+    const suffix = match[0];
+
+    return removeProtocol(`${prefix[0]}_${size}${suffix}`);
+  } else {
+    return null;
+  }
+};
+export const generateImageDataset = (src, widths) => {
+  let srcs = [];
+  for (let i = 0; i < widths.length; i++) {
+    let size = `${widths[i]}x`;
+    let imgSizeSrc = `${getSizedImageUrl(src, size)} ${widths[i]}w`;
+    srcs.push(imgSizeSrc);
+  }
+  return srcs;
+};
+export const datasetSrc = (datasets) => {
+  let src = '';
+  for (let i = 0; i < datasets.length; i++) {
+    src = src.concat(datasets[i]);
+    if (i !== datasets.length - 1) {
+      src = src.concat(', ');
+    }
+  }
+  return src;
+};
 
 export const isOneOf = (constantsObject, value) => {
   const keys = Object.keys(constantsObject);

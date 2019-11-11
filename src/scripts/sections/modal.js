@@ -28,9 +28,8 @@ register('modal', {
     } else if ($(this.container.parentNode).hasClass(ANIMATION_CLASSES.SLIDE_UP_FADE)) {
       $(this.container.parentNode).removeClass(ANIMATION_CLASSES.SLIDE_UP_FADE);
       $(this.container.parentNode).removeClass(ANIMATION_CLASSES.SLIDE_DOWN_FADE);
-    } else {
-      toggleVisibility(this.container.parentNode);
     }
+    toggleVisibility(this.container.parentNode);
   },
 
 });

@@ -6,7 +6,7 @@ import {
   headerSelectors,
   modalSelectors,
   productCardSelector,
-  CART_ENDPOINT,
+  CART_ENDPOINT, searchSelectors, PRODUCT_FORM_CLASS,
 } from '../../../src/scripts/utils/constants';
 import {ANIMATION_CLASSES, VISUALLY_HIDDEN} from '../../../src/scripts/utils/main_utils';
 
@@ -92,7 +92,24 @@ context('Product', () => {
         cy.get(headerSelectors.productPopupContainer).should('not.have.class', VISUALLY_HIDDEN);
         cy.get(headerSelectors.productPopupContainer).should('have.class', ANIMATION_CLASSES.SLIDE_DOWN_FADE);
       });
+    });
 
+    it('Cart and Search Modals still function after popup modal close', () => {
+      cy.server();
+      cy.route({method: 'POST', url: CART_ENDPOINT.ADD, headers: {Accept: 'application/json', 'Content-Type': 'application/json'}}).as('getCartResponse');
+      cy.get(headerSelectors.productPopupContainer).should('have.class', VISUALLY_HIDDEN);
+      cy.get(productSelectors.submitButton).click();
+      cy.wait('@getCartResponse');
+      cy.get(headerSelectors.productPopupContainer).find(modalSelectors.closeIcon).click();
+      cy.get(headerSelectors.productPopupContainer).should('have.class', VISUALLY_HIDDEN);
+      cy.get(cartSelectors.cartButton).click();
+      cy.get(headerSelectors.cartMenu).should('not.have.class', VISUALLY_HIDDEN);
+      cy.get(headerSelectors.cartMenu).find(modalSelectors.closeIcon).click();
+      cy.get(headerSelectors.cartMenu).should('have.class', VISUALLY_HIDDEN);
+      cy.get(searchSelectors.searchButton).click();
+      cy.get(headerSelectors.searchMenu).should('not.have.class', VISUALLY_HIDDEN);
+      cy.get(headerSelectors.searchMenu).find(modalSelectors.sectionId).click('bottom');
+      cy.get(headerSelectors.searchMenu).should('have.class', VISUALLY_HIDDEN);
     });
 
     it('Product Card Popup closes properly, slide-down class replaced with slide-up - NO STUB', () => {
@@ -152,6 +169,35 @@ context('Product', () => {
           .then((imgElement) => {
             expect(imgElement[0].alt).to.equal('2018 Autumn Women Hoodie Casual Long Sleeve Hooded Pullover Sweatshirts Hooded Female Jumper Women Tracksuits Sportswear Clothes');
             expect(imgElement[0].src).to.equal('https://cdn.shopify.com/s/files/1/0258/8436/0792/products/product-image-851304014.jpg?v=1569178286');
+          });
+        cy.get(headerSelectors.productPopupContainer).find(productCardSelector.price).should('not.have.text', '');
+      });
+
+      it.only('Change product variant before adding to cart - NO STUB', () => {
+        cy.clock();
+        cy.server();
+        cy.route({method: 'POST', url: CART_ENDPOINT.ADD, status: 200, headers: {Accept: 'application/json', 'Content-Type': 'application/json'}}).as('getAddCartResponse');
+        cy.get(productSelectors.submitButton).click();
+        cy.wait('@getAddCartResponse');
+        cy.get(PRODUCT_FORM_CLASS)
+          .find('select')
+          .first()
+          .select('Black');
+        cy.get(PRODUCT_FORM_CLASS)
+          .find('#Option2-M')
+          .click();
+        cy.get(productSelectors.submitButton).click();
+        cy.wait('@getAddCartResponse');
+        cy.get(headerSelectors.productPopupContainer).find(productCardSelector.quantity).should('have.text', '1');
+        cy.get(headerSelectors.productPopupContainer).find(productCardSelector.title).should('have.text', '2018 Autumn Women Hoodie Casual Long Sleeve Hooded Pullover Sweatshirts Hooded Female Jumper Women Tracksuits Sportswear Clothes - Black / M');
+        cy.tick(5000);
+        cy.get(headerSelectors.productPopupContainer)
+          .find(productCardSelector.image)
+          .find('img')
+          .then((imgElement) => {
+            console.log(imgElement);
+            expect(imgElement[0].alt).to.equal('2018 Autumn Women Hoodie Casual Long Sleeve Hooded Pullover Sweatshirts Hooded Female Jumper Women Tracksuits Sportswear Clothes');
+            expect(imgElement[0].dataset.src).to.equal('//cdn.shopify.com/s/files/1/0258/8436/0792/products/product-image-851304013.jpg?v=1569178289');
           });
         cy.get(headerSelectors.productPopupContainer).find(productCardSelector.price).should('not.have.text', '');
       });
