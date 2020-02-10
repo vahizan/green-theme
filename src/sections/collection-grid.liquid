@@ -1,0 +1,51 @@
+{% paginate collection.products by section.settings.products_per_page %}
+<section data-section-id="collection-grid" data-section-type="collection-grid" data-collection-grid class="collection-grid">
+    <div class="collection__products">
+        {% for product in collection.products %}
+            <div>
+                {% include 'product-card' product: product,  max_width: 600, max_height: 600, show_qty: 'true', show_price: 'true', product_colurl: product.url | within: collection %}
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% if paginate.pages > 1 %}
+{% include 'pagination' %}
+{% endif %}
+{% endpaginate %}
+
+{% schema %}
+{
+    "name": "Collection Grid",
+    "settings": [
+    {
+        "type": "select",
+        "id": "products_per_page",
+        "label": "Number of Products Per Page",
+        "options": [
+            {
+                "value": "12",
+                "label": "12 Products"
+            },
+            {
+                "value": "20",
+                "label": "20 Products"
+            },
+            {
+                "value": "30",
+                "label": "30 Products"
+            },
+            {
+                "value": "40",
+                "label": "40 Products"
+            },
+            {
+                "value": "50",
+                "label": "50 Products"
+            }
+        ],
+        "default": "12",
+        "info": "Choose Number of Products Per Page"
+    }
+    ]
+}
+{% endschema %}

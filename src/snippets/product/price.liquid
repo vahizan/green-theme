@@ -1,0 +1,27 @@
+<div data-price-card class="price-card">
+    {% if compare_at_price > product_price %}
+        {% if price_varies %}
+            {%- assign sale_price = product_price | money -%}
+            <div data-from-sale-price>{{ 'products.product.on_sale_from_html' | t: price: sale_price }}</div>
+        {% else %}
+            <div data-sale-price>
+                {{ 'products.product.on_sale' | t }}
+                {{ product_price | money }}
+            </div>
+        {% endif %}
+    {% else %}
+        {% if price_varies %}
+            {%- assign price_value = product_price | money -%}
+            <div data-from-price>{{ 'products.product.from_text_html' | t: price: price_value }}</div>
+        {% else %}
+            <div data-normal-price>{{ product_price | money }}</div>
+        {% endif %}
+    {% endif %}
+
+    {% if compare_at_price > product_price %}
+        <div>
+            <span data-retail-price class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+            <s data-compare-price="">{{ compare_at_price | money }}</s>
+        </div>
+    {% endif %}
+</div>

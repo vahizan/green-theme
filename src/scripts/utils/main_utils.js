@@ -37,36 +37,62 @@ export const DISPLAY_VALUES = {
   LIST_ITEM: 'list-item',
 };
 
-const animationPulseOn = () => {
+const animationPulseOn = (element) => {
+  if (element) {
+    $(element).find(productSelectors.submitFailure).addClass(VISUALLY_HIDDEN);
+    $(element).find(productSelectors.submitLoading).css('display', DISPLAY_VALUES.BLOCK);
+    return;
+  }
   $(productSelectors.submitFailure).addClass(VISUALLY_HIDDEN);
   $(productSelectors.submitLoading).css('display', DISPLAY_VALUES.BLOCK);
 };
-const animationPulseOff = () => {
+const animationPulseOff = (element) => {
+  if (element) {
+    $(element).find(productSelectors.submitFailure).addClass(VISUALLY_HIDDEN);
+    $(element).find(productSelectors.submitLoading).css('display', DISPLAY_VALUES.NONE);
+    return;
+  }
   $(productSelectors.submitFailure).addClass(VISUALLY_HIDDEN);
   $(productSelectors.submitLoading).css('display', DISPLAY_VALUES.NONE);
 };
-const failureAnimation = () => {
+const failureAnimation = (element) => {
+  if (element) {
+    $(element).find(productSelectors.submitFailure).removeClass(VISUALLY_HIDDEN);
+    $(element).find(productSelectors.submitLoading).css('display', DISPLAY_VALUES.NONE);
+    return;
+  }
   $(productSelectors.submitFailure).removeClass(VISUALLY_HIDDEN);
   $(productSelectors.submitLoading).css('display', DISPLAY_VALUES.NONE);
 };
-export const loadingAnimationProcessor = (loadingAnimationClass) => {
+export const loadingAnimationProcessor = (loadingAnimationClass, element) => {
   switch (loadingAnimationClass) {
     case LOADING_ANIMATION_CLASSES.LOADING_PULSE_ON:
-      animationPulseOn();
+      animationPulseOn(element);
       break;
     case LOADING_ANIMATION_CLASSES.LOADING_PULSE_OFF:
-      animationPulseOff();
+      animationPulseOff(element);
       break;
     case LOADING_ANIMATION_CLASSES.NETWORK_ERROR:
-      failureAnimation();
+      failureAnimation(element);
       break;
   }
+};
+export const updateProductCountText = (cartProductCountElement, quantity) => {
+  let currentValue = parseInt(cartProductCountElement.innerHTML, 10);
+  if (isNaN(currentValue)) {
+    return;
+  }
+  $(cartProductCountElement).html(currentValue + quantity);
 };
 
 export const isVisible = (element) => !($(element).hasClass(VISUALLY_HIDDEN));
 export const toggleVisibility = (element) => ($(element).hasClass(VISUALLY_HIDDEN) ? $(element).removeClass(VISUALLY_HIDDEN) : $(element).addClass(VISUALLY_HIDDEN));
 export const toggleDisplay = (element) => ($(element).css(CSS_PROPS.DISPLAY) === DISPLAY_VALUES.BLOCK ? $(element).css(CSS_PROPS.DISPLAY, DISPLAY_VALUES.NONE) : $(element).css(CSS_PROPS.DISPLAY, DISPLAY_VALUES.BLOCK));
 export const removeProtocol = (path) => path.replace(/http(s)?:/, '');
+export const removeImageSizeFromUrl = (path) => {
+  const match = path.match(/(.+)_((?:pico|icon|thumb|small|compact|medium|large|grande)|\d{1,4}x\d{0,4}|x\d{1,4})[_.@](.+)/);
+  return (match && match.length >= 4) ? `${match[1]}.${match[3]}` : '';
+};
 export const getSizedImageUrl = (src, size) => {
   if (size === null) {
     return src;

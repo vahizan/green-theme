@@ -1,5 +1,5 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
-<button class="button {% unless cta_style == blank %}{{cta_style}}{% endunless %}"
+<button class="button {% if current_variant.available %} btn {% endif %} {% unless cta_style == blank %}{{cta_style}}{% endunless %}"
     name="add"
     data-submit-button
     {% unless current_variant.available %}disabled="disabled"{% endunless %}>

@@ -27,14 +27,14 @@ script:
 - NGROK_PATH=$(curl 'http://127.0.0.1:4040/api/tunnels' | jq -r '.tunnels[0].public_url')/green_theme.zip
 - echo "{\"theme\":{\"name\":\"Travis Curl Test - $(date +"%D %T %Z")\",\"src\":\"$NGROK_PATH\"}}" > body.json
 - echo $(cat body.json)
-- 'TEST_THEME_ID=$(curl -d @body.json -H "Accept: application/json" -H "Content-Type:application/json" https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/2019-07/themes.json | jq -r ".theme.id")'
+- 'TEST_THEME_ID=$(curl -d @body.json -H "Accept: application/json" -H "Content-Type:application/json" https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/${WEBHOOK_API_VERSION}/themes.json | jq -r ".theme.id")'
 - echo $TEST_THEME_ID
 - if [ ${TEST_THEME_ID} == null ] ; then exit 1 ; fi
-- while [ $(curl https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/2019-07/themes/$TEST_THEME_ID.json
+- while [ $(curl https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/${WEBHOOK_API_VERSION}/themes/$TEST_THEME_ID.json
   | jq -r '.theme.previewable') != 'true' ]; do echo 'Waiting for theme'; sleep 2;
   done
 - cypress run --env SHOPIFY_URL=${SHOPIFY_URL},SHOPIFY_THEME_ID=${TEST_THEME_ID}
-- 'curl -H "Accept: application/json" -X DELETE https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/2019-07/themes/$TEST_THEME_ID.json'
+- 'curl -H "Accept: application/json" -X DELETE https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/${WEBHOOK_API_VERSION}/themes/$TEST_THEME_ID.json'
 addons:
   chrome: stable
   apt:
@@ -51,6 +51,7 @@ notifications:
     - 'Build details: %{build_url}'
 env:
   global:
+  - WEBHOOK_API_VERSION: "2020-01"
   - SHOPIFY_URL: "greenstore-dev.myshopify.com"
   - secure: m0H5kxNZBCgSsUO+sUlMnW/l1Rbzg1On1X9QcNDebGu2CphRpjRHdhXlM/wNsCBoMMMX9tTsj4s3+ZMMLTQOFqYAOp22GS9LzPFjX+RV1Ve0kt9tKXIy3faDFYYV0np+q2/sL0Kgxz8IiE1i4MlH8qJqOn1Yssz2SOr/MIMMxiZco/Vq9XXeyeLVbQlxFsMrVTpwjVzIubIwYyjRZIKZgtfR2gdIAtk3FCeldfLZp6M28XKgr5m2UqZMVjKB2ussuuO7Ptxvck61u7rMcjn7cuUUgofXwvf468ysD5V7jI7uHxBINhujPZrgDMjvugB8jCP03gKjafL5ZRi3KA3Qy7T33bW07gW8mD9m+3W7NHrpVdrvaQUJVctxB3ajkA3S/NqLRBLPH7GadFM0N6AovKF5+lxViNBiizZsUM8k82L1psDQFYs3nrwQ+aLrSizDYXDcW79SrGyhhRtC/VBqycrlBVmNSTpX7OSIk42gmz564K+kTqBovf0cIt/CxYeNcExPHFLRX9KtsX/b1gereAZ1qRZvoyQf+HmHA1uIFagY3AATD211DpNPk7eqrq7dnAxd6k5XLUg8OlDldL97xvGIk7g+AxZoQ3YeqW40SgViybKG5voCkVUHgK04m/gutkWKtbZTej1xpWU5v9EmHSF2P+lz+N6FxbkyvoPy05Y=
   - secure: VMVuKnUiqTfjoK8jEmOZ3tHc9EkcxP5p4jgiZj0/p6Zn5LpnalE+GGyWQJHLh7iHULpwGdC/sz8ecFvePQPXQGZAwTl8tArJI8JSaQq9M/sJoJ7gwTLoQnzYY2n1LQYRVTTE+WbZIeBYDBYKyTxDifXnQZjBtXxmuLOPhgP/VpMavogX9EtGw+b9p+naF1cLA+S1ywa3sQh5cFgPh3oN5SuchlB7v5Zjr3Iv3QQ5eaQdR3bmR3gQvTOV69jSQ3XeX7podpOw9uLzVoDOmPczXKcsFKaWbYEKmgQhzcfHzzTRlrokgcxA/yD0FgPEPCizZQ2DfgfbP0VU+H2dWq3W1dlUHQcmB4ib03FN2F4oh9zrWuQr1s1WA1Y2nfdvuJ87UmrSmXB936M8f9IrHqsSg8FiFztllSxJitfdMIvnU+xGUdPuo2z5ua3JRQKX240TWxuPWTkP37bmJ3rtmd8vT8J5xlhXjcMcAkTRHcUi6+QCRpG/+0N4tcF3dZUMWO66gk28ZdfjpIoINvrN44nB1/SZ+KpZ2zMHoX9poMtrUdbvocrPupot23uQOvkz1cl/GHptEVFnJmxQxd5iIMzgZkcsmGvWU0QwqXjyS9Ll23QP5fb6KK6nyX/kHCU5+HxmjrYOYqcn2hACPmAM4AwybwtySOw6uAadJgbl49TWBWc=

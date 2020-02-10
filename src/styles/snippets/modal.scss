@@ -21,7 +21,7 @@
     margin: 0 auto;
     max-height: 400px;
     padding: 20px;
-    @include modal-content-width(100%, 50%, 40%, 30%);
+    @include content-width(100%, 50%, 40%, 30%);
     @include media-query($small) {
       padding: 0;
     }
@@ -39,7 +39,7 @@
       position: absolute;
       align-self: flex-end;
       height: 100%;
-      @include modal-content-width(100%, 50%, 40%, 30%);
+      @include content-width(100%, 50%, 40%, 30%);
     }
 
     &--center {

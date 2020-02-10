@@ -1,8 +1,63 @@
 .product-card {
   display: flex;
   flex-direction: column;
-  flex-basis: 100%;
   align-content: center;
   justify-content: center;
   text-align: center;
+  padding: 20px;
+  margin: 10px;
+  min-height: 97%;
+  border-radius: 20px;
+  @include media-query($small) {
+    margin: 0;
+    margin-bottom: 10px;
+  };
+  @include media-query($xx-small) {
+    width: 300px;
+  };
+  @include media-query($x-small) {
+    width: 360px;
+  };
+  @include media-query($medium) {
+    width: 220px;
+  };
+  @include media-query($large) {
+    width: 300px;
+    transition: box-shadow 0.1s 0.1s ease;
+
+    &:hover {
+      box-shadow: 0.5rem 1rem 2rem rgba(0,0,0,0.7);
+      transition: box-shadow 0.2s 0.1s ease;
+    }
+  };
+  @include media-query($widescreen) {
+    width: 350px;
+    transition: box-shadow 0.1s 0.1s ease;
+    &:hover {
+      box-shadow: 0.5rem 1rem 3rem rgba(0,0,0,0.7);
+      transition: box-shadow 0.2s 0.1s ease;
+    }
+  };
+
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    padding-bottom: 30px;
+  }
+  &__title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow-wrap: break-word;
+    max-height: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__cta {
+    align-self: center;
+  }
+
 }

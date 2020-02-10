@@ -18,6 +18,21 @@ context('Product', () => {
   });
 
   describe('CTA Submit - Cart Add AJAX', () => {
+    it('No page refresh on single variant product page', () => {
+      const singleVariantUrl = `${url}/products/chinese-retro-style-fisherman-hat-bamboo-rattan-36cm-dia-handmade-weave-straw-hat-tourism-rain-cap-dance-props-cone-sunshade-hat`;
+      cy.visit(singleVariantUrl);
+      cy.get(productSelectors.submitButton).click();
+
+      cy.location().should((location) => {
+        // eslint-disable-next-line no-unused-expressions
+        expect(location.hash).to.be.empty;
+        expect(location.pathname)
+          .not
+          .to
+          .eq('/cart');
+      });
+    });
+
     it('No page refresh', () => {
       cy.get(productSelectors.submitButton).click();
       cy.location().should((location) => {
@@ -168,12 +183,12 @@ context('Product', () => {
           .find('img')
           .then((imgElement) => {
             expect(imgElement[0].alt).to.equal('2018 Autumn Women Hoodie Casual Long Sleeve Hooded Pullover Sweatshirts Hooded Female Jumper Women Tracksuits Sportswear Clothes');
-            expect(imgElement[0].src).to.equal('https://cdn.shopify.com/s/files/1/0258/8436/0792/products/product-image-851304014.jpg?v=1569178286');
+            expect(imgElement[0].src).to.equal('https://cdn.shopify.com/s/files/1/0258/8436/0792/products/product-image-851304014_300x.jpg?v=1569178286');
           });
         cy.get(headerSelectors.productPopupContainer).find(productCardSelector.price).should('not.have.text', '');
       });
 
-      it.only('Change product variant before adding to cart - NO STUB', () => {
+      it('Change product variant before adding to cart - NO STUB', () => {
         cy.clock();
         cy.server();
         cy.route({method: 'POST', url: CART_ENDPOINT.ADD, status: 200, headers: {Accept: 'application/json', 'Content-Type': 'application/json'}}).as('getAddCartResponse');
@@ -195,7 +210,6 @@ context('Product', () => {
           .find(productCardSelector.image)
           .find('img')
           .then((imgElement) => {
-            console.log(imgElement);
             expect(imgElement[0].alt).to.equal('2018 Autumn Women Hoodie Casual Long Sleeve Hooded Pullover Sweatshirts Hooded Female Jumper Women Tracksuits Sportswear Clothes');
             expect(imgElement[0].dataset.src).to.equal('//cdn.shopify.com/s/files/1/0258/8436/0792/products/product-image-851304013.jpg?v=1569178289');
           });

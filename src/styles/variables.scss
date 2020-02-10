@@ -4,8 +4,14 @@ $color-body-text: var(--color-body-text);
 // Background colors
 $color-body: var(--color-main-background);
 
-// Primary Button Border colors
-$color-primary-button-border: var(--color-primary-button-border);
+// Primary Button  colors
+$color-primary-button: var(--color-primary-button);
+
+// Primary Button Label  colors
+$color-primary-label: var(--color-primary_label);
+
+// Product Card Accent colors
+$color-product-card-accent: var(--color_product_card_accent);
 
 // Add to Cart Click colors
 $color-add-to-cart-click: var(--color-add-to-cart-click);
@@ -41,6 +47,8 @@ $transition-duration: 250ms;
 $transition-timing: ease-in-out;
 
 // Grid
+$grid-xsmall: 22em;
+$grid-small: 26em;
 $grid-medium: 46.85em;
 $grid-large: 61.85em;
 $grid-widescreen: 87.5em;
@@ -48,6 +56,8 @@ $grid-max-width: 73.75em;
 $grid-gutter: 30px;
 
 // Breakpoints used with the media-query mixin
+$xx-small: 'xx-small';
+$x-small: 'x-small';
 $small: 'small';
 $medium: 'medium';
 $medium-down: 'medium-down';
@@ -56,9 +66,10 @@ $large: 'large';
 $large-down: 'large-down';
 $large-up: 'large-up';
 $widescreen: 'widescreen';
-$desktop: 'desktop';
 
 $breakpoints: (
+  $xx-small '(max-width: #{$grid-xsmall - 1})',
+  $x-small '(min-width: #{$grid-xsmall}) and (max-width: #{$grid-small - 1})',
   $small '(max-width: #{$grid-medium - 1})',
   $medium '(min-width: #{$grid-medium}) and (max-width: #{$grid-large - 1})',
   $medium-down '(max-width: #{$grid-large - 1})',
@@ -67,5 +78,4 @@ $breakpoints: (
   $large-down '(max-width: #{$grid-widescreen - 1})',
   $large-up '(min-width: #{$grid-large})',
   $widescreen '(min-width: #{$grid-widescreen})'
-  $desktop '(min-width: #{$grid-large}) and (max-width: #{$grid-widescreen - 1})'
 );
