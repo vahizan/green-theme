@@ -31,8 +31,8 @@ const keyboardKeys = {
 };
 
 const selectors = {
-  submitButton: '[data-submit-button]',
-  submitButtonText: '[data-submit-button-text]',
+  submitButton: '[data-submit-button=\'button\']',
+  submitButtonText: '[data-submit-button=\'text\']',
   comparePrice: '[data-compare-price]',
   comparePriceText: '[data-compare-text]',
   priceWrapper: '[data-price-wrapper]',

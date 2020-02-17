@@ -1,6 +1,6 @@
 .simple{
   display: flex;
-  padding: 15px 20px;
+  min-height: 40px;
   justify-content: center;
   @include media-query($small) {
     flex-basis: 70%;

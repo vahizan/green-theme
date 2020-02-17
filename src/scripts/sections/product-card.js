@@ -21,12 +21,14 @@ import {loadLatestCartItem} from './product-card-popup';
 const $ = require('jquery');
 
 const productIdSelector = 'data-product-id';
+const viewProductTranslation = theme.strings.viewProduct;
+const addToCartTranslation = theme.strings.addToCart;
 
 register('product-card', {
   onLoad() {
     this.productId = ($(this.container).attr(productIdSelector));
-    this.productCardButton = $(this.container).find(productCardSelector.CTA)[0];
-    this.ctaText = $(this.productCardButton).find(productSelectors.submitButtonText)[0];
+    this.productCardButton = $(this.container).find(productSelectors.submitButton)[0];
+    this.addToCartButtonUrl = $(this.productCardButton).find(productSelectors.submitButtonUrl).attr('href');
     this.onAddToCartSubmit = this.onAddToCartSubmit.bind(this);
     this.productCardButton.addEventListener('click', this.onAddToCartSubmit);
   },
@@ -40,7 +42,6 @@ register('product-card', {
     const title = $(this.container).find(productCardSelector.title)[0].innerText;
     const price = $(this.container).find(productCardSelector.priceNoFormat)[0].innerText;
     const imgSrc = this.container.querySelector(productCardSelector.image).getElementsByTagName('img')[0].currentSrc;
-    console.log('img', imgSrc);
 
     return {
       name: title,
@@ -89,11 +90,7 @@ register('product-card', {
     return xhr;
   },
 
-  onAddToCartSubmit(event) {
-    event.preventDefault();
-    if (!this.productId || event.target.innerText !== theme.strings.addToCart) {
-      return;
-    }
+  _addToCart() {
     const cartData = {
       quantity: 1,
       id: this.productId,
@@ -101,5 +98,31 @@ register('product-card', {
     const xhr = this._addToCartXHR();
     xhr.send(JSON.stringify(cartData));
     xhr.onreadystatechange = () => this._cartSubmitStateChange(xhr.readyState, xhr.status);
+  },
+
+  _openLink(url) {
+    console.log('this.url', url);
+    window.location.href = url;
+  },
+
+  _handleButtonClick(event) {
+    switch (event.target.innerText) {
+      case viewProductTranslation:
+        this._openLink(this.addToCartButtonUrl);
+        break;
+      case addToCartTranslation:
+        this._addToCart();
+        break;
+      default:
+        break;
+    }
+  },
+
+  onAddToCartSubmit(event) {
+    event.preventDefault();
+    if (!this.productId) {
+      return;
+    }
+    this._handleButtonClick(event);
   },
 });

@@ -285,7 +285,8 @@
       "on_sale_from_html": "På Tilbud fra {{ price }}",
       "from_text_html": "Fra {{ price }}",
       "quantity": "Antal",
-      "add_to_cart": "Tilføj til Kurv"
+      "add_to_cart": "Tilføj til Kurv",
+      "view_product": "Se produkt"
     }
   },
   "gift_cards": {

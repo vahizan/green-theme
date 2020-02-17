@@ -289,7 +289,8 @@
       "on_sale_from_html": "In sale van {{ price }}",
       "from_text_html": "Vanaf {{ price }}",
       "quantity": "Aantal",
-      "add_to_cart": "In winkelmandje"
+      "add_to_cart": "In winkelmandje",
+      "view_product": "Visie"
     }
   },
   "gift_cards": {

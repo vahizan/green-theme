@@ -1,9 +1,11 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 <button class="button {% if current_variant.available %} btn {% endif %} {% unless cta_style == blank %}{{cta_style}}{% endunless %}"
     name="add"
-    data-submit-button
+    data-submit-button="button"
     {% unless current_variant.available %}disabled="disabled"{% endunless %}>
-    <span data-submit-button-text {% unless current_variant.available %} class="disabled" {% endunless %}>
+    {% if url != blank %} <a class="visually-hidden" data-submit-button="url" href="{{url}}"></a>
+    {% endif %}
+    <span data-submit-button="text" {% unless current_variant.available %} class="disabled" {% endunless %}>
       {% if current_variant.available %}
         {% if cta_text == blank %}
             {{ 'products.product.add_to_cart' | t }}
@@ -14,5 +16,5 @@
         {{ 'products.product.sold_out' | t }}
       {% endif %}
     </span>
-    {% include 'button-state'%}
+    {% include 'button-state' %}
 </button>

@@ -71,11 +71,12 @@ export const headerSelectors = {
 
 export const productSelectors = {
   productPageCta: '[data-product-page-add-cta]',
-  submitButton: '[data-submit-button]',
+  submitButton: '[data-submit-button=button]',
   submitLoading: '[data-button-loading-container]',
   submitSuccess: '[data-button-success-container]',
   submitFailure: '[data-button-failure-container]',
-  submitButtonText: '[data-submit-button-text]',
+  submitButtonText: '[data-submit-button=text]',
+  submitButtonUrl: '[data-submit-button=url]',
   comparePrice: '[data-compare-price]',
   comparePriceText: '[data-compare-text]',
   priceWrapper: '[data-price-wrapper]',
@@ -111,7 +112,6 @@ export const productCardSelector = {
   priceNoFormat: '[data-product-price-container=noformat]',
   variant: '[data-product-variant]',
   properties: '[data-product-properties]',
-  CTA: '[data-product-cta]',
   vendor: '[data-product-vendor]',
   image: '[data-product-image]',
 };

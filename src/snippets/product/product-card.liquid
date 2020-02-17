@@ -72,12 +72,11 @@
         {% if show_vender == 'true' %}<p data-product-vendor>{{ product.vendor }}</p> {% endif %}
     </div>
     {% unless hide_cta == 'true' %}
-        <div data-product-cta class="{{product_card_class}}__cta">
-            {%- assign cta_text_value = section.settings.cta_text -%}
-           {% unless product.has_only_default_variant %}
-                {%- assign cta_text_value = 'View Product' -%}
-           {% endunless %}
+       {%- assign cta_text_value = section.settings.cta_text -%}
+       {% unless product.has_only_default_variant %}
+            {% include 'add-to-cart-button' cta_style: settings.add_cta_style, cta_text: 'View Product' , url: product_colurl %}
+       {% else %}
             {% include 'add-to-cart-button' cta_style: settings.add_cta_style, cta_text: cta_text_value %}
-        </div>
+        {% endunless %}
     {% endunless %}
 </div>
