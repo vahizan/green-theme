@@ -48,7 +48,7 @@
   },
   "scripts": {
     "start": "slate-tools start",
-    "jest": "jest",
+    "jest": "jest --watchAll=false",
     "jest:watch": "jest --watch",
     "cypress": "cypress run",
     "cypress:open": "cypress open --port=8888",
