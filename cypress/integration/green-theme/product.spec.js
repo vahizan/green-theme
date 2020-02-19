@@ -46,19 +46,13 @@ context('Product', () => {
     });
 
     it('Ajax post call fired', () => {
-      // first, let's find out the userId of the first user we have
       // eslint-disable-next-line promise/catch-or-return,promise/always-return
-      // Instead of writing a response inline you can
-      // use a fixture file's content.
+      cy.clock();
       cy.server();
       cy.fixture('cart-add-normal.json').as('addToCart');
-      // when application makes an Ajax request matching "GET comments/*"
-      // Cypress will intercept it and reply with object
-      // from the "comment" alias
       cy.route('POST', CART_ENDPOINT.ADD, '@addToCart').as('getCartResponse');
-
+      cy.tick(1000);
       cy.get(productSelectors.submitButton).click();
-
       cy.wait('@getCartResponse').should((xhr) => {
         expect(xhr.responseBody).to.have.property('id', 794864229);
         expect(xhr.responseBody).to.have.property('title', 'Red Rain Coat - Small');
@@ -80,7 +74,9 @@ context('Product', () => {
     });
 
     it('Add to Cart after refresh should not redirect url', () => {
+      cy.clock();
       cy.reload();
+      cy.tick(1000);
       cy.server();
       cy.fixture('cart-add-normal.json').as('addToCart');
       cy.route({method: 'POST', url: CART_ENDPOINT.ADD, response: '@addToCart', headers: {Accept: 'application/json', 'Content-Type': 'application/json'}}).as('getCartResponse');
@@ -99,8 +95,10 @@ context('Product', () => {
     });
 
     it('Product Card Popup appears after adding item successfully - NO STUB', () => {
+      cy.clock();
       cy.server();
       cy.route({method: 'POST', url: CART_ENDPOINT.ADD, headers: {Accept: 'application/json', 'Content-Type': 'application/json'}}).as('getCartResponse');
+      cy.tick(1000);
       cy.get(headerSelectors.productPopupContainer).should('have.class', VISUALLY_HIDDEN);
       cy.get(productSelectors.submitButton).click();
       cy.wait('@getCartResponse').should(() => {

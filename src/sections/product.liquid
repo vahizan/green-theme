@@ -36,7 +36,7 @@
   <p>{{ product.vendor }}</p>
 
 
-  {% form 'product', product, data-product-form: '', data-product-handle: product.handle, data-enable-history-state: 'true', action: '/cart' %}
+  {% form 'product', product, data-product-form: '', data-product-handle: product.handle, data-enable-history-state: 'true', action: 'javascript:void(0);' %}
     {% unless product.has_only_default_variant %}
       {% for option in product.options_with_values %}
         <div class="js">

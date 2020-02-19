@@ -101,12 +101,12 @@ register('product-card', {
   },
 
   _openLink(url) {
-    console.log('this.url', url);
     window.location.href = url;
   },
 
   _handleButtonClick(event) {
-    switch (event.target.innerText) {
+    const submitButtonText = event.target.querySelector(productSelectors.submitButtonText);
+    switch ((submitButtonText && submitButtonText.innerText) || event.target.innerText) {
       case viewProductTranslation:
         this._openLink(this.addToCartButtonUrl);
         break;
