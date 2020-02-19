@@ -12,6 +12,7 @@ install:
 - npm install -g ngrok
 - npm install -g cypress
 - npm install -g cypress-image-snapshot
+- npm install -g @shopify/slate-tools
 before_script:
 - PATH=${PATH//:\.\/node_modules\/\.bin/}
 - mkdir public
