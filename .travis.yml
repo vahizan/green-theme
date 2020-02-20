@@ -7,6 +7,11 @@ cache:
   directories:
   - "/home/travis/.cache/Cypress"
   - "~/.yarn"
+install:
+- yarn install
+- yarn global add ngrok
+- yarn global add cypress
+- yarn global add cypress-image-snapshot
 before_script:
 - PATH=${PATH//:\.\/node_modules\/\.bin/}
 - mkdir public
@@ -28,7 +33,7 @@ script:
 - while [ $(curl https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/${WEBHOOK_API_VERSION}/themes/$TEST_THEME_ID.json
   | jq -r '.theme.previewable') != 'true' ]; do echo 'Waiting for theme'; sleep 2;
   done
-- yarn cypress run --env SHOPIFY_URL=${SHOPIFY_URL},SHOPIFY_THEME_ID=${TEST_THEME_ID}
+- cypress run --env SHOPIFY_URL=${SHOPIFY_URL},SHOPIFY_THEME_ID=${TEST_THEME_ID}
 - 'curl -H "Accept: application/json" -X DELETE https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/${WEBHOOK_API_VERSION}/themes/$TEST_THEME_ID.json'
 addons:
   chrome: stable
