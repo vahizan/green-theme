@@ -3,16 +3,10 @@ node_js:
 - 8.11.2
 sudo: required
 cache:
-  npm: true
+  yarn: true
   directories:
   - "/home/travis/.cache/Cypress"
-  - "~/.npm"
-install:
-- npm install
-- npm install -g ngrok
-- npm install -g cypress
-- npm install -g cypress-image-snapshot
-- npm install -g @shopify/slate-tools
+  - "~/.yarn"
 before_script:
 - PATH=${PATH//:\.\/node_modules\/\.bin/}
 - mkdir public
@@ -21,10 +15,10 @@ before_script:
 - ngrok http file://$(pwd)/ --authtoken=${NGROK_AUTH_TOKEN} > /dev/null &
 - sleep 3
 script:
-- echo "themey@runbox.com" | npm run lint
+- echo "themey@runbox.com" | yarn lint
 - echo {} > credentials.json
-- npm run format
-- npm run build && npm run zip
+- yarn format
+- yarn build && yarn zip
 - NGROK_PATH=$(curl 'http://127.0.0.1:4040/api/tunnels' | jq -r '.tunnels[0].public_url')/green_theme.zip
 - echo "{\"theme\":{\"name\":\"Travis Curl Test - $(date +"%D %T %Z")\",\"src\":\"$NGROK_PATH\"}}" > body.json
 - echo $(cat body.json)
@@ -34,7 +28,7 @@ script:
 - while [ $(curl https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/${WEBHOOK_API_VERSION}/themes/$TEST_THEME_ID.json
   | jq -r '.theme.previewable') != 'true' ]; do echo 'Waiting for theme'; sleep 2;
   done
-- cypress run --env SHOPIFY_URL=${SHOPIFY_URL},SHOPIFY_THEME_ID=${TEST_THEME_ID}
+- yarn cypress run --env SHOPIFY_URL=${SHOPIFY_URL},SHOPIFY_THEME_ID=${TEST_THEME_ID}
 - 'curl -H "Accept: application/json" -X DELETE https://${SHOPIFY_API_KEY}:${SHOPIFY_API_PASSWORD}@${SHOPIFY_URL}/admin/api/${WEBHOOK_API_VERSION}/themes/$TEST_THEME_ID.json'
 addons:
   chrome: stable
