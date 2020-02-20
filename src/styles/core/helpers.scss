@@ -2,6 +2,11 @@
   @include clearfix;
 }
 
+.btn {
+  background-color: $color-primary-button;
+  color: $color-primary-label;
+}
+
 .visually-hidden {
   @include visually-hidden;
 }

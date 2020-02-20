@@ -15,7 +15,7 @@
     "url": "https://github.com/vahizan/green_theme.git"
   },
   "devDependencies": {
-    "@shopify/slate-tools": "1.0.0-beta.15",
+    "@shopify/slate-tools": "^1.0.0-beta.19",
     "autoprefixer": "^9.6.1",
     "babel-preset-shopify": "^16.2.0",
     "css-loader": "^3.2.0",
@@ -48,7 +48,7 @@
   },
   "scripts": {
     "start": "slate-tools start",
-    "jest": "jest",
+    "jest": "jest --watchAll=false",
     "jest:watch": "jest --watch",
     "cypress": "cypress run",
     "cypress:open": "cypress open --port=8888",

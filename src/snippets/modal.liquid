@@ -23,7 +23,7 @@
             {% if data == 'search' %}
                  {% include 'search-module' %}
             {% elsif data == 'product-popup' %}
-                {% include 'product-card-popup' hide_cta: 'true' %}
+                {% include 'product-card-popup' is_popup: 'true' hide_cta: 'true' %}
             {% elsif data == 'cart' %}
                 <div>CART CONTENTS</div>
             {% endif %}

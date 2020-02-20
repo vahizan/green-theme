@@ -145,16 +145,16 @@
 }
 
 /**
- * Modal Content Width Position
+ * Content Width Position
  *
  * Usage:
- * modal-content-width(small, medium, large, widescreen)
+ * content-width(small, medium, large, widescreen)
  *   @media-query(small) {
       width: $small
  *  }
  *  etc
  */
-@mixin modal-content-width($smallCent: 100%, $mediumCent: 50%, $largeCent: 40%, $widescreenCent: 30% ) {
+@mixin content-width($smallCent: 100%, $mediumCent: 50%, $largeCent: 40%, $widescreenCent: 30% ) {
   // stylelint-disable-next-line
   @include media-query($small) {
     width: $smallCent

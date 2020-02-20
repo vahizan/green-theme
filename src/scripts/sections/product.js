@@ -14,7 +14,9 @@ import {forceFocus} from '@shopify/theme-a11y';
 import {loadLatestCartItem} from './product-card-popup';
 import {CART_ENDPOINT, cartSelectors, productSelectors} from '../utils/constants';
 import {
-  LOADING_ANIMATION_CLASSES, loadingAnimationProcessor,
+  LOADING_ANIMATION_CLASSES,
+  loadingAnimationProcessor,
+  updateProductCountText,
   VISUALLY_HIDDEN,
 } from '../utils/main_utils';
 
@@ -29,8 +31,8 @@ const keyboardKeys = {
 };
 
 const selectors = {
-  submitButton: '[data-submit-button]',
-  submitButtonText: '[data-submit-button-text]',
+  submitButton: '[data-submit-button=\'button\']',
+  submitButtonText: '[data-submit-button=\'text\']',
   comparePrice: '[data-compare-price]',
   comparePriceText: '[data-compare-text]',
   priceWrapper: '[data-price-wrapper]',
@@ -47,7 +49,6 @@ const selectors = {
 register('product', {
   async onLoad() {
     const productFormElement = document.querySelector(selectors.productForm);
-
     this.product = await this.getProductJson(
       productFormElement.dataset.productHandle,
     );
@@ -56,6 +57,7 @@ register('product', {
       onFormSubmit: this.onAddToCartSubmit.bind(this),
     });
 
+    this.onFormOptionChange = this.onFormOptionChange.bind(this);
     this.onThumbnailClick = this.onThumbnailClick.bind(this);
     this.onThumbnailKeyup = this.onThumbnailKeyup.bind(this);
 
@@ -114,18 +116,11 @@ register('product', {
     forceFocus(visibleFeaturedImageWrapper);
   },
 
-  _updateProductCountText(cartProductCountElement, quantity) {
-    let currentValue = parseInt(cartProductCountElement.innerHTML, 10);
-    if (isNaN(currentValue)) {
-      return;
-    }
-    $(cartProductCountElement).html(currentValue + quantity);
-  },
   // eslint-disable-next-line shopify/prefer-early-return
   _cartSubmitStateChange(dataset, readyState, status) {
     if (readyState === XMLHttpRequest.DONE && status === 200) {
       const cartProductCountElement = document.querySelector(cartSelectors.cartItemCount);
-      this._updateProductCountText(cartProductCountElement, dataset.quantity);
+      updateProductCountText(cartProductCountElement, dataset.quantity);
       loadLatestCartItem(dataset.variant, dataset.quantity);
     }
   },
@@ -154,7 +149,6 @@ register('product', {
     xhr.timeout = 10000;
     xhr.onloadstart = this._onAddToCartLoadStart;
     xhr.onloadend = this._onAddToCartLoadEnd;
-    console.log('xhr', xhr);
     return xhr;
   },
 

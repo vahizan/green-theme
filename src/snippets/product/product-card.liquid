@@ -1,0 +1,82 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+{%- assign product_card_class = 'product-card' -%}
+{%- assign product_card_type = 'product-card' -%}
+{% if is_popup == 'true' %}
+    {%- assign product_card_class = 'product-card--semantic--popup' -%}
+    {%- assign product_card_type = 'product-card-popup' -%}
+{% endif %}
+<div data-product-id="{{current_variant.id}}" data-section-id="{{product_card_type}}" data-section-type="{{product_card_type}}" class="{{product_card_class}}">
+    {% if show_qty == 'true' %}<div data-product-quantity class="{{product_card_class}}__quantity">{{ product.quantity}}</div>{% endif %}
+    {% if show_variant == 'true' %}<div data-product-variant class="{{product_card_class}}__variant">{{ product.quantity}}</div>{% endif %}
+    {% if show_properties == 'true' %}<div data-product-properties class="{{product_card_class}}__properties">{{ product.quantity}}</div>{% endif %}
+    {% if featured_image != blank %}
+        {% if current_variant.compare_at_price > current_variant.price %}
+        {% unless current_variant.price_varies %}
+            <div data-product-sale>
+                <span>SALE</span>
+                {%if show_savings %} <span>SALE</span> {% endif %}
+            </div>
+        {% endunless %}
+        {% endif %}
+        {% if max_width == blank %}
+            {%- assign max_width = 400 -%}
+            {%- assign max_height = 400 -%}
+        {% endif %}
+        {% if product_colurl != blank %}
+            <a href="{{product_colurl}}" data-product-image class="{{product_card_class}}__image">
+                {% include 'responsive-image' with
+                image: featured_image,
+                max_width: max_width,
+                max_height: max_height,
+                image_attributes: "data-product-featured-image",
+                wrapper_class: wrapper_class,
+                wrapper_attributes: "data-product-image-wrapper",
+                %}
+            </a>
+        {% else %}
+            <div data-product-image class="{{product_card_class}}__image">
+                {% include 'responsive-image' with
+                image: featured_image,
+                max_width: max_width,
+                max_height: max_height,
+                image_attributes: "data-product-featured-image",
+                wrapper_class: wrapper_class,
+                wrapper_attributes: "data-product-image-wrapper",
+                %}
+            </div>
+        {% endif %}
+    {% else %}
+        <div data-product-image class="{{product_card_class}}__image">
+
+        </div>
+    {% endif %}
+    <div class="{{product_card_class}}__info">
+        {% if product_colurl == blank %}
+            <div data-product-title class="{{product_card_class}}__title">{{ product.title }}</div>
+        {% else %}
+            <a href="{{product_colurl}}" data-product-title class="{{product_card_class}}__title">{{ product.title }}</a>
+        {% endif %}
+
+        {% if show_price == 'true' %}
+            <div data-product-price-container>
+                {% include 'price' product_price: product.price, compare_at_price: product.compare_at_price, price_varies: product.price_varies %}
+            </div>
+            <span data-product-price-container="noformat" class="visually-hidden">
+                {{ product.price }}
+            </span>
+    <!--        {% unless product.available %}-->
+    <!--            {{ 'products.product.sold_out' | t }}-->
+    <!--        {% endunless %}-->
+        {% endif %}
+        {% if show_vender == 'true' %}<p data-product-vendor>{{ product.vendor }}</p> {% endif %}
+    </div>
+    {% unless hide_cta == 'true' %}
+       {%- assign cta_text_value = section.settings.cta_text -%}
+       {% unless product.has_only_default_variant %}
+            {% include 'add-to-cart-button' cta_style: settings.add_cta_style, cta_text: 'View Product' , url: product_colurl %}
+       {% else %}
+            {% include 'add-to-cart-button' cta_style: settings.add_cta_style, cta_text: cta_text_value %}
+        {% endunless %}
+    {% endunless %}
+</div>

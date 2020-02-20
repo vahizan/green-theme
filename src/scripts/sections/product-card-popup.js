@@ -17,7 +17,7 @@ import {
   productCardSelector,
 } from '../utils/constants';
 import {
-  ANIMATION_CLASSES, datasetSrc, generateImageDataset, removeProtocol,
+  ANIMATION_CLASSES, datasetSrc, generateImageDataset, removeImageSizeFromUrl, removeProtocol,
   VISUALLY_HIDDEN,
 } from '../utils/main_utils';
 
@@ -36,13 +36,20 @@ const _cartQueryXHR = () => {
   xhr.timeout = 10000;
   return xhr;
 };
+const createResponsiveImg = (parentContainer, dataSrc, dataSrcSet, classNames) => {
+  let $img = $('<img>');
+  $img.attr('data-src', dataSrc);
+  $img.attr('data-srcset', dataSrcSet);
+  $img.attr('class', classNames);
+  $img.appendTo(parentContainer);
+};
 
 const _onCartQueryStateChange = (result, quantity, readyState, status) => {
   if (readyState === XMLHttpRequest.DONE && status === 200) {
     const productPopup = document.querySelector(productCardPopupSelector.container);
     const titleElement = productPopup.querySelector(productCardSelector.title);
     const priceElement = productPopup.querySelector(productCardSelector.price);
-    const imgElement = productPopup.querySelector(productCardSelector.image);
+    const imageContainer = productPopup.querySelector(productCardSelector.image);
     const qtyElement = productPopup.querySelector(productCardSelector.quantity);
     if (!result) {
       return;
@@ -50,13 +57,26 @@ const _onCartQueryStateChange = (result, quantity, readyState, status) => {
     $(titleElement).text(result.name);
     $(qtyElement).text(quantity);
     $(priceElement).text(currency.formatMoney(result.price, ''));
-    const srcNoProtocol = removeProtocol(result.featured_image.src);
-    const imageDataset = generateImageDataset(result.featured_image.src, LAZYLOAD_PRODUCT_POPUP_IMAGE_SIZES);
-    const datasetSrcs = datasetSrc(imageDataset);
-    $(imgElement).find('img').removeClass('lazyload');
-    $(imgElement).find('img').attr('data-src', srcNoProtocol);
-    $(imgElement).find('img').attr('data-srcset', datasetSrcs);
-    $(imgElement).find('img').addClass('lazyload');
+    const $imgElement = $(imageContainer).find('img');
+    if (result.featured_image) {
+      let noImageSizePath = removeImageSizeFromUrl(result.featured_image.src);
+      const srcNoImageSize = (noImageSizePath) ? noImageSizePath : result.featured_image.src;
+      const srcNoProtocol = removeProtocol(srcNoImageSize);
+      const imageDataset = generateImageDataset(srcNoImageSize, LAZYLOAD_PRODUCT_POPUP_IMAGE_SIZES);
+      const datasetSrcs = datasetSrc(imageDataset);
+      if ($imgElement.length) {
+        $($imgElement)
+          .removeClass('lazyload');
+        $($imgElement)
+          .attr('data-src', srcNoProtocol);
+        $($imgElement)
+          .attr('data-srcset', datasetSrcs);
+        $($imgElement)
+          .addClass('lazyload');
+      } else {
+        createResponsiveImg(imageContainer, srcNoImageSize, datasetSrcs, 'lazyload');
+      }
+    }
     _productCardPopup();
   }
 };

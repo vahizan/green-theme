@@ -1,11 +1,37 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Starter theme",
+    "theme_name": "Green theme",
     "theme_version": "1.0.0",
-    "theme_author": "Shopify",
-    "theme_documentation_url": "https://github.com/Shopify/starter-theme",
-    "theme_support_url": "https://github.com/Shopify/starter-theme/issues"
+    "theme_author": "Themey",
+    "theme_documentation_url": "https://github.com/vahizan/green-theme",
+    "theme_support_url": "https://github.com/vahizan/green-theme/issues"
+  },
+  {
+    "name": "Product",
+    "settings": [
+      {
+        "type": "select",
+        "id": "add_cta_style",
+        "label": "Select Add To Cart Button Style",
+        "options": [
+          {
+            "value": "luxury",
+            "label": "Luxury"
+          },
+          {
+            "value": "simple",
+            "label": "Simple"
+          },
+          {
+            "value": "dark",
+            "label": "Dark"
+          }
+        ],
+        "default": "simple",
+        "info": "Choose from a handful of elegant options to spruce up your Add to Cart button"
+      }
+    ]
   },
   {
     "name": "Colors",
@@ -19,10 +45,17 @@
       },
       {
         "type": "color",
-        "id": "primary_button_border_color",
-        "label": "Primary Button Border Color",
-        "default": "#c4cdd5",
-        "info": "Button border color"
+        "id": "primary_button_color",
+        "label": "Primary Buttons",
+        "default": "#3D4246",
+        "info": "Primary Button Color"
+      },
+      {
+        "type": "color",
+        "id": "primary_label_color",
+        "label": "Primary Labels",
+        "default": "#FFD957",
+        "info": "Primary Label Color"
       },
       {
         "type": "color",
@@ -42,7 +75,13 @@
         "type": "color",
         "id": "color_body_text",
         "label": "Text",
-        "default": "#161d25"
+        "default": "#69727B"
+      },
+      {
+        "type": "color",
+        "id": "color_product_card_accent",
+        "label": "Product Card Accent",
+        "default": "#3D4246"
       },
       {
         "type": "color",

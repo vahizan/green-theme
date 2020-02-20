@@ -18,6 +18,21 @@ context('Product', () => {
   });
 
   describe('CTA Submit - Cart Add AJAX', () => {
+    it('No page refresh on single variant product page', () => {
+      const singleVariantUrl = `${url}/products/chinese-retro-style-fisherman-hat-bamboo-rattan-36cm-dia-handmade-weave-straw-hat-tourism-rain-cap-dance-props-cone-sunshade-hat`;
+      cy.visit(singleVariantUrl);
+      cy.get(productSelectors.submitButton).click();
+
+      cy.location().should((location) => {
+        // eslint-disable-next-line no-unused-expressions
+        expect(location.hash).to.be.empty;
+        expect(location.pathname)
+          .not
+          .to
+          .eq('/cart');
+      });
+    });
+
     it('No page refresh', () => {
       cy.get(productSelectors.submitButton).click();
       cy.location().should((location) => {
@@ -31,19 +46,13 @@ context('Product', () => {
     });
 
     it('Ajax post call fired', () => {
-      // first, let's find out the userId of the first user we have
       // eslint-disable-next-line promise/catch-or-return,promise/always-return
-      // Instead of writing a response inline you can
-      // use a fixture file's content.
       cy.server();
       cy.fixture('cart-add-normal.json').as('addToCart');
-      // when application makes an Ajax request matching "GET comments/*"
-      // Cypress will intercept it and reply with object
-      // from the "comment" alias
       cy.route('POST', CART_ENDPOINT.ADD, '@addToCart').as('getCartResponse');
-
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(500);
       cy.get(productSelectors.submitButton).click();
-
       cy.wait('@getCartResponse').should((xhr) => {
         expect(xhr.responseBody).to.have.property('id', 794864229);
         expect(xhr.responseBody).to.have.property('title', 'Red Rain Coat - Small');
@@ -58,6 +67,8 @@ context('Product', () => {
       cy.server();
       cy.fixture('cart-add-normal.json').as('addToCart');
       cy.route({method: 'POST', url: CART_ENDPOINT.ADD, response: '@addToCart', headers: {Accept: 'application/json', 'Content-Type': 'application/json'}}).as('getCartResponse');
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(500);
       cy.get(productSelectors.submitButton).click();
       cy.wait('@getCartResponse').should((xhr) => {
         cy.get(cartSelectors.cartItemCount).should('have.text', (xhr.responseBody.quantity).toString());
@@ -65,10 +76,13 @@ context('Product', () => {
     });
 
     it('Add to Cart after refresh should not redirect url', () => {
+      cy.clock();
       cy.reload();
       cy.server();
       cy.fixture('cart-add-normal.json').as('addToCart');
       cy.route({method: 'POST', url: CART_ENDPOINT.ADD, response: '@addToCart', headers: {Accept: 'application/json', 'Content-Type': 'application/json'}}).as('getCartResponse');
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(500);
       cy.get(productSelectors.submitButton).click();
       cy.location().should((location) => {
         // eslint-disable-next-line no-unused-expressions
@@ -78,6 +92,7 @@ context('Product', () => {
           .to
           .eq('/cart');
       });
+
       cy.wait('@getCartResponse').should((xhr) => {
         cy.get(cartSelectors.cartItemCount).should('have.text', (xhr.responseBody.quantity).toString());
       });
@@ -86,6 +101,8 @@ context('Product', () => {
     it('Product Card Popup appears after adding item successfully - NO STUB', () => {
       cy.server();
       cy.route({method: 'POST', url: CART_ENDPOINT.ADD, headers: {Accept: 'application/json', 'Content-Type': 'application/json'}}).as('getCartResponse');
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(500);
       cy.get(headerSelectors.productPopupContainer).should('have.class', VISUALLY_HIDDEN);
       cy.get(productSelectors.submitButton).click();
       cy.wait('@getCartResponse').should(() => {
@@ -98,6 +115,8 @@ context('Product', () => {
       cy.server();
       cy.route({method: 'POST', url: CART_ENDPOINT.ADD, headers: {Accept: 'application/json', 'Content-Type': 'application/json'}}).as('getCartResponse');
       cy.get(headerSelectors.productPopupContainer).should('have.class', VISUALLY_HIDDEN);
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(500);
       cy.get(productSelectors.submitButton).click();
       cy.wait('@getCartResponse');
       cy.get(headerSelectors.productPopupContainer).find(modalSelectors.closeIcon).click();
@@ -113,13 +132,13 @@ context('Product', () => {
     });
 
     it('Product Card Popup closes properly, slide-down class replaced with slide-up - NO STUB', () => {
-      cy.clock();
       cy.server();
       cy.route({method: 'POST', url: CART_ENDPOINT.ADD, headers: {Accept: 'application/json', 'Content-Type': 'application/json'}}).as('getCartResponse');
       cy.get(headerSelectors.productPopupContainer).should('not.have.class', ANIMATION_CLASSES.SLIDE_DOWN_FADE);
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000);
       cy.get(productSelectors.submitButton).click();
       cy.wait('@getCartResponse');
-      cy.tick(1000);
       cy.get(headerSelectors.productPopupContainer).should('have.class', ANIMATION_CLASSES.SLIDE_DOWN_FADE);
       cy.get(productCardSelector.modal).find(modalSelectors.closeIcon).click();
       cy.get(headerSelectors.productPopupContainer).should('not.have.class', ANIMATION_CLASSES.SLIDE_DOWN_FADE);
@@ -131,6 +150,8 @@ context('Product', () => {
         cy.server();
         cy.fixture('cart-add-normal.json').as('addToCart');
         cy.route({method: 'POST', url: CART_ENDPOINT.ADD, delay: 5000, response: '@addToCart', headers: {Accept: 'application/json', 'Content-Type': 'application/json'}}).as('getCartResponse');
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(500);
         cy.get(productSelectors.submitButton).click();
         cy.get(productSelectors.submitButtonText).should('have.class', VISUALLY_HIDDEN);
         cy.get(productSelectors.submitLoading).should('be.visible');
@@ -143,6 +164,8 @@ context('Product', () => {
         cy.server();
         cy.fixture('cart-add-normal.json').as('addToCart');
         cy.route({method: 'POST', url: CART_ENDPOINT.ADD, delay: 5000, status: 500, response: '', headers: {Accept: 'application/json', 'Content-Type': 'application/json'}}).as('getCartResponse');
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(500);
         cy.get(productSelectors.submitButton).click();
         cy.get(productSelectors.submitButtonText).should('have.class', VISUALLY_HIDDEN);
         cy.get(productSelectors.submitFailure).should('have.class', VISUALLY_HIDDEN);
@@ -155,12 +178,12 @@ context('Product', () => {
 
     describe('Populate correct data into product popup', () => {
       it('Product Popup show loading state before presenting data - NO STUB', () => {
-        cy.clock();
         cy.server();
         cy.route({method: 'POST', url: CART_ENDPOINT.ADD, status: 200, headers: {Accept: 'application/json', 'Content-Type': 'application/json'}}).as('getAddCartResponse');
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(500);
         cy.get(productSelectors.submitButton).click();
         cy.wait('@getAddCartResponse');
-        cy.tick(1000);
         cy.get(headerSelectors.productPopupContainer).find(productCardSelector.quantity).should('have.text', '1');
         cy.get(headerSelectors.productPopupContainer).find(productCardSelector.title).should('have.text', '2018 Autumn Women Hoodie Casual Long Sleeve Hooded Pullover Sweatshirts Hooded Female Jumper Women Tracksuits Sportswear Clothes - Pink / S');
         cy.get(headerSelectors.productPopupContainer)
@@ -168,15 +191,16 @@ context('Product', () => {
           .find('img')
           .then((imgElement) => {
             expect(imgElement[0].alt).to.equal('2018 Autumn Women Hoodie Casual Long Sleeve Hooded Pullover Sweatshirts Hooded Female Jumper Women Tracksuits Sportswear Clothes');
-            expect(imgElement[0].src).to.equal('https://cdn.shopify.com/s/files/1/0258/8436/0792/products/product-image-851304014.jpg?v=1569178286');
+            expect(imgElement[0].src).to.equal('https://cdn.shopify.com/s/files/1/0258/8436/0792/products/product-image-851304014_300x.jpg?v=1569178286');
           });
         cy.get(headerSelectors.productPopupContainer).find(productCardSelector.price).should('not.have.text', '');
       });
 
       it.only('Change product variant before adding to cart - NO STUB', () => {
-        cy.clock();
         cy.server();
         cy.route({method: 'POST', url: CART_ENDPOINT.ADD, status: 200, headers: {Accept: 'application/json', 'Content-Type': 'application/json'}}).as('getAddCartResponse');
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(500);
         cy.get(productSelectors.submitButton).click();
         cy.wait('@getAddCartResponse');
         cy.get(PRODUCT_FORM_CLASS)
@@ -190,12 +214,10 @@ context('Product', () => {
         cy.wait('@getAddCartResponse');
         cy.get(headerSelectors.productPopupContainer).find(productCardSelector.quantity).should('have.text', '1');
         cy.get(headerSelectors.productPopupContainer).find(productCardSelector.title).should('have.text', '2018 Autumn Women Hoodie Casual Long Sleeve Hooded Pullover Sweatshirts Hooded Female Jumper Women Tracksuits Sportswear Clothes - Black / M');
-        cy.tick(5000);
         cy.get(headerSelectors.productPopupContainer)
           .find(productCardSelector.image)
           .find('img')
           .then((imgElement) => {
-            console.log(imgElement);
             expect(imgElement[0].alt).to.equal('2018 Autumn Women Hoodie Casual Long Sleeve Hooded Pullover Sweatshirts Hooded Female Jumper Women Tracksuits Sportswear Clothes');
             expect(imgElement[0].dataset.src).to.equal('//cdn.shopify.com/s/files/1/0258/8436/0792/products/product-image-851304013.jpg?v=1569178289');
           });
