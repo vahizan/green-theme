@@ -26,6 +26,8 @@ context('Product Card', () => {
     const multiVariantProductId = '30272972423256';
     clickPositions.forEach((position) => {
       it(`Click on button at position: '${position}' should load link`, () => {
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(500);
         cy.get(`[data-product-id=${multiVariantProductId}]`).find(productSelectors.submitButton)
           .click();
         cy.location().should((location) => {
@@ -90,6 +92,8 @@ context('Product Card', () => {
       const productId = '30272972423256';
       cy.get(`[data-product-id=${productId}]`).find(productSelectors.submitButtonUrl)
         .should('have.class', VISUALLY_HIDDEN);
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(500);
       cy.get(`[data-product-id=${productId}]`).find(productSelectors.submitButton)
         .click();
       cy.location().should((location) => {
