@@ -12,15 +12,13 @@ import {ANIMATION_CLASSES, VISUALLY_HIDDEN} from '../../../src/scripts/utils/mai
 
 context('Product', () => {
   const url = Cypress.env('SHOPIFY_URL') || href();
-  const productUrl = `${url}/products/2018-autumn-women-hoodie-casual-long-sleeve-hooded-pullover-sweatshirts-hooded-female-jumper-women-tracksuits-sportswear-clothes`;
-  beforeEach(() => {
-    cy.visit(productUrl);
-  });
 
-  describe('CTA Submit - Cart Add AJAX', () => {
-    it('No page refresh on single variant product page', () => {
+  describe('CTA Submit - Cart Add AJAX - Product with no variants', () => {
+    beforeEach(() => {
       const singleVariantUrl = `${url}/products/chinese-retro-style-fisherman-hat-bamboo-rattan-36cm-dia-handmade-weave-straw-hat-tourism-rain-cap-dance-props-cone-sunshade-hat`;
       cy.visit(singleVariantUrl);
+    });
+    it.only('No page refresh on single variant product page', () => {
       cy.get(productSelectors.submitButton).click();
 
       cy.location().should((location) => {
@@ -32,7 +30,12 @@ context('Product', () => {
           .eq('/cart');
       });
     });
-
+  });
+  describe('CTA Submit - Cart Add AJAX', () => {
+    beforeEach(() => {
+      const productUrl = `${url}/products/2018-autumn-women-hoodie-casual-long-sleeve-hooded-pullover-sweatshirts-hooded-female-jumper-women-tracksuits-sportswear-clothes`;
+      cy.visit(productUrl);
+    });
     it('No page refresh', () => {
       cy.get(productSelectors.submitButton).click();
       cy.location().should((location) => {
