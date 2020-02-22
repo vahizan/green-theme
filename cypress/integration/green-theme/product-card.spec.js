@@ -21,7 +21,7 @@ context('Product Card', () => {
     });
   });
 
-  describe.skip('Product Card Button Click', () => {
+  describe('Product Card Button Click', () => {
     const singleVariantProductId = '30272967802968';
     const multiVariantProductId = '30272972423256';
     clickPositions.forEach((position) => {
@@ -33,7 +33,7 @@ context('Product Card', () => {
           expect(location.hash).to.be.empty;
           expect(location.href)
             .to
-            .eq(`${url}/products/2018-autumn-women-hoodie-casual-long-sleeve-hooded-pullover-sweatshirts-hooded-female-jumper-women-tracksuits-sportswear-clothes`);
+            .contain(`${url}/products/2018-autumn-women-hoodie-casual-long-sleeve-hooded-pullover-sweatshirts-hooded-female-jumper-women-tracksuits-sportswear-clothes`);
         });
       });
 
@@ -97,11 +97,11 @@ context('Product Card', () => {
         expect(location.hash).to.be.empty;
         expect(location.href)
           .to
-          .eq(`${url}/products/2018-autumn-women-hoodie-casual-long-sleeve-hooded-pullover-sweatshirts-hooded-female-jumper-women-tracksuits-sportswear-clothes`);
+          .contain(`${url}/products/2018-autumn-women-hoodie-casual-long-sleeve-hooded-pullover-sweatshirts-hooded-female-jumper-women-tracksuits-sportswear-clothes`);
       });
     });
 
-    it.only('Adding product should show popup with image', () => {
+    it('Adding product should show popup with image', () => {
       const productId = '30272967802968';
       cy.server();
       cy.fixture('cart-add-normal.json')

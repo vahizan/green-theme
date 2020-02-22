@@ -51,7 +51,7 @@
     "jest": "jest --watchAll=false",
     "jest:watch": "jest --watch",
     "cypress": "cypress run",
-    "cypress:open": "cypress open --port=8888",
+    "cypress:open-dev": "cypress open --port=8888",
     "cypress:openWithUpdateSnapshots": "cypress open --env updateSnapshots=true --port=8888",
     "watch:dev": "slate-tools start --skipFirstDeploy --env=development",
     "watch:prod": "slate-tools start --skipFirstDeploy",
