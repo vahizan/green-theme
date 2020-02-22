@@ -196,7 +196,7 @@ context('Product', () => {
         cy.get(headerSelectors.productPopupContainer).find(productCardSelector.price).should('not.have.text', '');
       });
 
-      it.only('Change product variant before adding to cart - NO STUB', () => {
+      it('Change product variant before adding to cart - NO STUB', () => {
         cy.server();
         cy.route({method: 'POST', url: CART_ENDPOINT.ADD, status: 200, headers: {Accept: 'application/json', 'Content-Type': 'application/json'}}).as('getAddCartResponse');
         // eslint-disable-next-line cypress/no-unnecessary-waiting

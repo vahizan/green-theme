@@ -21,7 +21,7 @@ context('Product Card', () => {
     });
   });
 
-  describe.skip('Product Card Button Click', () => {
+  describe('Product Card Button Click', () => {
     const singleVariantProductId = '30272967802968';
     const multiVariantProductId = '30272972423256';
     clickPositions.forEach((position) => {
@@ -101,7 +101,7 @@ context('Product Card', () => {
       });
     });
 
-    it.only('Adding product should show popup with image', () => {
+    it('Adding product should show popup with image', () => {
       const productId = '30272967802968';
       cy.server();
       cy.fixture('cart-add-normal.json')
