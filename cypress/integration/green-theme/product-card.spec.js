@@ -26,8 +26,6 @@ context('Product Card', () => {
     const multiVariantProductId = '30272972423256';
     clickPositions.forEach((position) => {
       it(`Click on button at position: '${position}' should load link`, () => {
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(500);
         cy.get(`[data-product-id=${multiVariantProductId}]`).find(productSelectors.submitButton)
           .click();
         cy.location().should((location) => {
@@ -35,7 +33,7 @@ context('Product Card', () => {
           expect(location.hash).to.be.empty;
           expect(location.href)
             .to
-            .eq(`${url}/products/2018-autumn-women-hoodie-casual-long-sleeve-hooded-pullover-sweatshirts-hooded-female-jumper-women-tracksuits-sportswear-clothes`);
+            .contain(`${url}/products/2018-autumn-women-hoodie-casual-long-sleeve-hooded-pullover-sweatshirts-hooded-female-jumper-women-tracksuits-sportswear-clothes`);
         });
       });
 
@@ -92,8 +90,6 @@ context('Product Card', () => {
       const productId = '30272972423256';
       cy.get(`[data-product-id=${productId}]`).find(productSelectors.submitButtonUrl)
         .should('have.class', VISUALLY_HIDDEN);
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(500);
       cy.get(`[data-product-id=${productId}]`).find(productSelectors.submitButton)
         .click();
       cy.location().should((location) => {
@@ -101,7 +97,7 @@ context('Product Card', () => {
         expect(location.hash).to.be.empty;
         expect(location.href)
           .to
-          .eq(`${url}/products/2018-autumn-women-hoodie-casual-long-sleeve-hooded-pullover-sweatshirts-hooded-female-jumper-women-tracksuits-sportswear-clothes`);
+          .contain(`${url}/products/2018-autumn-women-hoodie-casual-long-sleeve-hooded-pullover-sweatshirts-hooded-female-jumper-women-tracksuits-sportswear-clothes`);
       });
     });
 
