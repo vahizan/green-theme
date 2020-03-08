@@ -8,6 +8,7 @@ import '../sections/header';
 import '../sections/modal';
 import '../sections/search-module';
 import '../sections/product-card';
+import '../sections/image-carousel';
 
 import * as Sentry from '@sentry/browser';
 import {load} from '@shopify/theme-sections';
@@ -26,7 +27,7 @@ Sentry.init({
 });
 
 // loading section specific javascript code
-load(['header', 'modal', 'search-module', 'product-card']);
+load(['header', 'modal', 'search-module', 'product-card', 'image-carousel']);
 
 
 // Common a11y fixes

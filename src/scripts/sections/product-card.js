@@ -15,34 +15,42 @@ import {
   loadingAnimationProcessor,
   updateProductCountText,
   VISUALLY_HIDDEN,
+  WEB_HIDDEN,
 } from '../utils/main_utils';
 import {loadLatestCartItem} from './product-card-popup';
 
 const $ = require('jquery');
 
-const productIdSelector = 'data-product-id';
 const viewProductTranslation = theme.strings.viewProduct;
 const addToCartTranslation = theme.strings.addToCart;
 
 register('product-card', {
   onLoad() {
-    this.productId = ($(this.container).attr(productIdSelector));
+    this.productId = ($(this.container).attr(productCardSelector.idSelector));
+    this.ctaContainer = this.container.querySelector(productCardSelector.ctaContainer);
     this.productCardButton = $(this.container).find(productSelectors.submitButton)[0];
     this.addToCartButtonUrl = $(this.productCardButton).find(productSelectors.submitButtonUrl).attr('href');
+    this.toggleCTAButtonOnHover = this.toggleCTAButtonOnHover.bind(this);
     this.onAddToCartSubmit = this.onAddToCartSubmit.bind(this);
     this.productCardButton.addEventListener('click', this.onAddToCartSubmit);
+    this.container.addEventListener('mouseover', this.toggleCTAButtonOnHover);
+    this.container.addEventListener('mouseout', this.toggleCTAButtonOnHover);
   },
 
   onUnload() {
     this.productCardButton.removeEventListener('click', this.onAddToCartSubmit);
+    this.container.removeEventListener('mouseover', this.toggleCTAButtonOnHover);
+    this.container.removeEventListener('mouseout', this.toggleCTAButtonOnHover);
   },
 
+  toggleCTAButtonOnHover() {
+    $(this.ctaContainer).toggleClass(WEB_HIDDEN);
+  },
 
   _productVariantObject() {
     const title = $(this.container).find(productCardSelector.title)[0].innerText;
     const price = $(this.container).find(productCardSelector.priceNoFormat)[0].innerText;
     const imgSrc = this.container.querySelector(productCardSelector.image).getElementsByTagName('img')[0].currentSrc;
-
     return {
       name: title,
       // eslint-disable-next-line camelcase

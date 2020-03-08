@@ -7,6 +7,8 @@ const $ = require('jquery');
 
 export const VISUALLY_HIDDEN = 'visually-hidden';
 
+export const WEB_HIDDEN = 'web-hidden';
+
 export const ANIMATION_CLASSES = {
   SLIDE_DOWN_FADE: 'slide-down',
   SLIDE_UP_FADE: 'slide-up',

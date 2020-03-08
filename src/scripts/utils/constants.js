@@ -50,6 +50,11 @@ export const CART_ENDPOINT = {
   ADD: '/cart/add.js',
   CART: '/cart.js',
 };
+
+export const API_VERSION = '2020-01';
+
+export const PRODUCT_ENDPOINT = '/products';
+
 export const LAZYLOAD_PRODUCT_POPUP_IMAGE_SIZES = [180, 360, 540, 640];
 
 export const PRODUCT_FORM_CLASS = '.shopify-product-form';
@@ -105,15 +110,23 @@ export const cartSelectors = {
 
 export const productCardSelector = {
   sectionId: '[data-section-id=product-card]',
+  idSelector: 'data-product-card-id',
+  ctaContainer: '[data-product-card=cta-container]',
+  variantInfo: '[data-product-card=variant-info]',
+  variantCardImageCarousel: '[data-product-card=variant-card-image-carousel.liquid]',
   modal: '[data-modal-product-popup]',
-  title: '[data-product-title]',
-  quantity: '[data-product-quantity]',
-  price: '[data-product-price-container]',
-  priceNoFormat: '[data-product-price-container=noformat]',
-  variant: '[data-product-variant]',
-  properties: '[data-product-properties]',
-  vendor: '[data-product-vendor]',
-  image: '[data-product-image]',
+  title: '[data-product-card=title]',
+  quantity: '[data-product-card=quantity]',
+  price: '[data-product-card=price-container]',
+  priceNoFormat: '[data-product-card=price-container-noformat]',
+  variant: '[data-product-card=variant]',
+  properties: '[data-product-card=properties]',
+  vendor: '[data-product-card=vendor]',
+  image: '[data-product-card=image]',
+};
+
+export const imageCarouselDataset = {
+  IMAGE_CAROUSEL_HANDLE: 'imageCarouselHandle',
 };
 
 export const productCardPopupSelector = {

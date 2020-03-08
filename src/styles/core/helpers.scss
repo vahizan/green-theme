@@ -7,6 +7,16 @@
   color: $color-primary-label;
 }
 
+.web-hidden {
+  @include media-query($large) {
+    @include visually-hidden;
+  }
+  @include media-query($widescreen) {
+    @include visually-hidden;
+  }
+}
+
+
 .visually-hidden {
   @include visually-hidden;
 }
