@@ -53,6 +53,7 @@
     "cypress": "cypress run",
     "cypress:open-dev": "cypress open --port=8888",
     "cypress:open-prod": "yarn run cypress:open-dev --env SHOPIFY_URL=greenstore-dev.myshopify.com,SHOPIFY_THEME_ID=79212380248",
+    "cypressRun": "yarn run cypress --port=8888 --env updateSnapshots=true,SHOPIFY_URL=greenstore-dev.myshopify.com,SHOPIFY_THEME_ID=79212380248",
     "cypress:openWithUpdateSnapshots": "cypress open --env updateSnapshots=true --port=8888",
     "watch:dev": "slate-tools start --skipFirstDeploy --env=development",
     "watch:prod": "slate-tools start --skipFirstDeploy",

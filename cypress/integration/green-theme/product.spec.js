@@ -18,7 +18,7 @@ context('Product', () => {
       const singleVariantUrl = `${url}/products/chinese-retro-style-fisherman-hat-bamboo-rattan-36cm-dia-handmade-weave-straw-hat-tourism-rain-cap-dance-props-cone-sunshade-hat`;
       cy.visit(singleVariantUrl);
     });
-    it.only('No page refresh on single variant product page', () => {
+    it('No page refresh on single variant product page', () => {
       cy.get(productSelectors.submitButton).click();
 
       cy.location().should((location) => {

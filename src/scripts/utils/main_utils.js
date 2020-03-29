@@ -145,3 +145,31 @@ export const isOneOf = (constantsObject, value) => {
   }
   return false;
 };
+
+export const createResponsiveImg = (dataSrc, dataSrcSet, classNames) => {
+  if (!dataSrc || !dataSrcSet) {
+    return;
+  }
+  let $img = $('<img>');
+  $img.attr('data-src', dataSrc);
+  $img.attr('data-srcset', dataSrcSet);
+  $img.attr('class', classNames);
+  // eslint-disable-next-line consistent-return
+  return $img;
+};
+
+export const convertArrayToMap = (array) => {
+  if (!array) { return; }
+  const map = {};
+  array.map((item) => {
+    const count = map[item];
+    if (!count) {
+      // eslint-disable-next-line no-return-assign
+      return map[item] = 0;
+    }
+    // eslint-disable-next-line no-return-assign
+    return map[item] = count + 1;
+  });
+  // eslint-disable-next-line consistent-return
+  return map;
+};

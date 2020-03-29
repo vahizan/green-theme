@@ -28,23 +28,37 @@ register('product-card', {
   onLoad() {
     this.productId = ($(this.container).attr(productCardSelector.idSelector));
     this.ctaContainer = this.container.querySelector(productCardSelector.ctaContainer);
+    this.imageCarouselContainer = this.container.querySelector(productCardSelector.variantCardImageCarousel);
     this.productCardButton = $(this.container).find(productSelectors.submitButton)[0];
     this.addToCartButtonUrl = $(this.productCardButton).find(productSelectors.submitButtonUrl).attr('href');
     this.toggleCTAButtonOnHover = this.toggleCTAButtonOnHover.bind(this);
+    this.toggleImageCarouselOnHover = this.toggleImageCarouselOnHover.bind(this);
     this.onAddToCartSubmit = this.onAddToCartSubmit.bind(this);
     this.productCardButton.addEventListener('click', this.onAddToCartSubmit);
     this.container.addEventListener('mouseover', this.toggleCTAButtonOnHover);
+    this.container.addEventListener('mouseover', this.toggleImageCarouselOnHover);
     this.container.addEventListener('mouseout', this.toggleCTAButtonOnHover);
+    this.container.addEventListener('mouseout', this.toggleImageCarouselOnHover);
   },
 
   onUnload() {
     this.productCardButton.removeEventListener('click', this.onAddToCartSubmit);
     this.container.removeEventListener('mouseover', this.toggleCTAButtonOnHover);
+    this.container.removeEventListener('mouseover', this.toggleImageCarouselOnHover);
     this.container.removeEventListener('mouseout', this.toggleCTAButtonOnHover);
+    this.container.removeEventListener('mouseout', this.toggleImageCarouselOnHover);
+  },
+
+  _toggleViewOnHover(element) {
+    $(element).toggleClass(WEB_HIDDEN);
   },
 
   toggleCTAButtonOnHover() {
-    $(this.ctaContainer).toggleClass(WEB_HIDDEN);
+    this._toggleViewOnHover(this.ctaContainer);
+  },
+
+  toggleImageCarouselOnHover() {
+    this._toggleViewOnHover(this.imageCarouselContainer);
   },
 
   _productVariantObject() {

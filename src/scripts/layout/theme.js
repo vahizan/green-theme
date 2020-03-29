@@ -13,7 +13,6 @@ import '../sections/image-carousel';
 import * as Sentry from '@sentry/browser';
 import {load} from '@shopify/theme-sections';
 
-
 import '../../styles/theme.scss';
 import '../../styles/theme.scss.liquid';
 
@@ -28,7 +27,6 @@ Sentry.init({
 
 // loading section specific javascript code
 load(['header', 'modal', 'search-module', 'product-card', 'image-carousel']);
-
 
 // Common a11y fixes
 focusHash();

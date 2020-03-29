@@ -291,7 +291,14 @@
       "from_text_html": "De {{ price }}",
       "quantity": "Cantidad",
       "add_to_cart": "Agregar al carrito",
-      "view_product": "Ver el producto"
+      "view_product": "Ver el producto",
+      "variant_options_info": "Disponible en",
+      "variant_color": "{{ count }} Color",
+      "variant_color_plural": "{{ count }} Colores",
+      "variant_size": "{{ count }} Talla",
+      "variant_size_plural": "{{ count }} Tamaños",
+      "variant_other": "{{ count }} Variación",
+      "variant_other_plural": "{{ count }} Variaciones"
     }
   },
   "gift_cards": {

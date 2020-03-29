@@ -72,36 +72,44 @@
         {% if show_vender == 'true' %}<p data-product-card="vendor">{{ product.vendor }}</p> {% endif %}
     </div>
     {% unless is_popup == 'true' %}
-        {% unless product.has_only_default_variant %}
+        {% unless product.has_only_default_variant or product.available == false %}
             <div data-product-card="variant-info">
-                <div data-product-card="variant-info-color">
-                    {% assign index = 0 %}
-                    {% for product_option in product.options_with_values %}
-                    <label>
-                        {{ product_option.name }}
-                        <select>
-                            {% for value in product_option.values %}
-                            {% if index >= 9 %}
-                                {% break %}
-                            {% endif %}
-                            <option {% if product_option.selected_value == value %}selected{% endif %}>
-                                {{ value }}
-                            </option>
-                            {{index}}
-                            {% increment index %}
-                            {% endfor %}
-                        </select>
-                    </label>
+                {% unless product.options_with_values.size < 1 %}
+                    <label>{{ 'products.product.variant_options_info' | t }}</label>
+                {% endunless%}
+                {% for product_option in product.options_with_values %}
+                    {% assign productOption = product_option.name %}
+                    {% for value in product_option.values %}
+                         {% capture length %}{{ forloop.length }}{% endcapture %}
                     {% endfor %}
-                </div>
-                <div data-product-card="variant-info-size">
-
-                </div>
-                <div data-product-card="variant-info-other">
-
-                </div>
+                    {% if productOption contains 'Color' or productOption contains 'Colour' %}
+                            <label data-product-card="variant-info-color">
+                                {% if length == '1' %}
+                                     {{ 'products.product.variant_color' | t: count: length }}
+                                {% else %}
+                                    {{ 'products.product.variant_color_plural' | t: count: length }}
+                                {% endif %}
+                            </label>
+                    {% elsif productOption contains 'Size' %}
+                      <label data-product-card="variant-info-size">
+                          {% if length == '1' %}
+                             {{ 'products.product.variant_size' | t: count: length }}
+                          {% else %}
+                             {{ 'products.product.variant_size_plural' | t: count: length }}
+                          {% endif %}
+                      </label>
+                    {% else %}
+                      <label data-product-card="variant-info-other">
+                          {% if length == '1' %}
+                             {{ 'products.product.variant_other' | t: count: length }}
+                          {% else %}
+                             {{ 'products.product.variant_other_plural' | t: count: length }}
+                          {% endif %}
+                      </label>
+                    {% endif %}
+                {% endfor %}
             </div>
-            <div data-product-card="variant-card-image-carousel">
+            <div class="web-hidden" data-product-card="variant-card-image-carousel">
                 {% include 'image-carousel' current_handle: product.handle %}
             </div>
         {% endunless %}

@@ -12,7 +12,11 @@ import {register} from '@shopify/theme-sections';
 import {forceFocus} from '@shopify/theme-a11y';
 
 import {loadLatestCartItem} from './product-card-popup';
-import {CART_ENDPOINT, cartSelectors, productSelectors} from '../utils/constants';
+import {
+  CART_ENDPOINT,
+  cartSelectors,
+  productSelectors,
+} from '../utils/constants';
 import {
   LOADING_ANIMATION_CLASSES,
   loadingAnimationProcessor,
@@ -31,8 +35,8 @@ const keyboardKeys = {
 };
 
 const selectors = {
-  submitButton: '[data-submit-button=\'button\']',
-  submitButtonText: '[data-submit-button=\'text\']',
+  submitButton: "[data-submit-button='button']",
+  submitButtonText: "[data-submit-button='text']",
   comparePrice: '[data-compare-price]',
   comparePriceText: '[data-compare-text]',
   priceWrapper: '[data-price-wrapper]',
@@ -119,7 +123,9 @@ register('product', {
   // eslint-disable-next-line shopify/prefer-early-return
   _cartSubmitStateChange(dataset, readyState, status) {
     if (readyState === XMLHttpRequest.DONE && status === 200) {
-      const cartProductCountElement = document.querySelector(cartSelectors.cartItemCount);
+      const cartProductCountElement = document.querySelector(
+        cartSelectors.cartItemCount,
+      );
       updateProductCountText(cartProductCountElement, dataset.quantity);
       loadLatestCartItem(dataset.variant, dataset.quantity);
     }
@@ -163,7 +169,8 @@ register('product', {
     };
     const xhr = this._addToCartXHR();
     xhr.send(JSON.stringify(cartData));
-    xhr.onreadystatechange = () => this._cartSubmitStateChange(event.dataset, xhr.readyState, xhr.status);
+    xhr.onreadystatechange = () =>
+      this._cartSubmitStateChange(event.dataset, xhr.readyState, xhr.status);
   },
 
   renderSubmitButton(variant) {

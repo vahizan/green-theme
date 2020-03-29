@@ -12,13 +12,14 @@ import * as currency from '@shopify/theme-currency';
 import {
   CART_ENDPOINT,
   headerSelectors,
-  LAZYLOAD_PRODUCT_POPUP_IMAGE_SIZES,
+  LAZYLOAD_PRODUCT_IMAGE_SIZES,
   productCardPopupSelector,
   productCardSelector,
 } from '../utils/constants';
 import {
   ANIMATION_CLASSES, datasetSrc, generateImageDataset, removeImageSizeFromUrl, removeProtocol,
   VISUALLY_HIDDEN,
+  createResponsiveImg,
 } from '../utils/main_utils';
 
 const $ = require('jquery');
@@ -35,13 +36,6 @@ const _cartQueryXHR = () => {
   xhr.open('GET', CART_ENDPOINT.CART, true);
   xhr.timeout = 10000;
   return xhr;
-};
-const createResponsiveImg = (parentContainer, dataSrc, dataSrcSet, classNames) => {
-  let $img = $('<img>');
-  $img.attr('data-src', dataSrc);
-  $img.attr('data-srcset', dataSrcSet);
-  $img.attr('class', classNames);
-  $img.appendTo(parentContainer);
 };
 
 const _onCartQueryStateChange = (result, quantity, readyState, status) => {
@@ -62,7 +56,7 @@ const _onCartQueryStateChange = (result, quantity, readyState, status) => {
       let noImageSizePath = removeImageSizeFromUrl(result.featured_image.src);
       const srcNoImageSize = (noImageSizePath) ? noImageSizePath : result.featured_image.src;
       const srcNoProtocol = removeProtocol(srcNoImageSize);
-      const imageDataset = generateImageDataset(srcNoImageSize, LAZYLOAD_PRODUCT_POPUP_IMAGE_SIZES);
+      const imageDataset = generateImageDataset(srcNoImageSize, LAZYLOAD_PRODUCT_IMAGE_SIZES);
       const datasetSrcs = datasetSrc(imageDataset);
       if ($imgElement.length) {
         $($imgElement)
@@ -74,7 +68,8 @@ const _onCartQueryStateChange = (result, quantity, readyState, status) => {
         $($imgElement)
           .addClass('lazyload');
       } else {
-        createResponsiveImg(imageContainer, srcNoImageSize, datasetSrcs, 'lazyload');
+        const imageElement = createResponsiveImg(srcNoImageSize, datasetSrcs, 'lazyload');
+        $(imageElement).appendTo(imageContainer);
       }
     }
     _productCardPopup();
