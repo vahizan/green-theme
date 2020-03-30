@@ -92,6 +92,8 @@ context('Product Card', () => {
 
     it('When on default state and product has variants, show text to indicate that size and color variants available', () => {
       // e.g. 4 colours and 5 sizes
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(500);
       cy.get(`[data-product-card-id=${multiVariantProductId}]`)
         .find(productCardSelector.variantColorInfo)
         .should('be.visible');
@@ -101,6 +103,8 @@ context('Product Card', () => {
     });
 
     it('When on hover state, show different variants in a carousel, under main image', () => {
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(500);
       cy.get(`[data-product-card-id=${multiVariantProductId}]`)
         .find('[data-cy=web-hidden]')
         .should('exist');
@@ -126,6 +130,8 @@ context('Product Card', () => {
     });
 
     it('Given on hover state on a product with more than 3 variants Then only show first 3 variants', () => {
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(500);
       cy.get(`[data-product-card-id=${highVariantProductId}]`)
         .find('[data-cy=web-hidden]')
         .should('exist');
@@ -143,6 +149,8 @@ context('Product Card', () => {
       desktopSizes.forEach((size) => {
         it(`should hide Image Carousel on '${size}'`, () => {
           cy.setResolution(size);
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
+          cy.wait(500);
           cy.get(`[data-product-card-id=${multiVariantProductId}]`)
             .find(productCardSelector.variantCardImageCarousel)
             .should('have.class', WEB_HIDDEN);
@@ -151,6 +159,8 @@ context('Product Card', () => {
       mobileSizes.forEach((size) => {
         it(`should not hide Carousel on '${size}'`, () => {
           cy.setResolution(size);
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
+          cy.wait(500);
           cy.get(`[data-product-card-id=${multiVariantProductId}]`)
             .find(productCardSelector.variantCardImageCarousel)
             .should('be.visible');
@@ -159,6 +169,8 @@ context('Product Card', () => {
       tabletSizes.forEach((size) => {
         it(`should not hide image carousel CTA on '${size}'`, () => {
           cy.setResolution(size);
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
+          cy.wait(500);
           cy.get(`[data-product-card-id=${multiVariantProductId}]`)
             .find(productCardSelector.variantCardImageCarousel)
             .should('be.visible');
