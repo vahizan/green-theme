@@ -99,6 +99,16 @@ register('image-carousel', {
     );
   },
 
+  _limitArraySize(array, size) {
+    const limitArr = [];
+    let i = 0;
+    while (i < size) {
+      limitArr.push(array[i]);
+      i++;
+    }
+    return limitArr;
+  },
+
   populateCarousel(responseText) {
     const response = JSON.parse(responseText);
     if (!(response && response.product)) {
@@ -118,7 +128,9 @@ register('image-carousel', {
     );
     // create a lazy image object
     const imageElements = this._createImageElementArray(validMetadataArray);
-    this._appendImageArrayToContainer(this.container, imageElements);
+    // limit array size to 3
+    const finalImageElements = this._limitArraySize(imageElements, 3);
+    this._appendImageArrayToContainer(this.container, finalImageElements);
   },
 
   _getProductXHR() {

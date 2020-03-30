@@ -1,18 +1,18 @@
 .image-carousel {
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   padding: 5px;
 
-
-  &__row {
-    display: flex;
-    justify-content: center;
+  @include media-query($medium) {
+    flex-direction: row;
   }
 
-  &__image-block {
+  img {
+    width: 100px;
+    height: 100px;
     padding: 5px;
-    border: 1px solid black;
   }
 }
 

@@ -7,8 +7,9 @@
                     product: product,
                     max_width: 600,
                     max_height: 600,
-                    show_qty: 'true',
-                    show_price: 'true',
+                    show_qty: true,
+                    show_price: true,
+                    show_variant_tile: section.settings.show_variant_tile
                     product_colurl: product.url | within: collection
                     hide_cta: section.settings.hide_cta
                 %}
@@ -73,7 +74,7 @@
         "id": "show_variant_tile",
         "label": "Show Variant Carousel on Hover",
         "info": "Show options and information when customer hovers over the product card with variations",
-        "default": true
+        "default": false
     }
     ]
 }

@@ -30,7 +30,10 @@ describe('Header', () => {
         desktopTabletSizes.forEach((size) => {
           it(`nav opener link visible and burger menu hidden - '${size}' resolution`, () => {
             cy.setResolution(size);
-            cy.get(headerSelectors.burgerMenuContainer).should('have.class', VISUALLY_HIDDEN);
+            cy.get(headerSelectors.burgerMenuContainer).should(
+              'have.class',
+              VISUALLY_HIDDEN,
+            );
             cy.get(headerSelectors.navOpenerLink).should('be.visible');
           });
         });
@@ -41,16 +44,25 @@ describe('Header', () => {
             cy.setResolution(size);
             cy.get(headerSelectors.burgerMenu).should('be.visible');
             cy.get(headerSelectors.navOpenerLink).should('not.be.visible');
-            cy.get(headerSelectors.navigationContent).should('have.class', VISUALLY_HIDDEN);
+            cy.get(headerSelectors.navigationContent).should(
+              'have.class',
+              VISUALLY_HIDDEN,
+            );
             cy.get(headerSelectors.burgerMenu).click();
             cy.get(headerSelectors.burgerMenu).should('not.be.visible');
             cy.get(headerSelectors.burgerCloseMenu).should('be.visible');
-            cy.get(headerSelectors.navigationContent).should('not.have.class', VISUALLY_HIDDEN);
+            cy.get(headerSelectors.navigationContent).should(
+              'not.have.class',
+              VISUALLY_HIDDEN,
+            );
             cy.get(navigationSelectors.sectionId).should('be.visible');
             cy.get(headerSelectors.burgerCloseMenu).click();
             cy.get(headerSelectors.burgerMenu).should('be.visible');
             cy.get(headerSelectors.navOpenerLink).should('not.be.visible');
-            cy.get(headerSelectors.navigationContent).should('have.class', VISUALLY_HIDDEN);
+            cy.get(headerSelectors.navigationContent).should(
+              'have.class',
+              VISUALLY_HIDDEN,
+            );
           });
         });
       });
@@ -67,7 +79,10 @@ describe('Header', () => {
           it(`click - on main parent nav link for navigation menu appear '${size}' resolution`, () => {
             cy.setResolution(size);
             cy.get(headerSelectors.burgerCloseMenu).should('not.be.visible');
-            cy.get(headerSelectors.navigationContent).should('have.class', VISUALLY_HIDDEN);
+            cy.get(headerSelectors.navigationContent).should(
+              'have.class',
+              VISUALLY_HIDDEN,
+            );
             cy.get(headerSelectors.navOpenerLink).click();
             cy.get(headerSelectors.navigationContent).should('to.be.visible');
           });
@@ -76,28 +91,51 @@ describe('Header', () => {
         desktopSizes.forEach((size) => {
           it(`mouseenter - on main parent nav link for navigation menu appear' ${size}' resolution`, () => {
             cy.setResolution(size);
-            cy.get(headerSelectors.navigationContent).should('have.class', VISUALLY_HIDDEN);
+            cy.get(headerSelectors.navigationContent).should(
+              'have.class',
+              VISUALLY_HIDDEN,
+            );
             cy.get(headerSelectors.navOpenerLink).trigger('mouseenter');
-            cy.get(headerSelectors.navigationContent).should('not.have.class', VISUALLY_HIDDEN);
+            cy.get(headerSelectors.navigationContent).should(
+              'not.have.class',
+              VISUALLY_HIDDEN,
+            );
           });
 
           it(`main navlink mouseleave - hide nav menu only if mouse doesnt enter it - '${size}' resolution`, () => {
             cy.setResolution(size);
-            cy.get(headerSelectors.navigationContent).should('have.class', VISUALLY_HIDDEN);
+            cy.get(headerSelectors.navigationContent).should(
+              'have.class',
+              VISUALLY_HIDDEN,
+            );
             cy.get(headerSelectors.navOpenerLink).trigger('mouseenter');
-            cy.get(headerSelectors.navigationContent).should('not.have.class', VISUALLY_HIDDEN);
+            cy.get(headerSelectors.navigationContent).should(
+              'not.have.class',
+              VISUALLY_HIDDEN,
+            );
             cy.get(headerSelectors.navigationContent).trigger('mouseenter');
-            cy.get(headerSelectors.navigationContent).should('not.have.class', VISUALLY_HIDDEN);
+            cy.get(headerSelectors.navigationContent).should(
+              'not.have.class',
+              VISUALLY_HIDDEN,
+            );
             cy.get(headerSelectors.navOpenerLink).trigger('mouseenter');
-            cy.get(headerSelectors.navigationContent).should('not.have.class', VISUALLY_HIDDEN);
+            cy.get(headerSelectors.navigationContent).should(
+              'not.have.class',
+              VISUALLY_HIDDEN,
+            );
             cy.get(headerSelectors.navOpenerLink).trigger('mouseleave');
-            cy.get(headerSelectors.navigationContent).should('not.have.class', VISUALLY_HIDDEN);
+            cy.get(headerSelectors.navigationContent).should(
+              'not.have.class',
+              VISUALLY_HIDDEN,
+            );
             cy.get(headerSelectors.navigationContent).trigger('mouseleave');
-            cy.get(headerSelectors.navigationContent).should('have.class', VISUALLY_HIDDEN);
+            cy.get(headerSelectors.navigationContent).should(
+              'have.class',
+              VISUALLY_HIDDEN,
+            );
           });
         });
       });
     });
   });
 });
-

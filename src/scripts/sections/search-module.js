@@ -24,5 +24,4 @@ register('search-module', {
   onSearchButtonClick(event) {
     console.log(event);
   },
-
 });

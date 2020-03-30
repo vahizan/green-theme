@@ -9,7 +9,12 @@
 import {register} from '@shopify/theme-sections';
 // import {forceFocus} from '@shopify/theme-a11y';
 
-import {CART_ENDPOINT, cartSelectors, productCardSelector, productSelectors} from '../utils/constants';
+import {
+  CART_ENDPOINT,
+  cartSelectors,
+  productCardSelector,
+  productSelectors,
+} from '../utils/constants';
 import {
   LOADING_ANIMATION_CLASSES,
   loadingAnimationProcessor,
@@ -26,27 +31,49 @@ const addToCartTranslation = theme.strings.addToCart;
 
 register('product-card', {
   onLoad() {
-    this.productId = ($(this.container).attr(productCardSelector.idSelector));
-    this.ctaContainer = this.container.querySelector(productCardSelector.ctaContainer);
-    this.imageCarouselContainer = this.container.querySelector(productCardSelector.variantCardImageCarousel);
-    this.productCardButton = $(this.container).find(productSelectors.submitButton)[0];
-    this.addToCartButtonUrl = $(this.productCardButton).find(productSelectors.submitButtonUrl).attr('href');
+    this.productId = $(this.container).attr(productCardSelector.idSelector);
+    this.ctaContainer = this.container.querySelector(
+      productCardSelector.ctaContainer,
+    );
+    this.imageCarouselContainer = this.container.querySelector(
+      productCardSelector.variantCardImageCarousel,
+    );
+    this.productCardButton = $(this.container).find(
+      productSelectors.submitButton,
+    )[0];
+    this.addToCartButtonUrl = $(this.productCardButton)
+      .find(productSelectors.submitButtonUrl)
+      .attr('href');
     this.toggleCTAButtonOnHover = this.toggleCTAButtonOnHover.bind(this);
-    this.toggleImageCarouselOnHover = this.toggleImageCarouselOnHover.bind(this);
+    this.toggleImageCarouselOnHover = this.toggleImageCarouselOnHover.bind(
+      this,
+    );
     this.onAddToCartSubmit = this.onAddToCartSubmit.bind(this);
     this.productCardButton.addEventListener('click', this.onAddToCartSubmit);
     this.container.addEventListener('mouseover', this.toggleCTAButtonOnHover);
-    this.container.addEventListener('mouseover', this.toggleImageCarouselOnHover);
+    this.container.addEventListener(
+      'mouseover',
+      this.toggleImageCarouselOnHover,
+    );
     this.container.addEventListener('mouseout', this.toggleCTAButtonOnHover);
-    this.container.addEventListener('mouseout', this.toggleImageCarouselOnHover);
+    this.container.addEventListener(
+      'mouseout',
+      this.toggleImageCarouselOnHover,
+    );
   },
 
   onUnload() {
     this.productCardButton.removeEventListener('click', this.onAddToCartSubmit);
-    this.container.removeEventListener('mouseover', this.toggleCTAButtonOnHover);
-    this.container.removeEventListener('mouseover', this.toggleImageCarouselOnHover);
+    this.container.removeEventListener(
+      'mouseover',
+      this.toggleCTAButtonOnHover,
+    );
+    this.container.removeEventListener(
+      'mouseover',
+      this.toggleImageCarouselOnHover,
+    );
     this.container.removeEventListener('mouseout', this.toggleCTAButtonOnHover);
-    this.container.removeEventListener('mouseout', this.toggleImageCarouselOnHover);
+    this.container.removeEventListener('mouseout', this.toggleCTAButtonOnHover);
   },
 
   _toggleViewOnHover(element) {
@@ -62,9 +89,13 @@ register('product-card', {
   },
 
   _productVariantObject() {
-    const title = $(this.container).find(productCardSelector.title)[0].innerText;
-    const price = $(this.container).find(productCardSelector.priceNoFormat)[0].innerText;
-    const imgSrc = this.container.querySelector(productCardSelector.image).getElementsByTagName('img')[0].currentSrc;
+    const title = $(this.container).find(productCardSelector.title)[0]
+      .innerText;
+    const price = $(this.container).find(productCardSelector.priceNoFormat)[0]
+      .innerText;
+    const imgSrc = this.container
+      .querySelector(productCardSelector.image)
+      .getElementsByTagName('img')[0].currentSrc;
     return {
       name: title,
       // eslint-disable-next-line camelcase
@@ -75,30 +106,46 @@ register('product-card', {
     };
   },
 
-
   // eslint-disable-next-line shopify/prefer-early-return
   _cartSubmitStateChange(readyState, status) {
     if (readyState === XMLHttpRequest.DONE && status === 200) {
-      const cartProductCountElement = document.querySelector(cartSelectors.cartItemCount);
+      const cartProductCountElement = document.querySelector(
+        cartSelectors.cartItemCount,
+      );
       updateProductCountText(cartProductCountElement, 1);
       loadLatestCartItem(this._productVariantObject(), 1);
     }
   },
 
   _onAddToCartLoadStart(button) {
-    $(button).find(productSelectors.submitButtonText).addClass(VISUALLY_HIDDEN);
-    loadingAnimationProcessor(LOADING_ANIMATION_CLASSES.LOADING_PULSE_ON, button);
+    $(button)
+      .find(productSelectors.submitButtonText)
+      .addClass(VISUALLY_HIDDEN);
+    loadingAnimationProcessor(
+      LOADING_ANIMATION_CLASSES.LOADING_PULSE_ON,
+      button,
+    );
   },
   _onAddToCartLoadEnd(event, button) {
     const status = event.currentTarget.status;
     const readyState = event.currentTarget.readyState;
     if (status !== 200 && readyState === 4) {
-      $(button).find(productSelectors.submitButtonText).addClass(VISUALLY_HIDDEN);
-      loadingAnimationProcessor(LOADING_ANIMATION_CLASSES.NETWORK_ERROR, button);
+      $(button)
+        .find(productSelectors.submitButtonText)
+        .addClass(VISUALLY_HIDDEN);
+      loadingAnimationProcessor(
+        LOADING_ANIMATION_CLASSES.NETWORK_ERROR,
+        button,
+      );
       return;
     }
-    loadingAnimationProcessor(LOADING_ANIMATION_CLASSES.LOADING_PULSE_OFF, button);
-    $(button).find(productSelectors.submitButtonText).removeClass(VISUALLY_HIDDEN);
+    loadingAnimationProcessor(
+      LOADING_ANIMATION_CLASSES.LOADING_PULSE_OFF,
+      button,
+    );
+    $(button)
+      .find(productSelectors.submitButtonText)
+      .removeClass(VISUALLY_HIDDEN);
   },
 
   _addToCartXHR() {
@@ -108,7 +155,8 @@ register('product-card', {
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.timeout = 10000;
     xhr.onloadstart = () => this._onAddToCartLoadStart(this.productCardButton);
-    xhr.onloadend = (event) => this._onAddToCartLoadEnd(event, this.productCardButton);
+    xhr.onloadend = (event) =>
+      this._onAddToCartLoadEnd(event, this.productCardButton);
     return xhr;
   },
 
@@ -119,7 +167,8 @@ register('product-card', {
     };
     const xhr = this._addToCartXHR();
     xhr.send(JSON.stringify(cartData));
-    xhr.onreadystatechange = () => this._cartSubmitStateChange(xhr.readyState, xhr.status);
+    xhr.onreadystatechange = () =>
+      this._cartSubmitStateChange(xhr.readyState, xhr.status);
   },
 
   _openLink(url) {
@@ -127,8 +176,12 @@ register('product-card', {
   },
 
   _handleButtonClick(event) {
-    const submitButtonText = event.target.querySelector(productSelectors.submitButtonText);
-    switch ((submitButtonText && submitButtonText.innerText) || event.target.innerText) {
+    const submitButtonText = event.target.querySelector(
+      productSelectors.submitButtonText,
+    );
+    switch (
+      (submitButtonText && submitButtonText.innerText) || event.target.innerText
+    ) {
       case viewProductTranslation:
         this._openLink(this.addToCartButtonUrl);
         break;

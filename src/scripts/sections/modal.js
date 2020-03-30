@@ -22,14 +22,21 @@ register('modal', {
       return;
     }
     event.preventDefault();
-    if ($(this.container.parentNode).hasClass(ANIMATION_CLASSES.SLIDE_DOWN_FADE)) {
-      $(this.container.parentNode).removeClass(ANIMATION_CLASSES.SLIDE_DOWN_FADE);
+    if (
+      $(this.container.parentNode).hasClass(ANIMATION_CLASSES.SLIDE_DOWN_FADE)
+    ) {
+      $(this.container.parentNode).removeClass(
+        ANIMATION_CLASSES.SLIDE_DOWN_FADE,
+      );
       $(this.container.parentNode).addClass(ANIMATION_CLASSES.SLIDE_UP_FADE);
-    } else if ($(this.container.parentNode).hasClass(ANIMATION_CLASSES.SLIDE_UP_FADE)) {
+    } else if (
+      $(this.container.parentNode).hasClass(ANIMATION_CLASSES.SLIDE_UP_FADE)
+    ) {
       $(this.container.parentNode).removeClass(ANIMATION_CLASSES.SLIDE_UP_FADE);
-      $(this.container.parentNode).removeClass(ANIMATION_CLASSES.SLIDE_DOWN_FADE);
+      $(this.container.parentNode).removeClass(
+        ANIMATION_CLASSES.SLIDE_DOWN_FADE,
+      );
     }
     toggleVisibility(this.container.parentNode);
   },
-
 });

@@ -2,8 +2,10 @@
   display: flex;
   min-height: 40px;
   justify-content: center;
+  width: 300px;
   @include media-query($small) {
     flex-basis: 70%;
+    width: 250px;
   }
 
   &--button-failure {

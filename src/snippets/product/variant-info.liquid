@@ -1,0 +1,36 @@
+<div data-variant-info class="variant-info">
+    {% unless product.options_with_values.size < 1 %}
+    <label>{{ 'products.product.variant_options_info' | t }}</label>
+    {% endunless%}
+    {% for product_option in product.options_with_values %}
+    {% assign productOption = product_option.name %}
+    {% for value in product_option.values %}
+    {% capture length %}{{ forloop.length }}{% endcapture %}
+    {% endfor %}
+    {% if productOption contains 'Color' or productOption contains 'Colour' %}
+    <label data-product-card="variant-info-color">
+        {% if length == '1' %}
+        {{ 'products.product.variant_color' | t: count: length }}
+        {% else %}
+        {{ 'products.product.variant_color_plural' | t: count: length }}
+        {% endif %}
+    </label>
+    {% elsif productOption contains 'Size' %}
+    <label data-product-card="variant-info-size">
+        {% if length == '1' %}
+        {{ 'products.product.variant_size' | t: count: length }}
+        {% else %}
+        {{ 'products.product.variant_size_plural' | t: count: length }}
+        {% endif %}
+    </label>
+    {% else %}
+    <label data-product-card="variant-info-other">
+        {% if length == '1' %}
+        {{ 'products.product.variant_other' | t: count: length }}
+        {% else %}
+        {{ 'products.product.variant_other_plural' | t: count: length }}
+        {% endif %}
+    </label>
+    {% endif %}
+    {% endfor %}
+</div>

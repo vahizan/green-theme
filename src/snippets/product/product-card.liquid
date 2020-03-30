@@ -7,9 +7,8 @@
     {%- assign product_card_type = 'product-card-popup' -%}
 {% endif %}
 <div data-product-card-id="{{current_variant.id}}" data-section-id="{{product_card_type}}" data-section-type="{{product_card_type}}" class="{{product_card_class}}">
-    {% if show_qty == 'true' %}<div data-product-quantity class="{{product_card_class}}__quantity">{{ product.quantity}}</div>{% endif %}
-    {% if show_variant == 'true' %}<div data-product-variant class="{{product_card_class}}__variant">{{ product.quantity}}</div>{% endif %}
-    {% if show_properties == 'true' %}<div data-product-properties class="{{product_card_class}}__properties">{{ product.quantity}}</div>{% endif %}
+    {% if show_qty == true %}<div data-product-quantity class="{{product_card_class}}__quantity">{{ product.quantity}}</div>{% endif %}
+    {% if show_properties == true %}<div data-product-properties class="{{product_card_class}}__properties">{{ product.quantity}}</div>{% endif %}
     {% if featured_image != blank %}
         {% if current_variant.compare_at_price > current_variant.price %}
         {% unless current_variant.price_varies %}
@@ -57,8 +56,9 @@
         {% else %}
             <a href="{{product_colurl}}" data-product-card="title" class="{{product_card_class}}__title">{{ product.title }}</a>
         {% endif %}
+        {% if show_qty == true %}<div data-product-card="quantity" class="{{product_card_class}}__quantity"></div>{% endif %}
 
-        {% if show_price == 'true' %}
+        {% if show_price == true %}
             <div data-product-card="price-container">
                 {% include 'price' product_price: product.price, compare_at_price: product.compare_at_price, price_varies: product.price_varies %}
             </div>
@@ -69,45 +69,12 @@
     <!--            {{ 'products.product.sold_out' | t }}-->
     <!--        {% endunless %}-->
         {% endif %}
-        {% if show_vender == 'true' %}<p data-product-card="vendor">{{ product.vendor }}</p> {% endif %}
+        {% if show_vender == true %}<p data-product-card="vendor">{{ product.vendor }}</p> {% endif %}
     </div>
     {% unless is_popup == 'true' %}
-        {% unless product.has_only_default_variant or product.available == false %}
+        {% unless product.has_only_default_variant or product.available == false or show_variant_tile == false %}
             <div data-product-card="variant-info">
-                {% unless product.options_with_values.size < 1 %}
-                    <label>{{ 'products.product.variant_options_info' | t }}</label>
-                {% endunless%}
-                {% for product_option in product.options_with_values %}
-                    {% assign productOption = product_option.name %}
-                    {% for value in product_option.values %}
-                         {% capture length %}{{ forloop.length }}{% endcapture %}
-                    {% endfor %}
-                    {% if productOption contains 'Color' or productOption contains 'Colour' %}
-                            <label data-product-card="variant-info-color">
-                                {% if length == '1' %}
-                                     {{ 'products.product.variant_color' | t: count: length }}
-                                {% else %}
-                                    {{ 'products.product.variant_color_plural' | t: count: length }}
-                                {% endif %}
-                            </label>
-                    {% elsif productOption contains 'Size' %}
-                      <label data-product-card="variant-info-size">
-                          {% if length == '1' %}
-                             {{ 'products.product.variant_size' | t: count: length }}
-                          {% else %}
-                             {{ 'products.product.variant_size_plural' | t: count: length }}
-                          {% endif %}
-                      </label>
-                    {% else %}
-                      <label data-product-card="variant-info-other">
-                          {% if length == '1' %}
-                             {{ 'products.product.variant_other' | t: count: length }}
-                          {% else %}
-                             {{ 'products.product.variant_other_plural' | t: count: length }}
-                          {% endif %}
-                      </label>
-                    {% endif %}
-                {% endfor %}
+                {% include 'variant-info' %}
             </div>
             <div class="web-hidden" data-product-card="variant-card-image-carousel">
                 {% include 'image-carousel' current_handle: product.handle %}

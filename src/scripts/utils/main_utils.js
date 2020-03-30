@@ -41,8 +41,12 @@ export const DISPLAY_VALUES = {
 
 const animationPulseOn = (element) => {
   if (element) {
-    $(element).find(productSelectors.submitFailure).addClass(VISUALLY_HIDDEN);
-    $(element).find(productSelectors.submitLoading).css('display', DISPLAY_VALUES.BLOCK);
+    $(element)
+      .find(productSelectors.submitFailure)
+      .addClass(VISUALLY_HIDDEN);
+    $(element)
+      .find(productSelectors.submitLoading)
+      .css('display', DISPLAY_VALUES.BLOCK);
     return;
   }
   $(productSelectors.submitFailure).addClass(VISUALLY_HIDDEN);
@@ -50,8 +54,12 @@ const animationPulseOn = (element) => {
 };
 const animationPulseOff = (element) => {
   if (element) {
-    $(element).find(productSelectors.submitFailure).addClass(VISUALLY_HIDDEN);
-    $(element).find(productSelectors.submitLoading).css('display', DISPLAY_VALUES.NONE);
+    $(element)
+      .find(productSelectors.submitFailure)
+      .addClass(VISUALLY_HIDDEN);
+    $(element)
+      .find(productSelectors.submitLoading)
+      .css('display', DISPLAY_VALUES.NONE);
     return;
   }
   $(productSelectors.submitFailure).addClass(VISUALLY_HIDDEN);
@@ -59,8 +67,12 @@ const animationPulseOff = (element) => {
 };
 const failureAnimation = (element) => {
   if (element) {
-    $(element).find(productSelectors.submitFailure).removeClass(VISUALLY_HIDDEN);
-    $(element).find(productSelectors.submitLoading).css('display', DISPLAY_VALUES.NONE);
+    $(element)
+      .find(productSelectors.submitFailure)
+      .removeClass(VISUALLY_HIDDEN);
+    $(element)
+      .find(productSelectors.submitLoading)
+      .css('display', DISPLAY_VALUES.NONE);
     return;
   }
   $(productSelectors.submitFailure).removeClass(VISUALLY_HIDDEN);
@@ -87,14 +99,27 @@ export const updateProductCountText = (cartProductCountElement, quantity) => {
   $(cartProductCountElement).html(currentValue + quantity);
 };
 
-export const isVisible = (element) => !($(element).hasClass(VISUALLY_HIDDEN));
-export const toggleVisibility = (element) => ($(element).hasClass(VISUALLY_HIDDEN) ? $(element).removeClass(VISUALLY_HIDDEN) : $(element).addClass(VISUALLY_HIDDEN));
-export const toggleDisplay = (element) => ($(element).css(CSS_PROPS.DISPLAY) === DISPLAY_VALUES.BLOCK ? $(element).css(CSS_PROPS.DISPLAY, DISPLAY_VALUES.NONE) : $(element).css(CSS_PROPS.DISPLAY, DISPLAY_VALUES.BLOCK));
+export const isVisible = (element) => !$(element).hasClass(VISUALLY_HIDDEN);
+
+export const toggleVisibility = (element) =>
+  $(element).hasClass(VISUALLY_HIDDEN)
+    ? $(element).removeClass(VISUALLY_HIDDEN)
+    : $(element).addClass(VISUALLY_HIDDEN);
+
+export const toggleDisplay = (element) =>
+  $(element).css(CSS_PROPS.DISPLAY) === DISPLAY_VALUES.BLOCK
+    ? $(element).css(CSS_PROPS.DISPLAY, DISPLAY_VALUES.NONE)
+    : $(element).css(CSS_PROPS.DISPLAY, DISPLAY_VALUES.BLOCK);
+
 export const removeProtocol = (path) => path.replace(/http(s)?:/, '');
+
 export const removeImageSizeFromUrl = (path) => {
-  const match = path.match(/(.+)_((?:pico|icon|thumb|small|compact|medium|large|grande)|\d{1,4}x\d{0,4}|x\d{1,4})[_.@](.+)/);
-  return (match && match.length >= 4) ? `${match[1]}.${match[3]}` : '';
+  const match = path.match(
+    /(.+)_((?:pico|icon|thumb|small|compact|medium|large|grande)|\d{1,4}x\d{0,4}|x\d{1,4})[_.@](.+)/,
+  );
+  return match && match.length >= 4 ? `${match[1]}.${match[3]}` : '';
 };
+
 export const getSizedImageUrl = (src, size) => {
   if (size === null) {
     return src;
@@ -104,7 +129,9 @@ export const getSizedImageUrl = (src, size) => {
     return removeProtocol(src);
   }
 
-  const match = src.match(/\.(jpg|jpeg|gif|png|bmp|bitmap|tiff|tif)(\?v=\d+)?$/i);
+  const match = src.match(
+    /\.(jpg|jpeg|gif|png|bmp|bitmap|tiff|tif)(\?v=\d+)?$/i,
+  );
 
   if (match) {
     const prefix = src.split(match[0]);
@@ -159,16 +186,18 @@ export const createResponsiveImg = (dataSrc, dataSrcSet, classNames) => {
 };
 
 export const convertArrayToMap = (array) => {
-  if (!array) { return; }
+  if (!array) {
+    return;
+  }
   const map = {};
   array.map((item) => {
     const count = map[item];
     if (!count) {
       // eslint-disable-next-line no-return-assign
-      return map[item] = 0;
+      return (map[item] = 0);
     }
     // eslint-disable-next-line no-return-assign
-    return map[item] = count + 1;
+    return (map[item] = count + 1);
   });
   // eslint-disable-next-line consistent-return
   return map;

@@ -3,6 +3,7 @@ import {
   clickPositions,
   headerSelectors,
   productCardPopupSelector,
+  imageCarouselDataset,
   productCardSelector,
   productSelectors,
   desktopSizes,
@@ -68,32 +69,9 @@ context('Product Card', () => {
     });
   });
 
-  describe('Product Card Image on Hover', () => {
-    it('should show cut out image by default', () => {
-      cy.get(`[data-product-card-id=${multiVariantProductId}]`)
-        .find(productCardSelector.image)
-        .find('currentSrc')
-        .should(
-          'eq',
-          'https://cdn.shopify.com/s/files/1/0258/8436/0792/products/product-image-851304014_300x.jpg?v=1569178286',
-        );
-    });
-    it('should transition to contextual image on hover', () => {
-      cy.get(`[data-product-card-id=${multiVariantProductId}]`).trigger(
-        'mouseover',
-      );
-      cy.get(`[data-product-card-id=${multiVariantProductId}]`)
-        .find(productCardSelector.image)
-        .find('src')
-        .should(
-          'eq',
-          'https://cdn.shopify.com/s/files/1/0258/8436/0792/products/product-image-851304014_300x.jpg?v=1569178286',
-        );
-    });
-  });
-
   describe('Product Card Variations Info on Hover', () => {
     const soldOutProductId = 30272973865048;
+    const highVariantProductId = 30272977141848;
     const variantImageIds = {
       PINK_HOODIE: 'image-block-12736992510040',
       BLACK_HOODIE: 'image-block-12736993034328',
@@ -145,6 +123,20 @@ context('Product Card', () => {
         .find(productCardSelector.variantCardImageCarousel)
         .find(`img#${variantImageIds.PINK_HOODIE}`)
         .should('be.visible');
+    });
+
+    it('Given on hover state on a product with more than 3 variants Then only show first 3 variants', () => {
+      cy.get(`[data-product-card-id=${highVariantProductId}]`)
+        .find('[data-cy=web-hidden]')
+        .should('exist');
+
+      cy.get(`[data-product-card-id=${highVariantProductId}]`).trigger(
+        'mouseover',
+      );
+      cy.get(`[data-product-card-id=${highVariantProductId}]`)
+        .find(productCardSelector.variantCardImageCarousel)
+        .find('img')
+        .should('have.length', 3);
     });
 
     describe('Product Image Carousel Details on Hover', () => {

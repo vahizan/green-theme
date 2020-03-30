@@ -17,15 +17,8 @@ export const desktopTabletSizes = [
   'ipad-2',
   'ipad-mini',
 ];
-export const desktopSizes = [
-  'macbook-15',
-  'macbook-13',
-  'macbook-11',
-];
-export const tabletSizes = [
-  'ipad-2',
-  'ipad-mini',
-];
+export const desktopSizes = ['macbook-15', 'macbook-13', 'macbook-11'];
+export const tabletSizes = ['ipad-2', 'ipad-mini'];
 export const mobileSizes = [
   'iphone-6+',
   'iphone-6',
@@ -128,9 +121,8 @@ export const productCardSelector = {
 
 export const imageCarouselDataset = {
   IMAGE_CAROUSEL_HANDLE: 'imageCarouselHandle',
-  IMAGE_ROW: 'data-image-carousel=image-block-row',
+  IMAGE_BLOCK: 'data-image-carousel=image-block',
 };
-
 
 export const productCardPopupSelector = {
   sectionId: '[data-section-id=product-card-popup]',

@@ -2,7 +2,11 @@
 // <reference types="Cypress" />
 import {href} from '../utils';
 
-import {VISUALLY_HIDDEN, MODAL_POSITION, isOneOf} from '../../../src/scripts/utils/main_utils';
+import {
+  VISUALLY_HIDDEN,
+  MODAL_POSITION,
+  isOneOf,
+} from '../../../src/scripts/utils/main_utils';
 import {
   sizes,
   desktopTabletSizes,
@@ -24,28 +28,36 @@ describe('Cart Menu', () => {
       cy.get(cartSelectors.cartButton).click();
       cy.location().should((location) => {
         expect(location.hash).to.be.empty;
-        expect(location.pathname)
-          .not
-          .to
-          .eq('/cart');
+        expect(location.pathname).not.to.eq('/cart');
       });
     });
 
     it('contains - cart modal with the correct or default attrs', () => {
-      cy.get(headerSelectors.cartMenu).find(modalSelectors.sectionId).should('have.length', 1);
-      cy.get(headerSelectors.cartMenu).find(modalSelectors.sectionType).should('have.length', 1);
+      cy.get(headerSelectors.cartMenu)
+        .find(modalSelectors.sectionId)
+        .should('have.length', 1);
+      cy.get(headerSelectors.cartMenu)
+        .find(modalSelectors.sectionType)
+        .should('have.length', 1);
       /* eslint-disable promise/always-return, promise/catch-or-return*/
-      cy.get(headerSelectors.cartMenu).find(modalSelectors.sectionId).then(($id) => {
-        if (!$id.attr(modalSelectors.modalPositionAttr)) {
-          cy.get(modalSelectors.defaultModalPosition).should('have.length', 1);
-        }
-      });
+      cy.get(headerSelectors.cartMenu)
+        .find(modalSelectors.sectionId)
+        .then(($id) => {
+          if (!$id.attr(modalSelectors.modalPositionAttr)) {
+            cy.get(modalSelectors.defaultModalPosition).should(
+              'have.length',
+              1,
+            );
+          }
+        });
     });
 
     it('contains - correct data-position atrr value', () => {
       /* eslint-disable promise/always-return, promise/catch-or-return*/
       cy.get(modalSelectors.sectionId).then(($id) => {
-        expect(isOneOf(MODAL_POSITION, $id.attr(modalSelectors.modalPositionAttr))).to.be.true;
+        expect(
+          isOneOf(MODAL_POSITION, $id.attr(modalSelectors.modalPositionAttr)),
+        ).to.be.true;
       });
     });
 
@@ -53,13 +65,28 @@ describe('Cart Menu', () => {
       desktopTabletSizes.forEach((size) => {
         it(`cart modal appear and disappear on respective clicks '${size}' resolution`, () => {
           cy.setResolution(size);
-          cy.get(headerSelectors.cartMenu).should('have.class', VISUALLY_HIDDEN);
+          cy.get(headerSelectors.cartMenu).should(
+            'have.class',
+            VISUALLY_HIDDEN,
+          );
           cy.get(cartSelectors.cartButton).click();
-          cy.get(headerSelectors.cartMenu).should('not.have.class', VISUALLY_HIDDEN);
-          cy.get(headerSelectors.cartMenu).find(modalSelectors.sectionId).should('be.visible');
-          cy.get(headerSelectors.cartMenu).find(modalSelectors.sectionId).click('left');
-          cy.get(headerSelectors.cartMenu).should('have.class', VISUALLY_HIDDEN);
-          cy.get(headerSelectors.cartMenu).find(modalSelectors.sectionId).should('not.be.visible');
+          cy.get(headerSelectors.cartMenu).should(
+            'not.have.class',
+            VISUALLY_HIDDEN,
+          );
+          cy.get(headerSelectors.cartMenu)
+            .find(modalSelectors.sectionId)
+            .should('be.visible');
+          cy.get(headerSelectors.cartMenu)
+            .find(modalSelectors.sectionId)
+            .click('left');
+          cy.get(headerSelectors.cartMenu).should(
+            'have.class',
+            VISUALLY_HIDDEN,
+          );
+          cy.get(headerSelectors.cartMenu)
+            .find(modalSelectors.sectionId)
+            .should('not.be.visible');
         });
       });
     });
@@ -68,16 +95,33 @@ describe('Cart Menu', () => {
       mobileSizes.forEach((size) => {
         it(`cart modal appear and disappear on respective clicks '${size}' resolution`, () => {
           cy.setResolution(size);
-          cy.get(headerSelectors.cartMenu).should('have.class', VISUALLY_HIDDEN);
+          cy.get(headerSelectors.cartMenu).should(
+            'have.class',
+            VISUALLY_HIDDEN,
+          );
           cy.get(cartSelectors.cartButton).click();
-          cy.get(headerSelectors.cartMenu).should('not.have.class', VISUALLY_HIDDEN);
-          cy.get(headerSelectors.cartMenu).find(modalSelectors.sectionId).should('be.visible');
+          cy.get(headerSelectors.cartMenu).should(
+            'not.have.class',
+            VISUALLY_HIDDEN,
+          );
+          cy.get(headerSelectors.cartMenu)
+            .find(modalSelectors.sectionId)
+            .should('be.visible');
           clickPositions.forEach((position) => {
-            cy.get(headerSelectors.cartMenu).find(modalSelectors.sectionId).click(position);
+            cy.get(headerSelectors.cartMenu)
+              .find(modalSelectors.sectionId)
+              .click(position);
           });
-          cy.get(headerSelectors.cartMenu).should('not.have.class', VISUALLY_HIDDEN);
-          cy.get(headerSelectors.cartMenu).find(modalSelectors.closeIcon).click();
-          cy.get(headerSelectors.cartMenu).find(modalSelectors.sectionId).should('not.be.visible');
+          cy.get(headerSelectors.cartMenu).should(
+            'not.have.class',
+            VISUALLY_HIDDEN,
+          );
+          cy.get(headerSelectors.cartMenu)
+            .find(modalSelectors.closeIcon)
+            .click();
+          cy.get(headerSelectors.cartMenu)
+            .find(modalSelectors.sectionId)
+            .should('not.be.visible');
         });
       });
     });
@@ -89,7 +133,10 @@ describe('Cart Menu', () => {
           cy.get(cartSelectors.cartButton).should('be.visible');
           cy.get(cartSelectors.cartIcon).should('have.class', VISUALLY_HIDDEN);
           cy.get(cartSelectors.cartTitle).should('have.class', VISUALLY_HIDDEN);
-          cy.get(headerSelectors.cartMenu).should('have.class', VISUALLY_HIDDEN);
+          cy.get(headerSelectors.cartMenu).should(
+            'have.class',
+            VISUALLY_HIDDEN,
+          );
           cy.matchImageSnapshot(`cartClosed-${size}`);
         });
       });
@@ -102,7 +149,10 @@ describe('Cart Menu', () => {
           cy.get(cartSelectors.cartButton).click();
           cy.get(cartSelectors.cartIcon).should('have.class', VISUALLY_HIDDEN);
           cy.get(cartSelectors.cartTitle).should('have.class', VISUALLY_HIDDEN);
-          cy.get(headerSelectors.cartMenu).should('not.have.class', VISUALLY_HIDDEN);
+          cy.get(headerSelectors.cartMenu).should(
+            'not.have.class',
+            VISUALLY_HIDDEN,
+          );
           cy.matchImageSnapshot(`cartOpen-${size}`);
         });
       });
@@ -127,4 +177,3 @@ describe('Cart Menu', () => {
     });
   });
 });
-
