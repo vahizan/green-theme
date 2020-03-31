@@ -12,7 +12,7 @@
         {% if length == '1' %}
         {{ 'products.product.variant_color' | t: count: length }}
         {% else %}
-        {{ 'products.product.variant_color_plural' | t: count: length }}
+        {{ 'products.product.variant_color.other' | t: count: length }}
         {% endif %}
     </label>
     {% elsif productOption contains 'Size' %}
@@ -20,15 +20,15 @@
         {% if length == '1' %}
         {{ 'products.product.variant_size' | t: count: length }}
         {% else %}
-        {{ 'products.product.variant_size_plural' | t: count: length }}
+        {{ 'products.product.variant_size.other' | t: count: length }}
         {% endif %}
     </label>
     {% else %}
     <label data-product-card="variant-info-other">
         {% if length == '1' %}
-        {{ 'products.product.variant_other' | t: count: length }}
+        {{ 'products.product.variant_generic' | t: count: length }}
         {% else %}
-        {{ 'products.product.variant_other_plural' | t: count: length }}
+        {{ 'products.product.variant_generic.other' | t: count: length }}
         {% endif %}
     </label>
     {% endif %}

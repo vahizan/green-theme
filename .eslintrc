@@ -21,6 +21,7 @@
     "cypress/no-unnecessary-waiting": "error",
     "cypress/assertion-before-screenshot": "warn",
     "function-paren-newline": 0,
+    "no-confusing-arrow": "warn",
     "no-alert": 0,
     "no-console": 0,
     "prefer-const": 0,

@@ -39,12 +39,18 @@
     "@shopify/theme-rte": "^1.0.0-alpha.7",
     "@shopify/theme-sections": "^1.1.0",
     "@shopify/theme-variants": "^1.0.0-alpha.8",
+    "axios": "0.18.1",
     "cssnano": "^4.1.10",
     "jquery": "^3.4.0",
+    "js-yaml": "3.13.1",
     "lazysizes": "^4.1.1",
     "lodash-es": "^4.17.14",
+    "lodash.template": "4.5.0",
+    "mem": "4.0.0",
+    "minimist": "1.2.2",
     "normalize.css": "^7.0.0",
-    "qrcode": "^1.3.2"
+    "qrcode": "^1.3.2",
+    "serialize-javascript": "2.1.1"
   },
   "scripts": {
     "start": "slate-tools start",
@@ -60,7 +66,7 @@
     "build:dev": "slate-tools build --env=development",
     "build": "slate-tools build",
     "deploy": "slate-tools build && slate-tools deploy",
-    "deploy:dev": "slate-tools build --env=development && slate-tools deploy",
+    "deploy:dev": "slate-tools build --env=development && slate-tools deploy --env=development",
     "zip": "slate-tools build && slate-tools zip",
     "lint": "slate-tools lint",
     "format": "slate-tools format"

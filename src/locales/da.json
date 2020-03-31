@@ -289,11 +289,14 @@
       "view_product": "Se produkt",
       "variant_options_info": "Tilgængelig i",
       "variant_color": "{{ count }} Farve",
-      "variant_color_plural": "{{ count }} Farver",
-      "variant_size": "{{ count }} Størrelse",
-      "variant_size_plural": "{{ count }} Størrelser",
-      "variant_other": "{{ count }} Variation",
-      "variant_other_plural": "{{ count }} Variationer"
+      "variant_color.other": "{{ count }} Farver",
+      "variant_color.other.other": "{{ count }} Farver",
+      "variant_size":  "{{ count }} Størrelse",
+      "variant_size.other": "{{ count }} Størrelser",
+      "variant_size.other.other": "{{ count }} Størrelser",
+      "variant_generic": "{{ count }} Variation",
+      "variant_generic.other": "{{ count }} Variationer",
+      "variant_generic.other.other": "{{ count }} Variationer"
     }
   },
   "gift_cards": {

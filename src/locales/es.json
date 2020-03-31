@@ -292,13 +292,16 @@
       "quantity": "Cantidad",
       "add_to_cart": "Agregar al carrito",
       "view_product": "Ver el producto",
-      "variant_options_info": "Disponible en",
-      "variant_color": "{{ count }} Color",
-      "variant_color_plural": "{{ count }} Colores",
-      "variant_size": "{{ count }} Talla",
-      "variant_size_plural": "{{ count }} Tamaños",
-      "variant_other": "{{ count }} Variación",
-      "variant_other_plural": "{{ count }} Variaciones"
+      "variant_options_info":  "Disponible en",
+      "variant_color":  "{{ count }} Color",
+      "variant_color.other": "{{ count }} Colores",
+      "variant_color.other.other": "{{ count }} Colores",
+      "variant_size":  "{{ count }} Talla",
+      "variant_size.other": "{{ count }} Tamaños",
+      "variant_size.other.other": "{{ count }} Tamaños",
+      "variant_generic": "{{ count }} Variación",
+      "variant_generic.other": "{{ count }} Variaciones",
+      "variant_generic.other.other": "{{ count }} Variaciones"
     }
   },
   "gift_cards": {
