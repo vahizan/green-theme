@@ -291,16 +291,21 @@
       "quantity": "Aantal",
       "add_to_cart": "In winkelmandje",
       "view_product": "Visie",
-      "variant_options_info": "Beschikbaar in",
-      "variant_color":  "{{ count }} Kleur",
-      "variant_color.other": "{{ count }} Kleuren",
-      "variant_color.other.other": "{{ count }} Kleuren",
-      "variant_size": "{{ count }} Grootte",
-      "variant_size.other": "{{ count }} Maten",
-      "variant_size.other.other": "{{ count }} Maten",
-      "variant_generic": "{{ count }} Variatie",
-      "variant_generic.other": "{{ count }} Variaties",
-      "variant_generic.other.other": "{{ count }} Variaties"
+      "variant": {
+        "options_info": "Beschikbaar in",
+        "color":{
+          "one": "{{ count }} Kleur",
+          "other": "{{ count }} Kleuren"
+        },
+        "size":  {
+          "one": "{{ count }} Grootte",
+          "other": "{{ count }} Maten"
+        },
+        "generic": {
+          "one": "{{ count }} Variatie",
+          "other": "{{ count }} Variaties"
+        }
+      }
     }
   },
   "gift_cards": {

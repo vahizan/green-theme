@@ -1,6 +1,6 @@
 <div data-variant-info class="variant-info">
     {% unless product.options_with_values.size < 1 %}
-    <label>{{ 'products.product.variant_options_info' | t }}</label>
+    <label>{{ 'products.product.variant.options_info' | t }}</label>
     {% endunless%}
     {% for product_option in product.options_with_values %}
     {% assign productOption = product_option.name %}
@@ -10,25 +10,25 @@
     {% if productOption contains 'Color' or productOption contains 'Colour' %}
     <label data-product-card="variant-info-color">
         {% if length == '1' %}
-        {{ 'products.product.variant_color' | t: count: length }}
+        {{ 'products.product.variant.color.one' | t: count: length }}
         {% else %}
-        {{ 'products.product.variant_color.other' | t: count: length }}
+        {{ 'products.product.variant.color.other' | t: count: length }}
         {% endif %}
     </label>
     {% elsif productOption contains 'Size' %}
     <label data-product-card="variant-info-size">
         {% if length == '1' %}
-        {{ 'products.product.variant_size' | t: count: length }}
+        {{ 'products.product.variant.size.one' | t: count: length }}
         {% else %}
-        {{ 'products.product.variant_size.other' | t: count: length }}
+        {{ 'products.product.variant.size.other' | t: count: length }}
         {% endif %}
     </label>
     {% else %}
     <label data-product-card="variant-info-other">
         {% if length == '1' %}
-        {{ 'products.product.variant_generic' | t: count: length }}
+        {{ 'products.product.variant.generic.one' | t: count: length }}
         {% else %}
-        {{ 'products.product.variant_generic.other' | t: count: length }}
+        {{ 'products.product.variant.generic.other' | t: count: length }}
         {% endif %}
     </label>
     {% endif %}

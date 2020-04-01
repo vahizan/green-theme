@@ -287,16 +287,21 @@
       "quantity": "Antal",
       "add_to_cart": "Tilføj til Kurv",
       "view_product": "Se produkt",
-      "variant_options_info": "Tilgængelig i",
-      "variant_color": "{{ count }} Farve",
-      "variant_color.other": "{{ count }} Farver",
-      "variant_color.other.other": "{{ count }} Farver",
-      "variant_size":  "{{ count }} Størrelse",
-      "variant_size.other": "{{ count }} Størrelser",
-      "variant_size.other.other": "{{ count }} Størrelser",
-      "variant_generic": "{{ count }} Variation",
-      "variant_generic.other": "{{ count }} Variationer",
-      "variant_generic.other.other": "{{ count }} Variationer"
+      "variant": {
+        "options_info": "Tilgængelig i",
+        "color":{
+          "one": "{{ count }} Farve",
+          "other": "{{ count }} Farver"
+        },
+        "size":  {
+          "one": "{{ count }} Størrelse",
+          "other": "{{ count }} Størrelser"
+        },
+        "generic": {
+          "one": "{{ count }} Variation",
+          "other": "{{ count }} Variationer"
+        }
+      }
     }
   },
   "gift_cards": {
