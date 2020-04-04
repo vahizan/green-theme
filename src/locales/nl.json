@@ -290,7 +290,22 @@
       "from_text_html": "Vanaf {{ price }}",
       "quantity": "Aantal",
       "add_to_cart": "In winkelmandje",
-      "view_product": "Visie"
+      "view_product": "Visie",
+      "variant": {
+        "options_info": "Beschikbaar in",
+        "color":{
+          "one": "{{ count }} Kleur",
+          "other": "{{ count }} Kleuren"
+        },
+        "size":  {
+          "one": "{{ count }} Grootte",
+          "other": "{{ count }} Maten"
+        },
+        "generic": {
+          "one": "{{ count }} Variatie",
+          "other": "{{ count }} Variaties"
+        }
+      }
     }
   },
   "gift_cards": {

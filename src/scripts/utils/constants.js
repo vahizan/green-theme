@@ -17,15 +17,8 @@ export const desktopTabletSizes = [
   'ipad-2',
   'ipad-mini',
 ];
-export const desktopSizes = [
-  'macbook-15',
-  'macbook-13',
-  'macbook-11',
-];
-export const tabletSizes = [
-  'ipad-2',
-  'ipad-mini',
-];
+export const desktopSizes = ['macbook-15', 'macbook-13', 'macbook-11'];
+export const tabletSizes = ['ipad-2', 'ipad-mini'];
 export const mobileSizes = [
   'iphone-6+',
   'iphone-6',
@@ -50,7 +43,10 @@ export const CART_ENDPOINT = {
   ADD: '/cart/add.js',
   CART: '/cart.js',
 };
-export const LAZYLOAD_PRODUCT_POPUP_IMAGE_SIZES = [180, 360, 540, 640];
+
+export const PRODUCT_ENDPOINT = '/products';
+
+export const LAZYLOAD_PRODUCT_IMAGE_SIZES = [180, 360, 540, 640];
 
 export const PRODUCT_FORM_CLASS = '.shopify-product-form';
 
@@ -105,15 +101,27 @@ export const cartSelectors = {
 
 export const productCardSelector = {
   sectionId: '[data-section-id=product-card]',
+  idSelector: 'data-product-card-id',
+  variantDataContainer: '[data-product-card=variant-data-container]',
+  ctaContainer: '[data-product-card=cta-container]',
+  variantColorInfo: '[data-product-card=variant-info-color]',
+  variantSizeInfo: '[data-product-card=variant-info-size]',
+  variantOtherInfo: '[data-product-card=variant-info-other]',
+  variantCardImageCarousel: '[data-product-card=variant-card-image-carousel]',
   modal: '[data-modal-product-popup]',
-  title: '[data-product-title]',
-  quantity: '[data-product-quantity]',
-  price: '[data-product-price-container]',
-  priceNoFormat: '[data-product-price-container=noformat]',
-  variant: '[data-product-variant]',
-  properties: '[data-product-properties]',
-  vendor: '[data-product-vendor]',
-  image: '[data-product-image]',
+  title: '[data-product-card=title]',
+  quantity: '[data-product-card=quantity]',
+  price: '[data-product-card=price-container]',
+  priceNoFormat: '[data-product-card=price-container-noformat]',
+  variant: '[data-product-card=variant]',
+  properties: '[data-product-card=properties]',
+  vendor: '[data-product-card=vendor]',
+  image: '[data-product-card=image]',
+};
+
+export const imageCarouselDataset = {
+  IMAGE_CAROUSEL_HANDLE: 'imageCarouselHandle',
+  IMAGE_BLOCK: 'data-image-carousel=image-block',
 };
 
 export const productCardPopupSelector = {

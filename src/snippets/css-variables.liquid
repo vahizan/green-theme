@@ -24,5 +24,14 @@
     --font-body-weight: {{ settings.font_body.weight }};
     --font-body-style: {{ settings.font_body.style }};
     --font-body-bold-weight: {{ font_body_bold.weight | default: 'bold' }};
+    --card-skeleton: linear-gradient(gray var(--card-height), transparent 0);
+    --title-skeleton: linear-gradient(white var(--title-height), transparent 0);
+    --avatar-size: 32px;
+    --avatar-skeleton: radial-gradient(
+          circle calc(var(--avatar-size) / 2),
+          white 99%,
+          transparent 0
+   );
+
   }
 </style>

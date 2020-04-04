@@ -2,9 +2,7 @@
 // <reference types="Cypress" />
 import {href} from '../utils';
 
-import {
-  sizes,
-} from '../../../src/scripts/utils/constants';
+import {sizes} from '../../../src/scripts/utils/constants';
 
 describe('Navigation Menu', () => {
   context('Navigation Main', () => {

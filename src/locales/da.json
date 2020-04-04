@@ -286,7 +286,22 @@
       "from_text_html": "Fra {{ price }}",
       "quantity": "Antal",
       "add_to_cart": "Tilføj til Kurv",
-      "view_product": "Se produkt"
+      "view_product": "Se produkt",
+      "variant": {
+        "options_info": "Tilgængelig i",
+        "color":{
+          "one": "{{ count }} Farve",
+          "other": "{{ count }} Farver"
+        },
+        "size":  {
+          "one": "{{ count }} Størrelse",
+          "other": "{{ count }} Størrelser"
+        },
+        "generic": {
+          "one": "{{ count }} Variation",
+          "other": "{{ count }} Variationer"
+        }
+      }
     }
   },
   "gift_cards": {

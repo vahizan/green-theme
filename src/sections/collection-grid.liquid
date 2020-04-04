@@ -3,7 +3,16 @@
     <div class="collection__products">
         {% for product in collection.products %}
             <div>
-                {% include 'product-card' product: product,  max_width: 600, max_height: 600, show_qty: 'true', show_price: 'true', product_colurl: product.url | within: collection %}
+                {% include 'product-card'
+                    product: product,
+                    max_width: 600,
+                    max_height: 600,
+                    show_qty: true,
+                    show_price: true,
+                    show_variant_tile: section.settings.show_variant_tile
+                    product_colurl: product.url | within: collection
+                    hide_cta: section.settings.hide_cta
+                %}
             </div>
         {% endfor %}
     </div>
@@ -45,6 +54,27 @@
         ],
         "default": "12",
         "info": "Choose Number of Products Per Page"
+    },
+    {
+        "type": "checkbox",
+        "id": "hide_cta",
+        "label": "Hide Call To Action Button",
+        "info": "Toggle visibility of Add to Cart or other Call to Action Buttons on the Collection Grid",
+        "default": true
+    },
+    {
+        "type": "checkbox",
+        "id": "change_image_hover",
+        "label": "Change Thumbnail Image on Hover",
+        "info": "Change to the next thumbnail image on hover. Only changes to the second image, to help indicate to your customer that your product has variants",
+        "default": true
+    },
+    {
+        "type": "checkbox",
+        "id": "show_variant_tile",
+        "label": "Show Variant Carousel on Hover",
+        "info": "Show options and information when customer hovers over the product card with variations",
+        "default": true
     }
     ]
 }

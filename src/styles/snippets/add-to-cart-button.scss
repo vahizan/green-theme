@@ -2,8 +2,15 @@
   display: flex;
   min-height: 40px;
   justify-content: center;
-  @include media-query($small) {
+  width: 300px;
+
+  @include media-query($xx-small) {
     flex-basis: 70%;
+    width: 270px;
+  }
+
+  @include media-query($small) {
+    width: 300px;
   }
 
   &--button-failure {
