@@ -37,11 +37,11 @@ context('Product Card', () => {
       it(`should hide Card CTA on '${size}'`, () => {
         cy.setResolution(size);
         cy.get(`[data-product-card-id=${multiVariantProductId}]`)
-          .find('[data-cy=web-hidden]')
-          .should('exist');
+          .find(productCardSelector.variantDataContainer)
+          .should('have.class', WEB_HIDDEN);
         cy.get(`[data-product-card-id=${singleVariantProductId}]`)
-          .find('[data-cy=web-hidden]')
-          .should('exist');
+          .find(productCardSelector.variantDataContainer)
+          .should('have.class', WEB_HIDDEN);
       });
     });
     mobileSizes.forEach((size) => {
@@ -101,8 +101,8 @@ context('Product Card', () => {
 
     it('When on hover state, show different variants in a carousel, under main image', () => {
       cy.get(`[data-product-card-id=${multiVariantProductId}]`)
-        .find('[data-cy=web-hidden]')
-        .should('exist');
+        .find(productCardSelector.variantDataContainer)
+        .should('have.class', WEB_HIDDEN);
 
       cy.get(`[data-product-card-id=${multiVariantProductId}]`).trigger(
         'mouseover',
@@ -126,8 +126,8 @@ context('Product Card', () => {
 
     it('Given on hover state on a product with more than 3 variants Then only show first 3 variants', () => {
       cy.get(`[data-product-card-id=${highVariantProductId}]`)
-        .find('[data-cy=web-hidden]')
-        .should('exist');
+        .find(productCardSelector.variantDataContainer)
+        .should('have.class', WEB_HIDDEN);
 
       cy.get(`[data-product-card-id=${highVariantProductId}]`).trigger(
         'mouseover',
@@ -143,7 +143,7 @@ context('Product Card', () => {
         it(`should hide Image Carousel on '${size}'`, () => {
           cy.setResolution(size);
           cy.get(`[data-product-card-id=${multiVariantProductId}]`)
-            .find(productCardSelector.variantCardImageCarousel)
+            .find(productCardSelector.variantDataContainer)
             .should('have.class', WEB_HIDDEN);
         });
       });
@@ -151,6 +151,7 @@ context('Product Card', () => {
         it(`should not hide Carousel on '${size}'`, () => {
           cy.setResolution(size);
           cy.get(`[data-product-card-id=${multiVariantProductId}]`)
+            .find(productCardSelector.variantDataContainer)
             .find(productCardSelector.variantCardImageCarousel)
             .should('be.visible');
         });
@@ -159,6 +160,7 @@ context('Product Card', () => {
         it(`should not hide image carousel CTA on '${size}'`, () => {
           cy.setResolution(size);
           cy.get(`[data-product-card-id=${multiVariantProductId}]`)
+            .find(productCardSelector.variantDataContainer)
             .find(productCardSelector.variantCardImageCarousel)
             .should('be.visible');
         });
@@ -170,17 +172,19 @@ context('Product Card', () => {
     it('Should hide CTA by default', () =>
       cy
         .get(`[${DATA_PRODUCT_CARD_ID}=${multiVariantProductId}]`)
-        .find('[data-cy=web-hidden]')
-        .should('exist'));
+        .find(productCardSelector.variantDataContainer)
+        .should('have.class', WEB_HIDDEN));
 
     clickPositions.forEach((position) => {
       it(`Click on button at position: '${position}' should load link`, () => {
         cy.get(`[data-product-card-id=${multiVariantProductId}]`).trigger(
-          'mouseover',
+          'mouseenter',
+          {bubbles: false},
         );
         cy.get(`[data-product-card-id=${multiVariantProductId}]`)
+          .find(productCardSelector.ctaContainer)
           .find(productSelectors.submitButton)
-          .click();
+          .click({force: true});
         cy.location().should((location) => {
           // eslint-disable-next-line no-unused-expressions
           expect(location.hash).to.be.empty;
@@ -209,7 +213,7 @@ context('Product Card', () => {
 
         cy.get(`[${DATA_PRODUCT_CARD_ID}=${singleVariantProductId}]`)
           .find(productSelectors.submitButton)
-          .click();
+          .click({force: true});
         cy.get(`[${DATA_PRODUCT_CARD_ID}=${singleVariantProductId}]`)
           .find(productSelectors.submitButtonText)
           .should('have.class', VISUALLY_HIDDEN);
@@ -267,7 +271,7 @@ context('Product Card', () => {
         .should('have.class', VISUALLY_HIDDEN);
       cy.get(`[${DATA_PRODUCT_CARD_ID}=${multiVariantProductId}]`)
         .find(productSelectors.submitButton)
-        .click();
+        .click({force: true});
       cy.location().should((location) => {
         // eslint-disable-next-line no-unused-expressions
         expect(location.hash).to.be.empty;
@@ -298,7 +302,7 @@ context('Product Card', () => {
       );
       cy.get(`[${DATA_PRODUCT_CARD_ID}=${singleVariantProductId}]`)
         .find(productSelectors.submitButton)
-        .click();
+        .click({force: true});
       cy.get(`[${DATA_PRODUCT_CARD_ID}=${singleVariantProductId}]`)
         .find(productSelectors.submitButtonText)
         .should('have.class', VISUALLY_HIDDEN);
@@ -333,7 +337,7 @@ context('Product Card', () => {
       );
       cy.get(`[${DATA_PRODUCT_CARD_ID}=${singleVariantProductId}]`)
         .find(productSelectors.submitButton)
-        .click();
+        .click({force: true});
       cy.get(`[${DATA_PRODUCT_CARD_ID}=${singleVariantProductId}]`)
         .find(productSelectors.submitButtonText)
         .should('have.class', VISUALLY_HIDDEN);
@@ -368,7 +372,7 @@ context('Product Card', () => {
       );
       cy.get(`[${DATA_PRODUCT_CARD_ID}=${singleVariantProductId}]`)
         .find(productSelectors.submitButton)
-        .click();
+        .click({force: true});
       cy.get(`[${DATA_PRODUCT_CARD_ID}=${singleVariantProductId}]`)
         .find(productSelectors.submitButtonText)
         .should('have.class', VISUALLY_HIDDEN);

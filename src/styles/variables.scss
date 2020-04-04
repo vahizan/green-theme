@@ -70,7 +70,7 @@ $widescreen: 'widescreen';
 $breakpoints: (
   $xx-small '(max-width: #{$grid-xsmall - 1})',
   $x-small '(min-width: #{$grid-xsmall}) and (max-width: #{$grid-small - 1})',
-  $small '(max-width: #{$grid-medium - 1})',
+  $small '(min-width: #{$grid-small}) and (max-width: #{$grid-medium - 1})',
   $medium '(min-width: #{$grid-medium}) and (max-width: #{$grid-large - 1})',
   $medium-down '(max-width: #{$grid-large - 1})',
   $medium-up '(min-width: #{$grid-medium})',

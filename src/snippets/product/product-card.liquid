@@ -72,21 +72,29 @@
         {% if show_vender == true %}<p data-product-card="vendor">{{ product.vendor }}</p> {% endif %}
     </div>
     {% unless is_popup == 'true' %}
+    <div class="main-container">
         {% unless product.has_only_default_variant or product.available == false or show_variant_tile == false %}
-            <div data-product-card="variant-info">
+            <div>
                 {% include 'variant-info' %}
             </div>
-            <div class="web-hidden" data-product-card="variant-card-image-carousel">
-                {% include 'image-carousel' current_handle: product.handle %}
-            </div>
         {% endunless %}
-        <div data-product-card="cta-container" {% if hide_cta %} data-cy="web-hidden" {% endif %}class="{{product_card_class}}__cta-container {% if hide_cta == true %} web-hidden {% endif %}">
-           {%- assign cta_text_value = section.settings.cta_text -%}
-           {% unless product.has_only_default_variant %}
-                {% include 'add-to-cart-button' cta_style: settings.add_cta_style, cta_text: 'View Product' , url: product_colurl %}
-           {% else %}
-                {% include 'add-to-cart-button' cta_style: settings.add_cta_style, cta_text: cta_text_value %}
-           {% endunless %}
+        <div class="{{product_card_class}}__info-wrapper">
+            <div data-product-card="variant-data-container" class="{{product_card_class}}__variant-data-container {% if hide_cta == true %}web-hidden{% endif %}">
+                {% unless product.has_only_default_variant or product.available == false or show_variant_tile == false %}
+                    <div class="{{product_card_class}}__carousel-container" data-product-card="variant-card-image-carousel">
+                        {% include 'image-carousel' current_handle: product.handle %}
+                    </div>
+                {% endunless %}
+                <div data-product-card="cta-container" class="{{product_card_class}}__cta-container">
+                    {% if product.has_only_default_variant %}
+                        {% include 'add-to-cart-button' cta_style: settings.add_cta_style, cta_text: section.settings.cta_text %}
+                    {% else %}
+                        {% include 'add-to-cart-button' cta_style: settings.add_cta_style, cta_text: 'View Product' , url: product_colurl %}
+                    {% endif %}
+                </div>
+            </div>
         </div>
+    </div>
     {% endunless %}
+
 </div>

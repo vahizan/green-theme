@@ -7,7 +7,6 @@
  */
 
 import {register} from '@shopify/theme-sections';
-// import {forceFocus} from '@shopify/theme-a11y';
 
 import {
   CART_ENDPOINT,
@@ -20,7 +19,6 @@ import {
   loadingAnimationProcessor,
   updateProductCountText,
   VISUALLY_HIDDEN,
-  WEB_HIDDEN,
 } from '../utils/main_utils';
 import {loadLatestCartItem} from './product-card-popup';
 
@@ -44,48 +42,12 @@ register('product-card', {
     this.addToCartButtonUrl = $(this.productCardButton)
       .find(productSelectors.submitButtonUrl)
       .attr('href');
-    this.toggleCTAButtonOnHover = this.toggleCTAButtonOnHover.bind(this);
-    this.toggleImageCarouselOnHover = this.toggleImageCarouselOnHover.bind(
-      this,
-    );
     this.onAddToCartSubmit = this.onAddToCartSubmit.bind(this);
     this.productCardButton.addEventListener('click', this.onAddToCartSubmit);
-    this.container.addEventListener('mouseover', this.toggleCTAButtonOnHover);
-    this.container.addEventListener(
-      'mouseover',
-      this.toggleImageCarouselOnHover,
-    );
-    this.container.addEventListener('mouseout', this.toggleCTAButtonOnHover);
-    this.container.addEventListener(
-      'mouseout',
-      this.toggleImageCarouselOnHover,
-    );
   },
 
   onUnload() {
     this.productCardButton.removeEventListener('click', this.onAddToCartSubmit);
-    this.container.removeEventListener(
-      'mouseover',
-      this.toggleCTAButtonOnHover,
-    );
-    this.container.removeEventListener(
-      'mouseover',
-      this.toggleImageCarouselOnHover,
-    );
-    this.container.removeEventListener('mouseout', this.toggleCTAButtonOnHover);
-    this.container.removeEventListener('mouseout', this.toggleCTAButtonOnHover);
-  },
-
-  _toggleViewOnHover(element) {
-    $(element).toggleClass(WEB_HIDDEN);
-  },
-
-  toggleCTAButtonOnHover() {
-    this._toggleViewOnHover(this.ctaContainer);
-  },
-
-  toggleImageCarouselOnHover() {
-    this._toggleViewOnHover(this.imageCarouselContainer);
   },
 
   _productVariantObject() {

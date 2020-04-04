@@ -102,8 +102,8 @@ export const cartSelectors = {
 export const productCardSelector = {
   sectionId: '[data-section-id=product-card]',
   idSelector: 'data-product-card-id',
+  variantDataContainer: '[data-product-card=variant-data-container]',
   ctaContainer: '[data-product-card=cta-container]',
-  variantInfo: '[data-product-card=variant-info]',
   variantColorInfo: '[data-product-card=variant-info-color]',
   variantSizeInfo: '[data-product-card=variant-info-size]',
   variantOtherInfo: '[data-product-card=variant-info-other]',

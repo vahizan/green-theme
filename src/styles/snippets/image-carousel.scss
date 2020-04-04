@@ -9,10 +9,44 @@
     flex-direction: row;
   }
 
+  @include media-query($small) {
+    flex-direction: row;
+  }
+
   img {
     width: 100px;
     height: 100px;
     padding: 5px;
+
+    @include media-query($large) {
+      width: 90px;
+      height: 90px;
+      padding: 5px;
+    }
+
+    @include media-query($medium) {
+      width: 90px;
+      height: 90px;
+      padding: 5px;
+    }
+
+    @include media-query($small) {
+      width: 80px;
+      height: 80px;
+      padding: 5px;
+    }
+
+    @include media-query($x-small) {
+      width: 80px;
+      height: 80px;
+      padding: 5px;
+    }
+
+    @include media-query($xx-small) {
+      width: 80px;
+      height: 80px;
+      padding: 5px;
+    }
   }
 }
 
